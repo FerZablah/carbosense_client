@@ -1,4 +1,3 @@
-import react from "react";
 import "./Hornos.css";
 import HornoItem from "./HornoItem";
 
@@ -9,10 +8,10 @@ function Hornos(props) {
       {props.item.map((hornos) => (
         <HornoItem
           key={hornos.id}
-          hornoID={hornos.hornoID}
-          horno_temperatura={hornos.horno_temperatura}
-          horno_porcentaje={hornos.horno_porcentaje}
-          horno_tiempo={hornos.horno_tiempo}
+          hornoID={hornos.id}
+          horno_temperatura={hornos.averageTemperature}
+          horno_porcentaje={"-"}
+          horno_tiempo={"-"}
         />
       ))}
       {/* <HornoItem

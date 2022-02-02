@@ -1,7 +1,9 @@
 import NuevoHorno from "./components/NuevoHorno";
 import Hornos from "./components/Hornos";
 import "./App.css";
-import react, { useState } from "react";
+import { useEffect, useState } from "react";
+import io from "socket.io-client";
+import axios from "axios";
 
 const INITIAL_HORNOS = [
   {
@@ -21,7 +23,8 @@ const INITIAL_HORNOS = [
 ];
 
 const App = () => {
-  const [hornos, setHornos] = useState(INITIAL_HORNOS);
+
+  const [hornos, setHornos] = useState([]);
   // const clickHandler = () =>{
   //   console.log("Agrego horno");
   // }
@@ -33,7 +36,15 @@ const App = () => {
       return [hornos, ...prevHornos];
     });
   };
-
+  //Codigo que se ejecuta al cargarse el componente
+  useEffect(() => {
+    const socket = io("http://localhost:4000");
+    socket.on("newData", async () => {
+      axios.get("http://localhost:4000/dashboard/ovens").then((res) => {
+        setHornos(res.data);
+      });
+    });
+  }, []);
   //lo que se muestra en pantalla
   return (
     <div>

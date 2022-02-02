@@ -11,7 +11,7 @@ function Horno (props){
       <div className="horno_id">{props.hornoID}</div>
       <div className="div_temperatura" align="center">
         <div className="horno_temperatura">Temperatura</div>
-        <div className="horno_temperatura_dato">{props.horno_temperatura}</div>
+        <div className="horno_temperatura_dato">{props.horno_temperatura}°C</div>
       </div>
       <div className="div_procentaje" align="center">
         <div className="horno_porcentaje">Porcentaje de Carbono</div>
