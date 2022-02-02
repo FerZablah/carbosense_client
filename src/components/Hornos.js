@@ -11,7 +11,7 @@ function Hornos(props) {
           hornoID={hornos.id}
           horno_temperatura={hornos.averageTemperature}
           horno_porcentaje={`${Math.round(hornos.oxygenPercentage  * 100) / 100}%`}
-          horno_tiempo={"-"}
+          cycleTime={hornos.cycleTime}
         />
       ))}
       {/* <HornoItem
