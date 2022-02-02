@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import "./HornoForms.css";
 
 const HornoForms = (props) => {
@@ -13,7 +14,7 @@ const HornoForms = (props) => {
 
     const hornoData = {
       hornoID: enteredID,
-      id:Math.random(),
+      id: Math.random(),
     };
 
     props.onSaveHornoData(hornoData);
@@ -21,32 +22,40 @@ const HornoForms = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="nuevo-horno__controls"></div>
-      <div className="nuevo-horno__control input">
-        <label>Ingrese el ID del horno a agregar</label>
-        <input
-          type="number"
-          min="0"
-          value={enteredID}
-          onChange={idHornoChangeHandler}
-        />
-      </div>
-      <div>
-        <button type="submit" className="nuevo-horno_agregar">
-          Agregar Horno
-        </button>
-      </div>
-      <div>
-        <button
-          className="nuevo-horno_cancelar"
-          type="button"
-          onClick={props.onCancel}
-        >
-          Cancelar
-        </button>
-      </div>
-    </form>
+    <Container className="bg-secondary m-5 p-3 w-50 mx-auto">
+      <Row>
+        <Col className="text-white">
+          Ingrese el ID del horno a agregar
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <input
+            type="number"
+            min="0"
+            className="form-control"
+            value={enteredID}
+            onChange={idHornoChangeHandler}
+          />
+        </Col>
+        <Col className="text-end">
+          <button
+            className="btn btn-danger text-white"
+            type="button"
+            onClick={props.onCancel}
+          >
+            Cancelar
+          </button>
+
+        </Col>
+        <Col className="text-start">
+          <button type="submit" className="btn btn-success text-white">
+            Agregar Horno
+          </button>
+        </Col>
+      </Row>
+    </Container>
+
   );
 };
 
