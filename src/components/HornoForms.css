@@ -1,0 +1,33 @@
+.nuevo-horno__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .nuevo-horno__control label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .nuevo-horno__control input {
+    font: inherit;
+    padding: 0.7rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 30rem;
+    max-width: 100%;
+    position: relative;
+  }
+  
+  .nuevo-horno__agregar {
+    
+    text-align: right;
+  }
+
+  .nuevo-horno__cancelar {
+    
+    text-align: right;
+  }

@@ -1,0 +1,11 @@
+.horno {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 6rem 3rem;
+    border-radius: 12px;
+    width: 96%;
+    cursor: pointer;
+  }

@@ -1,0 +1,79 @@
+.nuevo-horno {
+    background-color: #929598;
+    padding: 3rem;
+    margin: 1rem auto;
+    width: 60rem;
+    max-width: 95%;
+    border-radius: 12px;
+  }
+  
+  .nuevo-horno_agregar {
+    font: inherit;
+    cursor: pointer;
+    padding: 0.7rem 2rem;
+    background-color: #3ABB49;
+    border-color: #3ABB49;
+    color: white;
+    border-radius: 12px;
+    margin-right: 1rem;
+    position: absolute;
+    right:32%;
+    top:20%;
+  }
+
+  .agregarHorno {
+    font: inherit;
+    font-weight: bold;
+    font-size: 23px;
+    cursor: pointer;
+    padding: 0.9rem 4rem;
+    background-color: #e5e5e5;
+    border-color: #929598;
+    color: black;
+    border-radius: 12px;
+    margin-right: 1rem;
+    position: absolute;
+    right:39%;
+    top:10%;
+  }
+
+  .nuevo-horno_cancelar {
+    font: inherit;
+    cursor: pointer;
+    padding: 0.7rem 2rem;
+    background-color: #d84241;
+    border-color: #d84241;
+    color: white;
+    border-radius: 12px;
+    margin-right: 1rem;
+    position: absolute;
+    left:70%;
+    top: 20%;
+  }
+  
+  .nuevo-horno_agregar:hover,
+  .nuevo-horno_agregar:active {
+    background-color: #46A227;
+  }
+
+  .nuevo-horno_cancelar:hover,
+  .nuevo-horno_cancelar:active {
+    background-color: #CB2A2A;
+  }
+
+  .agregarHorno:hover,
+  .agregarHorno:active {
+    background-color:#3C3C3C
+  }
+  
+  .nuevo-horno button.alternative {
+    color: #646464;
+    border-color: transparent;
+    background-color: transparent;
+  }
+  
+  .nuevo-horno button.alternative:hover,
+  .nuevo-horno button.alternative:active {
+    background-color:#35861a;
+;
+  }
