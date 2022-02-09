@@ -22,9 +22,9 @@ const HornoForms = (props) => {
   };
 
   return (
-    <Container className="bg-secondary m-5 p-3 w-50 mx-auto">
+    <Container onSubmit={submitHandler} className="bg-secondary m-5 p-3 w-50 mx-auto rounded">
       <Row>
-        <Col className="text-white">
+        <Col className="text-white fs-4">
           Ingrese el ID del horno a agregar
         </Col>
       </Row>
@@ -46,7 +46,6 @@ const HornoForms = (props) => {
           >
             Cancelar
           </button>
-
         </Col>
         <Col className="text-start">
           <button type="submit" className="btn btn-success text-white">

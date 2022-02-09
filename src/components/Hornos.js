@@ -5,13 +5,13 @@ function Hornos(props) {
   return (
     <div>
       {/* mapa para mostrar todos los hornos que tiene el array de hornos */}
-      {props.item.map((hornos) => (
+      {props.item.map((horno) => (
         <HornoItem
-          key={hornos.id}
-          hornoID={hornos.id}
-          horno_temperatura={hornos.averageTemperature}
-          horno_porcentaje={`${Math.round(hornos.oxygenPercentage  * 100) / 100}%`}
-          cycleTime={hornos.cycleTime}
+          key={horno.id}
+          hornoID={horno.id}
+          horno_temperatura={horno.averageTemperature}
+          horno_porcentaje={`${Math.round(horno.oxygenPercentage  * 100) / 100}%`}
+          cycleTime={horno.cycleTime}
         />
       ))}
       {/* <HornoItem

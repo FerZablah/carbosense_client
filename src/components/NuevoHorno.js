@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./NuevoHorno.css";
 import HornoForms from "./HornoForms.js";
 import { Container, Row } from "react-bootstrap";
+import axios from "axios";
 
 const NuevoHorno = (props) => {
   const [editando, setEditando] = useState(false);
@@ -10,7 +11,6 @@ const NuevoHorno = (props) => {
     const hornoData = {
       ...enteredHornoData,
     };
-    //   console.log(hornoData);
     props.onAddHorno(hornoData);
     setEditando(false);
   };
@@ -25,7 +25,7 @@ const NuevoHorno = (props) => {
   if(!editando){
     return(
     <div className="w-100 text-end p-5">
-      <button onClick={empezarEditarHandler} type="button" className="btn btn-secondary">Agregar Horno</button>
+      <button onClick={empezarEditarHandler} type="button" className="btn btn-secondary ">Agregar Horno</button>
     </div>
     )
   }
