@@ -9,6 +9,7 @@ import HighchartsReact from "highcharts-react-official";
 import { render } from "react-dom";
 import ReactDOM from "react-dom";
 import { Col, Container, Row } from "react-bootstrap";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const owgraf1 = {
   title: {
@@ -24,7 +25,7 @@ const owgraf1 = {
   chart: {
     marginBottom: 110,
     marginLeft: 80,
-    width: 500,
+    width: 600,
   },
 
   yAxis: {
@@ -41,22 +42,43 @@ const owgraf1 = {
       color: '#A2C4E2',
       from: 0,
       to: 1,
+      label: { 
+        text: 'Calentamiento', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#73A6D3',
       from: 1,
       to: 2,
+      label: { 
+        text: 'Carburizado', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#4589C4',
       from: 2,
       to: 3,
+      label: { 
+        text: 'Ecualización', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#316A9B',
       from: 3,
       to: 4,
+      label: { 
+        text: 'Difusión', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#224A6D',
       from: 4,
       to: 5,
+      label: { 
+        text: 'Temple', // Content of the label. 
+        align: 'center', // Positioning of the label.
+        color: "#FFFFFF",
+      },
     }],
   },
 
@@ -98,7 +120,7 @@ const owgraf2 = {
   chart: {
     marginBottom: 110,
     marginLeft: 80,
-    width: 500,
+    width: 600,
   },
 
   yAxis: {
@@ -116,22 +138,43 @@ const owgraf2 = {
       color: '#A2C4E2',
       from: 0,
       to: 1,
+      label: { 
+        text: 'Calentamiento', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#73A6D3',
       from: 1,
       to: 2,
+      label: { 
+        text: 'Carburizado', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#4589C4',
       from: 2,
       to: 3,
+      label: { 
+        text: 'Ecualización', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#316A9B',
       from: 3,
       to: 4,
+      label: { 
+        text: 'Difusión', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#224A6D',
       from: 4,
       to: 5,
+      label: { 
+        text: 'Temple', // Content of the label. 
+        align: 'center', // Positioning of the label.
+        color: "#FFFFFF",
+      },
     }],
   },
 
@@ -173,7 +216,7 @@ const owgraf3 = {
   chart: {
     marginBottom: 110,
     marginLeft: 80,
-    width: 500,
+    width: 600,
   },
 
   yAxis: {
@@ -191,22 +234,43 @@ const owgraf3 = {
       color: '#A2C4E2',
       from: 0,
       to: 1,
+      label: { 
+        text: 'Calentamiento', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#73A6D3',
       from: 1,
       to: 2,
+      label: { 
+        text: 'Carburizado', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#4589C4',
       from: 2,
       to: 3,
+      label: { 
+        text: 'Ecualización', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#316A9B',
       from: 3,
       to: 4,
+      label: { 
+        text: 'Difusión', // Content of the label. 
+        align: 'center', // Positioning of the label.
+      },
     },{
       color: '#224A6D',
       from: 4,
       to: 5,
+      label: { 
+        text: 'Temple', // Content of the label. 
+        align: 'center', // Positioning of the label.
+        color: "#FFFFFF",
+      },
     }],
   },
 
