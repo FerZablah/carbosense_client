@@ -10,23 +10,6 @@ import { render } from "react-dom";
 import ReactDOM from "react-dom";
 import { Col, Container, Row } from "react-bootstrap";
 
-const INITIAL_HORNOS = [
-  {
-    id: "1",
-    hornoID: "1234",
-    horno_temperatura: "700°C",
-    horno_porcentaje: "78%",
-    horno_tiempo: "1:34",
-  },
-  {
-    id: "2",
-    hornoID: "6473",
-    horno_temperatura: "608°C",
-    horno_porcentaje: "62%",
-    horno_tiempo: "0:27",
-  },
-];
-
 const owgraf1 = {
   title: {
     useHTML: true,
@@ -48,23 +31,33 @@ const owgraf1 = {
     title: {
       text: "Temperatura",
     },
-    categories: [
-      "300°C",
-      "350°C",
-      "400°C",
-      "450°C",
-      "500°C",
-      "550°C",
-      "600°C",
-      "650°C",
-      "700°C",
-    ],
   },
   xAxis: {
     title: {
       text: "Tiempo en horas",
     },
     categories: ["2", "3", "4", "5", "6", "7", "8"],
+    plotBands:[{
+      color: '#A2C4E2',
+      from: 0,
+      to: 1,
+    },{
+      color: '#73A6D3',
+      from: 1,
+      to: 2,
+    },{
+      color: '#4589C4',
+      from: 2,
+      to: 3,
+    },{
+      color: '#316A9B',
+      from: 3,
+      to: 4,
+    },{
+      color: '#224A6D',
+      from: 4,
+      to: 5,
+    }],
   },
 
   legend: {
@@ -80,7 +73,7 @@ const owgraf1 = {
     {
       data: [1, 5, 7, 3, 6, 8],
       name: "Esperado",
-      color: "#18354E",
+      color: "#0E283D",
       type: "area",
     },
     {
@@ -112,7 +105,6 @@ const owgraf2 = {
     title: {
       text: "Temperatura",
     },
-    categories: ["40", "45", "50", "55", "60", "65", "70", "75"],
   },
 
   xAxis: {
@@ -120,6 +112,27 @@ const owgraf2 = {
       text: "Tiempo en horas",
     },
     categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
+    plotBands:[{
+      color: '#A2C4E2',
+      from: 0,
+      to: 1,
+    },{
+      color: '#73A6D3',
+      from: 1,
+      to: 2,
+    },{
+      color: '#4589C4',
+      from: 2,
+      to: 3,
+    },{
+      color: '#316A9B',
+      from: 3,
+      to: 4,
+    },{
+      color: '#224A6D',
+      from: 4,
+      to: 5,
+    }],
   },
 
   legend: {
@@ -133,13 +146,13 @@ const owgraf2 = {
 
   series: [
     {
-      data: [3, 6, 7, 4, 8],
+      data: [3, 6, 7, 4, 8,6],
       name: "Esperado",
       type: "area",
-      color: "#18354E",
+      color: "#0E283D",
     },
     {
-      data: [4, 9, 1, 6, 7],
+      data: [4, 9, 1, 6, 7,4],
       name: "Real",
       color: "#FFDA0A",
     },
@@ -167,7 +180,6 @@ const owgraf3 = {
     title: {
       text: "Porcentaje",
     },
-    categories: ["40", "45", "50", "55", "60", "65", "70", "75"],
   },
 
   xAxis: {
@@ -175,6 +187,27 @@ const owgraf3 = {
       text: "Tiempo en horas",
     },
     categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
+    plotBands:[{
+      color: '#A2C4E2',
+      from: 0,
+      to: 1,
+    },{
+      color: '#73A6D3',
+      from: 1,
+      to: 2,
+    },{
+      color: '#4589C4',
+      from: 2,
+      to: 3,
+    },{
+      color: '#316A9B',
+      from: 3,
+      to: 4,
+    },{
+      color: '#224A6D',
+      from: 4,
+      to: 5,
+    }],
   },
 
   legend: {
@@ -188,13 +221,13 @@ const owgraf3 = {
 
   series: [
     {
-      data: [3, 6, 7, 4, 8],
+      data: [3, 6, 7, 4, 8,1],
       name: "Esperado",
       type: "area",
-      color: "#18354E",
+      color: "#0E283D",
     },
     {
-      data: [4, 9, 1, 6, 7],
+      data: [4, 9, 1, 6, 7,3],
       name: "Real",
       color: "#FFDA0A",
     },
