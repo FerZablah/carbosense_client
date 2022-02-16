@@ -1,9 +1,16 @@
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-import './index.css';
-import App from './App';
-import './custom.scss';
+import "./index.css";
+import App from "./App";
+import "./custom.scss";
 
-// import Graficas from "./components/Graficas";
-ReactDOM.render(<App />, document.getElementById('root'));
-// ReactDOM.render(<Graficas/>, document.getElementById('root'));
+ReactDOM.render(
+      <BrowserRouter>
+        <Routes>
+          <Route path="/*" element={ <App /> }>
+          </Route>
+        </Routes>
+      </BrowserRouter>,
+    document.getElementById('root')
+  );
