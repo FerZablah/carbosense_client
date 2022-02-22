@@ -8,11 +8,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import io from "socket.io-client";
-import {
-  mainCameraChartInitialOptions,
-  modifySeriesToChart,
-  setChartExpectedAndPlotBands
-} from "../HighChartsUtils.js";
 import DashboardChart from "./DashboardChart.js";
 
 const owgraf2 = {
@@ -284,7 +279,6 @@ const Graphs = () => {
   const [minLimitSeries, setMinLimitSeries] = useState(null);
   const [exceededPhases, setExceededPhases] = useState(null);
 
-  const [mainCameraChartOptions, setMainCameraChartOptions] = useState(modifySeriesToChart(mainCameraChartInitialOptions, []));
   const prevCycle = usePrevious(cycle);
 
   const getDashboardData = async () => {
@@ -393,7 +387,6 @@ const Graphs = () => {
             <HighchartsReact highcharts={Highcharts} options={owgraf3} />
           </Col>
           <Col>
-          <HighchartsReact highcharts={Highcharts} options={mainCameraChartOptions} />
         </Col>
         </Row>
        

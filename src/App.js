@@ -11,6 +11,7 @@ import Diffusion from "./components/Diffusion";
 import Hardening from "./components/Hardening";
 import moment from "moment";
 import Alerts from "./components/Alerts";
+import { Toaster } from "react-hot-toast";
 
 moment.locale('es', {
   months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
@@ -24,7 +25,8 @@ moment.locale('es', {
 const App = () => {
   return (
     <div>
-        <div className="w-100 p-2 bg-primary text-end text-white">@usuario</div>        
+        <div className="w-100 p-2 bg-primary text-end text-white">@usuario</div>      
+        <div><Toaster/></div>  
         <Routes>
           <Route path ="/" element={<Dashboard/>}/>
           <Route path ="/graficas/:id" element={<Graphs/>}/>
