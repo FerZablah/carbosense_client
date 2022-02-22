@@ -10,7 +10,7 @@ import Equalization from "./components/Equalization";
 import Diffusion from "./components/Diffusion";
 import Hardening from "./components/Hardening";
 import moment from "moment";
-import Test from "./components/DashboardChart";
+import Alerts from "./components/Alerts";
 
 moment.locale('es', {
   months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
@@ -33,8 +33,7 @@ const App = () => {
           <Route path ="/ecualizacion" element={<Equalization/>}/>
           <Route path ="/difusion" element={<Diffusion/>}/>
           <Route path ="/temple" element={<Hardening/>}/>
-          <Route path ="/test" element={<Test/>}/>
-
+          <Route path ="/alertas" element={<Alerts/>}/>
         </Routes>
     </div>
   );
