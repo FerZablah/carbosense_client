@@ -9,6 +9,7 @@ import Carburized from "./components/Carburized";
 import Equalization from "./components/Equalization";
 import Diffusion from "./components/Diffusion";
 import Hardening from "./components/Hardening";
+import Alerts from "./components/Alerts";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path ="/ecualizacion" element={<Equalization/>}/>
           <Route path ="/difusion" element={<Diffusion/>}/>
           <Route path ="/temple" element={<Hardening/>}/>
+          <Route path ="/alertas" element={<Alerts/>}/>
         </Routes>
     </div>
   );
