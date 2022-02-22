@@ -26,8 +26,7 @@ const Dashboard = () => {
   }, []);
   return (
     <div>
-      <div className="w-100 p-2 bg-primary text-end text-white">@usuario</div>
-      <NuevoHorno onAddHorno={addHornoHandler} />
+            <NuevoHorno onAddHorno={addHornoHandler} />
       <Hornos item={hornos} />
     </div>
   );

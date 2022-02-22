@@ -143,8 +143,7 @@ const heating2 = {
 const Heating = () => {
   return (
     <div>
-      <div className="w-100 p-2 bg-primary text-end text-white">@usuario</div>
-      <Container className="w-75 p-3 fw-bold fs-1 bg-info text-center text-white rounded-pill mt-3">
+            <Container className="w-75 p-3 fw-bold fs-1 bg-info text-center text-white rounded-pill mt-3">
         Etapa de Calentamiento
       </Container>
       <br></br>

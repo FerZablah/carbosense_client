@@ -45,8 +45,7 @@ const App = () => {
   //lo que se muestra en pantalla
   return (
     <div>
-      <div className="w-100 p-2 bg-primary text-end text-white">@usuario</div>
-      {/* boton de agregar horno */}
+            {/* boton de agregar horno */}
       <NuevoHorno onAddHorno={addHornoHandler} />
       {/* aqui se muestran los hornos registrados con los datos en tiempo real */}
       <Hornos item={hornos} />
