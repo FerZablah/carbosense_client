@@ -26,7 +26,7 @@ const Dashboard = () => {
   }, []);
   return (
     <div>
-            <NuevoHorno onAddHorno={addHornoHandler} />
+            {/*<NuevoHorno onAddHorno={addHornoHandler} />*/}
       <Hornos item={hornos} />
     </div>
   );

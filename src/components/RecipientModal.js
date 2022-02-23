@@ -144,6 +144,10 @@ const RecipientModal = ({ show, onHide, onSubmit, recipient }) => {
                         toast.error("El correo electrónico no es válido");
                         return;
                     }
+                    if(mediums.size === 0){
+                        toast.error("Debe seleccionar al menos un medio de contacto");
+                        return;
+                    }
                     onSubmit({
                         id: recipient ? recipient.id : null,
                         name,

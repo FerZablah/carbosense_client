@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
@@ -9,6 +10,8 @@ import axios from "axios";
 import moment from "moment";
 import io from "socket.io-client";
 import DashboardChart from "./DashboardChart.js";
+import cloneDeep from "lodash.clonedeep";
+import isEqual from "lodash.isequal";
 
 const owgraf2 = {
   title: {
@@ -38,7 +41,7 @@ const owgraf2 = {
       text: "Tiempo en horas",
     },
     categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
-    plotBands: [
+    realPlotBands: [
       {
         color: "#86B8E3",
         from: 0,
@@ -159,7 +162,7 @@ const owgraf3 = {
       text: "Tiempo en horas",
     },
     categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
-    plotBands: [
+    realPlotBands: [
       {
         color: "#86B8E3",
         from: 0,
@@ -272,12 +275,13 @@ function usePrevious(value) {
 const Graphs = () => {
   const params = useParams();
   const [cycle, setCycle] = useState(null);
-  const [plotBands, setPlotbands] = useState(null);
+  const [realPlotBands, setRealPlotBands] = useState(null);
+  const [expectedPlotBands, setExpectedPlotBands] = useState(null);
+
   const [realSeries, setRealSeries] = useState(null);
   const [expectedSeries, setExpectedSeries] = useState(null);
   const [maxLimitSeries, setMaxLimitSeries] = useState(null);
   const [minLimitSeries, setMinLimitSeries] = useState(null);
-  const [exceededPhases, setExceededPhases] = useState(null);
 
   const prevCycle = usePrevious(cycle);
 
@@ -287,7 +291,7 @@ const Graphs = () => {
     //Only update the series if there exists data
     if(res.data.mainCamera) {
       setRealSeries(res.data.mainCamera)
-      setExceededPhases(new Set(res.data.exceededPhases));    
+      setRealPlotBands(res.data.realPlotBands);
     }
   }
 
@@ -296,7 +300,7 @@ const Graphs = () => {
     setExpectedSeries(res.data.mainCameraExpectedReadings);
     setMaxLimitSeries(res.data.mainCameraLimitReadings.max);
     setMinLimitSeries(res.data.mainCameraLimitReadings.min);
-    setPlotbands(res.data.plotBands);
+    setExpectedPlotBands(res.data.expectedPlotBands);
   }
 
   //Runs every time cycle value changes
@@ -305,7 +309,8 @@ const Graphs = () => {
       //New cycle detected, update cycle initial data
       getCycleInitialData(cycle.id);
     }
-  }, [cycle]);
+    
+  }, [cycle, prevCycle]);
 
 
   //Run when component has mounted
@@ -369,12 +374,12 @@ const Graphs = () => {
         <Row>
           <Col>
             <DashboardChart
-              plotBands={plotBands}
+              realPlotBands={realPlotBands}
+              expectedPlotBands={expectedPlotBands}
               realSeries={realSeries}
               expectedSeries={expectedSeries}
               maxLimitSeries={maxLimitSeries} 
               minLimitSeries={minLimitSeries}
-              exceededPhases={exceededPhases}
               title={"Temperatura promedio de camara principal"}
             />
           </Col>

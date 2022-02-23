@@ -4,11 +4,12 @@ import Table from "react-bootstrap/Table";
 import { BsChatFill, BsEnvelopeFill, BsPencilFill, BsTrashFill, BsWhatsapp } from "react-icons/bs";
 import axios from "axios";
 import RecipientModal from "./RecipientModal";
+import toast from "react-hot-toast";
 
 const icons = {
-  sms: <BsChatFill key='sms' size="30" className="ms-3" />,
-  email: <BsEnvelopeFill key='email' size="30" className="ms-3" />,
-  whatsapp: <BsWhatsapp key='whatsapp' size="30" className="ms-3" />,
+  sms: <BsChatFill key='sms' size="20" className="ms-3" />,
+  email: <BsEnvelopeFill key='email' size="20" className="ms-3" />,
+  whatsapp: <BsWhatsapp key='whatsapp' size="20" className="ms-3" />,
 
 }
 
@@ -29,16 +30,19 @@ const Alerts = (props) => {
 
   const deleteRecipient = async (id) => {
     await axios.delete(`http://localhost:4000/alert/recipient/${id}`);
+    toast.success("Recipiente eliminado");
     getRecipients();
   }
 
   const createRecipient = async (recipient) => {
     await axios.post(`http://localhost:4000/alert/recipient`, {...recipient, mediums: Array.from(recipient.mediums)});
+    toast.success("Recipiente agregado");
     getRecipients();
   }
 
   const updateRecipient = async (recipient) => {
     await axios.put(`http://localhost:4000/alert/recipient/${recipient.id}`, {...recipient, mediums: Array.from(recipient.mediums)});
+    toast.success("Recipiente actualizado");
     getRecipients();
   }
   //Run on startup
@@ -71,13 +75,11 @@ const Alerts = (props) => {
         </Modal.Footer>
       </Modal>
 
-      <Row>
-        <Col className="w-75 p-3 fw-bold fs-1 text-start text-white rounded mt-3 text-body">
+      <Row className="mt-5">
+        <Col className="col-8 fw-bold fs-1 text-body">
           Recipiente de alertas
         </Col>
-        <Col></Col>
-        <Col>
-          <div className="w-100 text-end p-5">
+        <Col className="col-4 d-flex align-items-center justify-content-end" >
             <button
               onClick={() => setShowAddModal(true)}
               type="button"
@@ -85,10 +87,9 @@ const Alerts = (props) => {
             >
               Agregar Recipiente
             </button>
-          </div>
         </Col>
       </Row>
-      <Table striped bordered hover size="sm">
+      <Table striped bordered hover size="sm" className="mt-4">
         <thead>
           <tr>
             <th className="text-center fs-5">Nombre</th>
@@ -107,11 +108,11 @@ const Alerts = (props) => {
                 <td className="fs-6 text-center">{recipient.email}</td>
                 <td className="fs-6 text-center">{recipient.mediums.map(medium => icons[medium.name])}</td>
                 <td className="fs-6 text-center">
-                  <BsPencilFill role="button" size="30" className="ms-3" onClick={() => {
+                  <BsPencilFill role="button" size="20" className="ms-3" onClick={() => {
                     setRecipientToEdit(recipient);
                     setShowEditModal(true);
                   }} />
-                  <BsTrashFill role="button" size="30" className="ms-3" onClick={() => {
+                  <BsTrashFill role="button" size="20" className="ms-3" onClick={() => {
                     setRecipientToDelete(recipient);
                     setShowDeleteModal(true);
                   }} />
