@@ -6,7 +6,7 @@ import {
 import { Button, ButtonGroup, Container } from 'react-bootstrap';
 
 
-const DashboardChart = ({ realPlotBands, expectedPlotBands, realSeries, expectedSeries, maxLimitSeries, minLimitSeries, title }) => {
+const DashboardChart = ({ realPlotBands, expectedPlotBands, realSeries, expectedSeries, maxLimitSeries, minLimitSeries, title, yAxisTitle, toolTipSuffix, yAxisMax }) => {
   const [plotBandsToShow, setPlotBandsToShow] = useState('expected');
   if (!expectedPlotBands) return null;
   return (
@@ -25,7 +25,7 @@ const DashboardChart = ({ realPlotBands, expectedPlotBands, realSeries, expected
           <Title useHTML style={{ color: "#FFFFFF", backgroundColor: "#5493C9", fontWeight: "bold" }}>{title}</Title>
 
           <Legend layout="horizontal" align="center" verticalAlign="bottom" />
-          <Tooltip valueSuffix="&deg;C" />
+          <Tooltip valueSuffix={toolTipSuffix}/>
 
           <XAxis type='datetime' labels={{ format: "{value:%m-%d %k:%M}" }}>
             <XAxis.Title>Hora</XAxis.Title>
@@ -38,8 +38,8 @@ const DashboardChart = ({ realPlotBands, expectedPlotBands, realSeries, expected
             }
           </XAxis>
 
-          <YAxis max={1200}>
-            <YAxis.Title>Temperatura &deg;C</YAxis.Title>
+          <YAxis max={yAxisMax}>
+            <YAxis.Title>{yAxisTitle}</YAxis.Title>
 
             {expectedSeries && <AreaSeries type="area" name="Esperado" data={expectedSeries} color={"#0E283D"} />}
             {realSeries && <LineSeries name="Real" data={realSeries} color={"#FFDA0A"} lineWidth={3} />}

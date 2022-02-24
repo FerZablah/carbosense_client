@@ -278,11 +278,17 @@ const Graphs = () => {
   const [realPlotBands, setRealPlotBands] = useState(null);
   const [expectedPlotBands, setExpectedPlotBands] = useState(null);
 
-  const [realSeries, setRealSeries] = useState(null);
-  const [expectedSeries, setExpectedSeries] = useState(null);
-  const [maxLimitSeries, setMaxLimitSeries] = useState(null);
-  const [minLimitSeries, setMinLimitSeries] = useState(null);
+  //Main camera temperature hooks
+  const [realMainSeries, setRealMainSeries] = useState(null);
+  const [expectedMainSeries, setExpectedMainSeries] = useState(null);
+  const [maxMainLimitSeries, setMaxMainLimitSeries] = useState(null);
+  const [minMainLimitSeries, setMinMainLimitSeries] = useState(null);
 
+  //Oxygen percentage hooks
+  const [realOxygenSeries, setRealOxygenSeries] = useState(null);
+  const [expectedOxygenSeries, setExpectedOxygenSeries] = useState(null);
+  const [maxOxygenLimitSeries, setMaxOxygenLimitSeries] = useState(null);
+  const [minOxygenLimitSeries, setMinOxygenLimitSeries] = useState(null);
   const prevCycle = usePrevious(cycle);
 
   const getDashboardData = async () => {
@@ -290,16 +296,24 @@ const Graphs = () => {
     setCycle(res.data.cycle);
     //Only update the series if there exists data
     if(res.data.mainCamera) {
-      setRealSeries(res.data.mainCamera)
+      setRealMainSeries(res.data.mainCamera);
+      setRealOxygenSeries(res.data.oxygenReadings);
       setRealPlotBands(res.data.realPlotBands);
     }
   }
 
   const getCycleInitialData = async (id) => {
     const res = await axios.get(`http://localhost:4000/dashboard/cycle/${id}/expected`);
-    setExpectedSeries(res.data.mainCameraExpectedReadings);
-    setMaxLimitSeries(res.data.mainCameraLimitReadings.max);
-    setMinLimitSeries(res.data.mainCameraLimitReadings.min);
+    //Set series for main camera
+    setExpectedMainSeries(res.data.mainCameraExpectedReadings);
+    setMaxMainLimitSeries(res.data.mainCameraLimitReadings.max);
+    setMinMainLimitSeries(res.data.mainCameraLimitReadings.min);
+
+    //Set series for oxygen percentage
+    // setExpectedOxygenSeries(res.data.oxygenExpectedReadings);
+    // setMaxOxygenLimitSeries(res.data.oxygenLimitReadings.max);
+    // setMinOxygenLimitSeries(res.data.oxygenLimitReadings.min);
+
     setExpectedPlotBands(res.data.expectedPlotBands);
   }
 
@@ -376,11 +390,14 @@ const Graphs = () => {
             <DashboardChart
               realPlotBands={realPlotBands}
               expectedPlotBands={expectedPlotBands}
-              realSeries={realSeries}
-              expectedSeries={expectedSeries}
-              maxLimitSeries={maxLimitSeries} 
-              minLimitSeries={minLimitSeries}
+              realSeries={realMainSeries}
+              expectedSeries={expectedMainSeries}
+              maxMainLimitSeries={maxMainLimitSeries} 
+              minMainLimitSeries={minMainLimitSeries}
               title={"Temperatura promedio de camara principal"}
+              yAxisTitle={"Temperatura &deg;C"}
+              toolTipSuffix={"&deg;C"}
+              yAxisMax={1200}
             />
           </Col>
           <Col>
@@ -389,7 +406,18 @@ const Graphs = () => {
         </Row>
         <Row>
           <Col>
-            <HighchartsReact highcharts={Highcharts} options={owgraf3} />
+            <DashboardChart
+              realPlotBands={realPlotBands}
+              expectedPlotBands={expectedPlotBands}
+              realSeries={realOxygenSeries}
+              expectedSeries={[]}
+              maxMainLimitSeries={[]} 
+              minMainLimitSeries={[]}
+              title={"Porcentaje de oxígeno"}
+              yAxisTitle={"Porcentaje Oxígeno%"}
+              toolTipSuffix={"%"}
+              yAxisMax={3}
+            />
           </Col>
           <Col>
         </Col>
