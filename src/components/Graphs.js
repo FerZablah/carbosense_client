@@ -1,259 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import Highcharts from "highcharts/highstock";
-import HighchartsReact from "highcharts-react-official";
-import { render } from "react-dom";
-import ReactDOM from "react-dom";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import io from "socket.io-client";
 import DashboardChart from "./DashboardChart.js";
-import cloneDeep from "lodash.clonedeep";
-import isEqual from "lodash.isequal";
-
-const owgraf2 = {
-  title: {
-    useHTML: true,
-    style: {
-      color: "#FFFFFF",
-      "background-color": "#5493C9",
-      fontWeight: "bold",
-    },
-    text: "Temperatura promedio del tanque de aceite",
-  },
-
-  chart: {
-    marginBottom: 110,
-    marginLeft: 80,
-    width: 600,
-  },
-
-  yAxis: {
-    title: {
-      text: "Temperatura",
-    },
-  },
-
-  xAxis: {
-    title: {
-      text: "Tiempo en horas",
-    },
-    categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
-    realPlotBands: [
-      {
-        color: "#86B8E3",
-        from: 0,
-        to: 1,
-        label: {
-          text: "Calentamiento", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#5C9FDA",
-        from: 1,
-        to: 2,
-        label: {
-          text: "Carburizado", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#3D78AA",
-        from: 2,
-        to: 3,
-        label: {
-          text: "Ecualización", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#28567E",
-        from: 3,
-        to: 4,
-        label: {
-          text: "Difusión", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#163E5F",
-        from: 4,
-        to: 5,
-        label: {
-          text: "Temple", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-    ],
-  },
-
-  legend: {
-    width: 400,
-    floating: true,
-    align: "left",
-    x: 70, // = marginLeft - default spacingLeft
-    itemWidth: 100,
-    borderWidth: 1,
-  },
-
-  series: [
-    {
-      data: [3, 6, 7, 4, 8, 6],
-      name: "Esperado",
-      type: "area",
-      color: "#0E283D",
-    },
-    {
-      data: [4, 9, 1, 6, 7, 4],
-      name: "Real",
-      color: "#FFDA0A",
-    },
-  ],
-};
-
-const owgraf3 = {
-  title: {
-    useHTML: true,
-    style: {
-      color: "#FFFFFF",
-      "background-color": "#5493C9",
-      fontWeight: "bold",
-    },
-    text: "Porcentaje de carbono",
-  },
-
-  chart: {
-    marginBottom: 110,
-    marginLeft: 80,
-    width: 600,
-  },
-
-  yAxis: {
-    title: {
-      text: "Porcentaje",
-    },
-  },
-
-  xAxis: {
-    title: {
-      text: "Tiempo en horas",
-    },
-    categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
-    realPlotBands: [
-      {
-        color: "#86B8E3",
-        from: 0,
-        to: 1,
-        label: {
-          text: "Calentamiento", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#5C9FDA",
-        from: 1,
-        to: 2,
-        label: {
-          text: "Carburizado", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#3D78AA",
-        from: 2,
-        to: 3,
-        label: {
-          text: "Ecualización", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#28567E",
-        from: 3,
-        to: 4,
-        label: {
-          text: "Difusión", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-      {
-        color: "#163E5F",
-        from: 4,
-        to: 5,
-        label: {
-          text: "Temple", // Content of the label.
-          align: "center", // Positioning of the label.
-          style: {
-            color: "#FFFFFF",
-            fontWeight: "bold",
-          },
-        },
-      },
-    ],
-  },
-
-  legend: {
-    width: 400,
-    floating: true,
-    align: "left",
-    x: 70, // = marginLeft - default spacingLeft
-    itemWidth: 100,
-    borderWidth: 1,
-  },
-
-  series: [
-    {
-      data: [3, 6, 7, 4, 8, 1],
-      name: "Esperado",
-      type: "area",
-      color: "#041C31",
-    },
-    {
-      data: [4, 9, 1, 6, 7, 3],
-      name: "Real",
-      color: "#FFDA0A",
-    },
-  ],
-};
 
 const parseDate = (dateString) => {
   return dateString ? moment(dateString, "YYYY-MM-DDTHH:mm:ss.SSSZ") : null;
@@ -283,22 +35,33 @@ const Graphs = () => {
   const [expectedMainSeries, setExpectedMainSeries] = useState(null);
   const [maxMainLimitSeries, setMaxMainLimitSeries] = useState(null);
   const [minMainLimitSeries, setMinMainLimitSeries] = useState(null);
+  const [mainTempExceededPhases, setMainTempExceededPhases] = useState(new Set());
 
   //Oxygen percentage hooks
   const [realOxygenSeries, setRealOxygenSeries] = useState(null);
   const [expectedOxygenSeries, setExpectedOxygenSeries] = useState(null);
   const [maxOxygenLimitSeries, setMaxOxygenLimitSeries] = useState(null);
   const [minOxygenLimitSeries, setMinOxygenLimitSeries] = useState(null);
+  const [oxygenExceededPhases, setOxygenExceededPhases] = useState(new Set());
+
+  //Temple camera hooks
+  const [realTempleSeries, setRealTempleSeries] = useState(null);
+  const [expectedTempleSeries, setExpectedTempleSeries] = useState(null);
+
+
   const prevCycle = usePrevious(cycle);
 
   const getDashboardData = async () => {
     const res = await axios.get(`http://localhost:4000/dashboard/oven/${params.id}`);
     setCycle(res.data.cycle);
     //Only update the series if there exists data
-    if(res.data.mainCamera) {
+    if (res.data.mainCamera) {
       setRealMainSeries(res.data.mainCamera);
       setRealOxygenSeries(res.data.oxygenReadings);
+      setRealTempleSeries(res.data.templeCamera);
       setRealPlotBands(res.data.realPlotBands);
+      setMainTempExceededPhases(new Set(res.data.mainTempExceededPhases));
+      setOxygenExceededPhases(new Set(res.data.oxygenExceededPhases));
     }
   }
 
@@ -310,22 +73,29 @@ const Graphs = () => {
     setMinMainLimitSeries(res.data.mainCameraLimitReadings.min);
 
     //Set series for oxygen percentage
-    // setExpectedOxygenSeries(res.data.oxygenExpectedReadings);
-    // setMaxOxygenLimitSeries(res.data.oxygenLimitReadings.max);
-    // setMinOxygenLimitSeries(res.data.oxygenLimitReadings.min);
+    setExpectedOxygenSeries(res.data.oxygenExpectedReadings);
+    setMaxOxygenLimitSeries(res.data.oxygenLimitReadings.max);
+    setMinOxygenLimitSeries(res.data.oxygenLimitReadings.min);
+
+    //Set series for temple camera
+    setExpectedTempleSeries(res.data.templeCameraExpectedReadings);
 
     setExpectedPlotBands(res.data.expectedPlotBands);
   }
 
   //Runs every time cycle value changes
   useEffect(() => {
-    if((cycle && prevCycle === null) || (cycle && prevCycle !== null &&  cycle.id !== prevCycle.id)){
+    if ((cycle && prevCycle === null) || (cycle && prevCycle !== null && cycle.id !== prevCycle.id)) {
       //New cycle detected, update cycle initial data
       getCycleInitialData(cycle.id);
     }
-    
-  }, [cycle, prevCycle]);
 
+    if ((cycle && prevCycle && cycle.id === prevCycle.id && cycle.end !== prevCycle.end)) {
+      //End on cycle detected, update cycle initial data
+      getCycleInitialData(cycle.id);
+    }
+
+  }, [cycle, prevCycle]);
 
   //Run when component has mounted
   useEffect(() => {
@@ -336,94 +106,116 @@ const Graphs = () => {
   }, []);
 
   //If no cycle detected show no current cycle
-  if(!cycle) {
+  if (!cycle) {
     return (
       <div>
-      
+
         <Spinner className="center p-4" animation="border" role="status" />
         <h1 className="text-center p-4">No hay un ciclo actualmente para el horno {params.id}</h1>
       </div>
-      );
+    );
   }
   return (
     <div>
-      <Container className="w-75 p-3 fw-bold fs-1 bg-info text-center text-white rounded-pill mt-3">
-        ID: {params.id}
+      <Container className="w-25 p-1 fs-3 bg-info text-center text-white rounded-3 mt-3">
+        ID Horno: <strong>{params.id}</strong>
       </Container>
       <br></br>
-      <Container className="bg-extra w-100 p-4 rounded">
+      <Container className="bg-extra w-50 p-3 rounded-3">
         <Row>
-          <Col className="text-black fs-6 text-center">Inicio del ciclo</Col>
-          <Col className="text-black fs-6 text-center">Fin del ciclo</Col>
-          <Col className="text-black fs-6 text-center">Duración del ciclo</Col>
+          <Col className="text-black fs-5 text-center">Inicio del ciclo</Col>
+          <Col className="text-black fs-5 text-center">Fin del ciclo</Col>
+          <Col className="text-black fs-5 text-center">Duración del ciclo</Col>
         </Row>
         <Row>
-          <Col className="text-black fs-1 fw-bold text-center mt-1">
+          <Col className="text-black fs-3 fw-bold text-center">
             {parseDate(cycle.start).format("HH:mm:ss")}
           </Col>
-          <Col className="text-black fs-1 fw-bold text-center mt-1">
+          <Col className="text-black fs-3 fw-bold text-center">
             {cycle.end ? parseDate(cycle.end).format("HH:mm:ss") : '-'}
           </Col>
-          <Col className="text-black fs-1 fw-bold text-center mt-1">
+          <Col className="text-black fs-3 fw-bold text-center">
             {
               getDatesDuration(
                 parseDate(cycle.start),
                 (
-                  cycle.end ? 
+                  cycle.end ?
                     parseDate(cycle.end) :
                     moment()
                 )
               )
-          }
+            }
           </Col>
         </Row>
         <Row>
-          <Col className="text-black fs-6 text-center mt-4">{parseDate(cycle.start).format("DD MMM YYYY")}</Col>
-          <Col className="text-black fs-6 text-center mt-4">{cycle.end ? parseDate(cycle.start).format("DD MMM YYYY") : '-'}</Col>
+          <Col className="text-black fs-6 text-center">{parseDate(cycle.start).format("DD MMM YYYY")}</Col>
+          <Col className="text-black fs-6 text-center">{cycle.end ? parseDate(cycle.start).format("DD MMM YYYY") : '-'}</Col>
           <Col className="text-black fs-6 text-center"></Col>
         </Row>
       </Container>
-      <br></br>
-      <Container>
-        <Row>
-          <Col>
+      <div className="p-3">
+        <Row className="justify-content-around">
+          <Col md={6} className="rounded-3">
             <DashboardChart
+              showPlotbandsButton
               realPlotBands={realPlotBands}
               expectedPlotBands={expectedPlotBands}
               realSeries={realMainSeries}
+              exceededPhases={mainTempExceededPhases}
               expectedSeries={expectedMainSeries}
-              maxMainLimitSeries={maxMainLimitSeries} 
-              minMainLimitSeries={minMainLimitSeries}
-              title={"Temperatura promedio de camara principal"}
-              yAxisTitle={"Temperatura &deg;C"}
-              toolTipSuffix={"&deg;C"}
+              maxLimitSeries={maxMainLimitSeries}
+              minLimitSeries={minMainLimitSeries}
+              title={"Temperatura promedio de cámara principal"}
+              yAxisTitle={"Temperatura °C"}
+              yAxisMin={0}
+              toolTipSuffix={"°C"}
               yAxisMax={1200}
             />
           </Col>
-          <Col>
-            <HighchartsReact highcharts={Highcharts} options={owgraf2} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          <Col md={6} className="rounded-3">
             <DashboardChart
+              showPlotbandsButton
               realPlotBands={realPlotBands}
               expectedPlotBands={expectedPlotBands}
+              exceededPhases={oxygenExceededPhases}
               realSeries={realOxygenSeries}
-              expectedSeries={[]}
-              maxMainLimitSeries={[]} 
-              minMainLimitSeries={[]}
+              expectedSeries={expectedOxygenSeries}
+              maxLimitSeries={maxOxygenLimitSeries}
+              minLimitSeries={minOxygenLimitSeries}
               title={"Porcentaje de oxígeno"}
               yAxisTitle={"Porcentaje Oxígeno%"}
               toolTipSuffix={"%"}
               yAxisMax={3}
+              yAxisMin={0}
             />
           </Col>
-          <Col>
-        </Col>
+          
+          <Col md={4}  className="rounded-3">
+          {realTempleSeries && realTempleSeries.length > 0 && ((cycle && cycle.end) ? 
+              <DashboardChart
+                realPlotBands={[]}
+                expectedPlotBands={[]}
+                realSeries={realTempleSeries}
+                exceededPhases={new Set()}
+                expectedSeries={expectedTempleSeries}
+                maxLimitSeries={[]}
+                minLimitSeries={[]}
+                title={"Temperatura cámara de temple"}
+                yAxisTitle={"Temperatura °C"}
+                toolTipSuffix={"°C"}
+                yAxisMax={90}
+                yAxisMin={20}
+              />
+              :(
+                <div>
+                  <p className="text-center fs-4">Temperatura cámara de temple</p>
+                  <p className="text-center fs-4 fw-bold"> {realTempleSeries[realTempleSeries.length - 1][1]}&deg;C</p>
+                </div>
+              )
+          )}
+          </Col>
         </Row>
-       
-      </Container>
+        </div>
     </div>
   );
 };
