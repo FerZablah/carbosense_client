@@ -12,3 +12,16 @@ $theme-colors: (
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
+
+.highcharts-plot-band{
+  transition: 0.3s;
+}
+
+.highcharts-plot-band:hover{
+  stroke: #ffda0a;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  cursor: pointer;
+  transition: 0.3s;
+
+}

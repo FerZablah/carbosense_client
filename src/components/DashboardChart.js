@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Highcharts from 'highcharts';
 import {
-  HighchartsChart, Chart, XAxis, YAxis, Title, PlotBand, Legend, LineSeries, HighchartsProvider, AreaSeries, Tooltip
+  HighchartsChart, Chart, XAxis, YAxis, PlotBand, Legend, LineSeries, HighchartsProvider, AreaSeries, Tooltip
 } from 'react-jsx-highcharts';
-import { Button, ButtonGroup, Container } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 const plotBandExceededColors = ['#F92718', '#D92100', '#B81A01', '#8F1200', '#610901'];
 
 
-const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, realSeries, expectedSeries, maxLimitSeries, minLimitSeries, title, yAxisTitle, toolTipSuffix, yAxisMax, showPlotbandsButton, yAxisMin }) => {
+const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, realSeries, expectedSeries, maxLimitSeries, minLimitSeries, title, yAxisTitle, toolTipSuffix, yAxisMax, showPlotbandsButton, yAxisMin, ovenId }) => {
   const [plotBandsToShow, setPlotBandsToShow] = useState('real');
+  const navigate = useNavigate();
+
   if (!expectedPlotBands) return null;
   if(!realSeries ||  (realSeries && realSeries.length === 0)) return null;
   return (
@@ -30,7 +33,7 @@ const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, real
       <HighchartsProvider Highcharts={Highcharts}>
 
         <HighchartsChart>
-          <Chart />
+          <Chart styledMode/>
 
           <Legend layout="horizontal" align="center" verticalAlign="bottom" />
           <Tooltip valueSuffix={toolTipSuffix} />
@@ -40,7 +43,7 @@ const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, real
             {
               (plotBandsToShow === 'expected' ? expectedPlotBands : realPlotBands).map((plotBand, index) => {
                 return (
-                  <PlotBand key={index} from={plotBand.from} to={plotBand.to} color={exceededPhases.has(plotBand.label.text) ? plotBandExceededColors[index] : plotBand.color} label={plotBand.label} />
+                  <PlotBand events={{click: (e) => navigate(`/graficas/${plotBand.label.text}/horno/${ovenId}`)}} key={index} from={plotBand.from} to={plotBand.to} color={exceededPhases.has(plotBand.label.text) ? plotBandExceededColors[index] : plotBand.color} label={plotBand.label} />
                 )
               })
             }

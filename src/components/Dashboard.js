@@ -9,24 +9,21 @@ import axios from "axios";
 const Dashboard = () => {
   const [hornos, setHornos] = useState([]);
 
-  const addHornoHandler = (hornos) => {
-    console.log(hornos);
-    setHornos((prevHornos) => {
-      return [hornos, ...prevHornos];
+  const getOvens = async () => {
+    axios.get("http://localhost:4000/dashboard/ovens").then((res) => {
+        setHornos(res.data);
     });
   };
 
   useEffect(() => {
     const socket = io("http://localhost:4000");
     socket.on("newData", async () => {
-      axios.get("http://localhost:4000/dashboard/ovens").then((res) => {
-        setHornos(res.data);
-      });
+      getOvens();
     });
+    getOvens();
   }, []);
   return (
     <div>
-            {/*<NuevoHorno onAddHorno={addHornoHandler} />*/}
       <Hornos item={hornos} />
     </div>
   );

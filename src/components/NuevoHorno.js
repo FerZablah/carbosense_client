@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./NuevoHorno.css";
 import HornoForms from "./HornoForms.js";
-import { Container, Row } from "react-bootstrap";
-import axios from "axios";
 
 const NuevoHorno = (props) => {
   const [editando, setEditando] = useState(false);

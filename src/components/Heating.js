@@ -1,7 +1,5 @@
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-import { render } from "react-dom";
-import ReactDOM from "react-dom";
 import { Col, Container, Row } from "react-bootstrap";
 
 const heating1 = {
