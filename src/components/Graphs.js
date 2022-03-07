@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Breadcrumb, Col, Container, Row, Spinner } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import io from "socket.io-client";
@@ -26,6 +26,8 @@ function usePrevious(value) {
 
 const Graphs = () => {
   const params = useParams();
+  const navigate = useNavigate();
+
   const [cycle, setCycle] = useState(null);
   const [realPlotBands, setRealPlotBands] = useState(null);
   const [expectedPlotBands, setExpectedPlotBands] = useState(null);
@@ -47,7 +49,10 @@ const Graphs = () => {
   //Temple camera hooks
   const [realTempleSeries, setRealTempleSeries] = useState(null);
   const [expectedTempleSeries, setExpectedTempleSeries] = useState(null);
-
+  const [templePlotBand, setTemplePlotBand] = useState([]);
+  const [maxTempleLimitSeries, setMaxTempleLimitSeries] = useState(null);
+  const [minTempleLimitSeries, setMinTempleLimitSeries] = useState(null);
+  const [templeExceeded, setTempleExceeded] = useState(false);
 
   const prevCycle = usePrevious(cycle);
 
@@ -62,6 +67,8 @@ const Graphs = () => {
       setRealPlotBands(res.data.realPlotBands);
       setMainTempExceededPhases(new Set(res.data.mainTempExceededPhases));
       setOxygenExceededPhases(new Set(res.data.oxygenExceededPhases));
+      setTemplePlotBand(res.data.templePlotBand ? [res.data.templePlotBand] : []);
+      setTempleExceeded(res.data.templeExceeded);
     }
   }
 
@@ -79,6 +86,10 @@ const Graphs = () => {
 
     //Set series for temple camera
     setExpectedTempleSeries(res.data.templeCameraExpectedReadings);
+    if(res.data.templeCameraLimitReadings){
+      setMaxTempleLimitSeries(res.data.templeCameraLimitReadings.max);
+      setMinTempleLimitSeries(res.data.templeCameraLimitReadings.min);
+    }
 
     setExpectedPlotBands(res.data.expectedPlotBands);
   }
@@ -103,13 +114,23 @@ const Graphs = () => {
     socket.on("newData", async () => {
       getDashboardData();
     });
+    getDashboardData();
+
+    return () => {
+      socket.disconnect();
+    }
   }, []);
 
   //If no cycle detected show no current cycle
   if (!cycle) {
     return (
       <div>
-
+        <Breadcrumb className="p-3">
+          <Breadcrumb.Item onClick={() => navigate(`/`)}>Inicio</Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Horno {params.id}
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <Spinner className="center p-4" animation="border" role="status" />
         <h1 className="text-center p-4">No hay un ciclo actualmente para el horno {params.id}</h1>
       </div>
@@ -117,6 +138,12 @@ const Graphs = () => {
   }
   return (
     <div>
+      <Breadcrumb className="p-3">
+        <Breadcrumb.Item onClick={() => navigate(`/`)}>Inicio</Breadcrumb.Item>
+        <Breadcrumb.Item active>
+          Horno {params.id}
+        </Breadcrumb.Item>
+      </Breadcrumb>
       <Container className="w-25 p-1 fs-3 bg-info text-center text-white rounded-3 mt-3">
         ID Horno: <strong>{params.id}</strong>
       </Container>
@@ -165,11 +192,12 @@ const Graphs = () => {
               expectedSeries={expectedMainSeries}
               maxLimitSeries={maxMainLimitSeries}
               minLimitSeries={minMainLimitSeries}
-              title={"Temperatura promedio de cámara principal"}
+              title={"Temperatura cámara principal"}
               yAxisTitle={"Temperatura °C"}
               yAxisMin={0}
               toolTipSuffix={"°C"}
               yAxisMax={1200}
+              ovenId={params.id}
             />
           </Col>
           <Col md={6} className="rounded-3">
@@ -187,32 +215,28 @@ const Graphs = () => {
               toolTipSuffix={"%"}
               yAxisMax={3}
               yAxisMin={0}
+              ovenId={params.id}
             />
           </Col>
           
-          <Col md={4}  className="rounded-3">
-          {realTempleSeries && realTempleSeries.length > 0 && ((cycle && cycle.end) ? 
+          <Col md={6}  className="rounded-3">
+          {realTempleSeries && realTempleSeries.length > 0 && 
               <DashboardChart
-                realPlotBands={[]}
+                realPlotBands={templePlotBand}
                 expectedPlotBands={[]}
                 realSeries={realTempleSeries}
-                exceededPhases={new Set()}
+                exceededPhases={new Set((templeExceeded ? ['Temple'] : []))}
                 expectedSeries={expectedTempleSeries}
-                maxLimitSeries={[]}
-                minLimitSeries={[]}
+                maxLimitSeries={maxTempleLimitSeries}
+                minLimitSeries={minTempleLimitSeries}
                 title={"Temperatura cámara de temple"}
                 yAxisTitle={"Temperatura °C"}
                 toolTipSuffix={"°C"}
                 yAxisMax={90}
                 yAxisMin={20}
+                ovenId={params.id}
               />
-              :(
-                <div>
-                  <p className="text-center fs-4">Temperatura cámara de temple</p>
-                  <p className="text-center fs-4 fw-bold"> {realTempleSeries[realTempleSeries.length - 1][1]}&deg;C</p>
-                </div>
-              )
-          )}
+          }
           </Col>
         </Row>
         </div>

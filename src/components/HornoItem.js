@@ -1,8 +1,6 @@
 import "./HornoItem.css";
 import { Col, Container, Row } from "react-bootstrap";
 import moment from "moment";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Graphs from "./Graphs";
 import { useNavigate } from "react-router-dom";
 
 function Horno(props) {

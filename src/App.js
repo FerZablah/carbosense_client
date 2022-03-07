@@ -1,11 +1,9 @@
 import "./App.css";
-import { render } from "react-dom";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Graphs from "./components/Graphs";
 import Heating from "./components/Heating";
-import Carburized from "./components/Carburized";
+import Carburized from "./components/DashboardPhase";
 import Equalization from "./components/Equalization";
 import Diffusion from "./components/Diffusion";
 import Hardening from "./components/Hardening";
@@ -14,6 +12,7 @@ import Reports from "./components/Reports";
 import moment from "moment";
 import Alerts from "./components/Alerts";
 import { Toaster } from "react-hot-toast";
+import DashboardPhase from "./components/DashboardPhase";
 
 moment.locale('es', {
   months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
@@ -32,11 +31,7 @@ const App = () => {
         <Routes>
           <Route path ="/" element={<Dashboard/>}/>
           <Route path ="/graficas/:id" element={<Graphs/>}/>
-          <Route path ="/calentamiento" element={<Heating/>}/>
-          <Route path ="/carburizado" element={<Carburized/>}/>
-          <Route path ="/ecualizacion" element={<Equalization/>}/>
-          <Route path ="/difusion" element={<Diffusion/>}/>
-          <Route path ="/temple" element={<Hardening/>}/>
+          <Route path ="/graficas/:fase/horno/:horno" element={<DashboardPhase/>}/>
           <Route path ="/alertas" element={<Alerts/>}/>
           <Route path = "/resumen" element={<Summary/>}/>
           <Route path = "/reportes" element={<Reports/>}/>
