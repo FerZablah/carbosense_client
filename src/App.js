@@ -9,6 +9,8 @@ import Carburized from "./components/Carburized";
 import Equalization from "./components/Equalization";
 import Diffusion from "./components/Diffusion";
 import Hardening from "./components/Hardening";
+import Summary from "./components/Summary";
+import Reports from "./components/Reports";
 import moment from "moment";
 import Alerts from "./components/Alerts";
 import { Toaster } from "react-hot-toast";
@@ -36,6 +38,8 @@ const App = () => {
           <Route path ="/difusion" element={<Diffusion/>}/>
           <Route path ="/temple" element={<Hardening/>}/>
           <Route path ="/alertas" element={<Alerts/>}/>
+          <Route path = "/resumen" element={<Summary/>}/>
+          <Route path = "/reportes" element={<Reports/>}/>
         </Routes>
     </div>
   );
