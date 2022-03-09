@@ -11,6 +11,7 @@ import Summary from "./components/Summary";
 import Reports from "./components/Reports";
 import moment from "moment";
 import Alerts from "./components/Alerts";
+import ReportPhase from "./components/ReportPhase";
 import { Toaster } from "react-hot-toast";
 import DashboardPhase from "./components/DashboardPhase";
 
@@ -35,6 +36,7 @@ const App = () => {
           <Route path ="/alertas" element={<Alerts/>}/>
           <Route path = "/resumen" element={<Summary/>}/>
           <Route path = "/reportes" element={<Reports/>}/>
+          <Route path = "/reporte/fase" element={<ReportPhase/>}/>
         </Routes>
     </div>
   );

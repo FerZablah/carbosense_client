@@ -7,44 +7,76 @@ const Reports = () => {
     <div>
       <Container>
         <Row>
-          <Col className="mt-3 fw-bold fs-1 text-body">Reportes</Col>
+          <Col className="mt-3 fw-bold fs-1 text-center">Reportes</Col>
         </Row>
       </Container>
       <Container className="bg-extra m-3 p-4 w-100 rounded text-center mx-auto">
         <Row>
-          <Col className="text-start fs-6 fw-bold">Antes de:</Col>
-          <Col className="text-start fs-6 fw-bold">Tipo de ciclo:</Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col className="text-start mt-3 fs-6 fw-bold">Después de:</Col>
-          <Col className="text-start mt-3 fs-6 fw-bold">Horno:</Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col className="text-start mt-3 fs-6 fw-bold">Duración:</Col>
-          <Col className="text-start mt-3 fs-6 fw-bold">Pieza:</Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col />
-          <Col className="text-end">
+          <Col className="text-center fs-6 fw-bold">Antes de:</Col>
+          <Col>
+            <input type="date" />
+          </Col>
+          <Col className="text-center fs-6 fw-bold">Después de:</Col>
+          <Col>
+            <input type="date" />
+          </Col>
+          <Col className="text-center fs-6 fw-bold">Tipo de ciclo:</Col>
+          <Col className="text-center fs-6">
             <button
+              class="btn btn-white dropdown-toggle text-center"
               type="button"
-              className="ms-5 btn btn-extra mt-3 text-black fs-6"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
             >
-              Reiniciar filtros
+              Seleccionar tipos
             </button>
           </Col>
-          <Col className="text-start">
+          <Col />
+        </Row>
+        <Row>
+          <Col className="text-center mt-3 fs-6 fw-bold">Duración:</Col>
+          <Col>
+            <input type="number" class="form-control m-2 p-1 w-25" />
             <button
+              class="btn btn-white dropdown-toggle text-center col-8"
               type="button"
-              className="btn btn-primary mt-3 text-white fs-6"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
             >
-              Aplicar filtros
+              minutos
             </button>
           </Col>
+          <Col className="text-center mt-3 fs-6 fw-bold">Horno:</Col>
+          <Col className="text-center mt-3 fs-6">
+            <button
+              class="btn btn-white dropdown-toggle text-center"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Seleccionar horno
+            </button>
+          </Col>
+          <Col className="text-center mt-3 fs-6 fw-bold">Pieza:</Col>
+          <Col className="text-center mt-3 fs-6">
+            <button
+              class="btn btn-white dropdown-toggle text-center"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Seleccionar piezas
+            </button>
+          </Col>
+          <Col />
         </Row>
       </Container>
       <Container>
@@ -71,6 +103,15 @@ const Reports = () => {
             <td className="fs-6 text-center">Carburizado</td>
             <td className="fs-6 text-center">88</td>
             <td className="fs-6 text-center">768</td>
+          </tbody>
+          <tbody>
+            <td className="fs-6 text-center">2</td>
+            <td className="fs-6 text-center">02-03-2022 10:00:14</td>
+            <td className="fs-6 text-center">02-03-2022 22:00:14</td>
+            <td className="fs-6 text-center">12:00:00</td>
+            <td className="fs-6 text-center">Ecualización</td>
+            <td className="fs-6 text-center">88</td>
+            <td className="fs-6 text-center">780</td>
           </tbody>
         </Table>
       </Container>
