@@ -7,8 +7,11 @@ import Carburized from "./components/DashboardPhase";
 import Equalization from "./components/Equalization";
 import Diffusion from "./components/Diffusion";
 import Hardening from "./components/Hardening";
+import Summary from "./components/Summary";
+import Reports from "./components/Reports";
 import moment from "moment";
 import Alerts from "./components/Alerts";
+import ReportPhase from "./components/ReportPhase";
 import { Toaster } from "react-hot-toast";
 import DashboardPhase from "./components/DashboardPhase";
 import { useState } from "react";
@@ -60,6 +63,17 @@ const App = () => {
         <Route path="/graficas/:fase/horno/:horno" element={<DashboardPhase />} />
         <Route path="/alertas" element={<Alerts />} />
       </Routes>
+        <div className="w-100 p-2 bg-primary text-end text-white">@usuario</div>      
+        <div><Toaster/></div>  
+        <Routes>
+          <Route path ="/" element={<Dashboard/>}/>
+          <Route path ="/graficas/:id" element={<Graphs/>}/>
+          <Route path ="/graficas/:fase/horno/:horno" element={<DashboardPhase/>}/>
+          <Route path ="/alertas" element={<Alerts/>}/>
+          <Route path = "/resumen" element={<Summary/>}/>
+          <Route path = "/reportes" element={<Reports/>}/>
+          <Route path = "/reporte/fase" element={<ReportPhase/>}/>
+        </Routes>
     </div>
   );
 };
