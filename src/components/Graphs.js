@@ -213,7 +213,7 @@ const Graphs = () => {
               title={"Porcentaje de oxígeno"}
               yAxisTitle={"Porcentaje Oxígeno%"}
               toolTipSuffix={"%"}
-              yAxisMax={3}
+              yAxisMax={5}
               yAxisMin={0}
               ovenId={params.id}
             />
