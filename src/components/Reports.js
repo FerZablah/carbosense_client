@@ -33,23 +33,34 @@ const Reports = () => {
               Seleccionar tipos
             </button>
           </Col>
-          <Col />
         </Row>
         <Row>
           <Col className="text-center mt-3 fs-6 fw-bold">Duración:</Col>
+
           <Col>
-            <input type="number" class="form-control m-2 p-1 w-25" />
-            <button
-              class="btn btn-white dropdown-toggle text-center col-8"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              minutos
-            </button>
+            <div className="d-flex flex-row align-items-center justify-content-center h-100">
+              <select name="cars" id="cars">
+                <option value="volvo">{'>='}</option>
+              </select>
+             {/* <button
+                class="h-25 btn btn-white dropdown-toggle text-center"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {'>='}
+  </button> */}
+              <input type="number" className="mx-2 w-50" />
+              <select name="cars" id="cars">
+                <option value="volvo">{'minutos'}</option>
+              </select>
+            </div>
+
+
           </Col>
+
           <Col className="text-center mt-3 fs-6 fw-bold">Horno:</Col>
           <Col className="text-center mt-3 fs-6">
             <button
@@ -62,6 +73,7 @@ const Reports = () => {
             >
               Seleccionar horno
             </button>
+
           </Col>
           <Col className="text-center mt-3 fs-6 fw-bold">Pieza:</Col>
           <Col className="text-center mt-3 fs-6">
@@ -76,7 +88,6 @@ const Reports = () => {
               Seleccionar piezas
             </button>
           </Col>
-          <Col />
         </Row>
       </Container>
       <Container>

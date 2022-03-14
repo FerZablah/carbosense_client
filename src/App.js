@@ -41,7 +41,7 @@ const App = () => {
 
         <span className="closebtn text-white" style={{ mouse: 'pointer' }} onClick={() => setOpenedMenu(false)}>&times;</span>
         <a href="/">Inicio</a>
-        <a href="/">Reportes</a>
+        <a href="/reportes">Reportes</a>
         <a href="/alertas">Configuración alertas</a>
       </div>
       <Row className="justify-content-between bg-primary ">
@@ -57,13 +57,6 @@ const App = () => {
       </Row>
 
       <div><Toaster /></div>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/graficas/:id" element={<Graphs />} />
-        <Route path="/graficas/:fase/horno/:horno" element={<DashboardPhase />} />
-        <Route path="/alertas" element={<Alerts />} />
-      </Routes>
-        <div className="w-100 p-2 bg-primary text-end text-white">@usuario</div>      
         <div><Toaster/></div>  
         <Routes>
           <Route path ="/" element={<Dashboard/>}/>
