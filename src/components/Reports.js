@@ -14,11 +14,11 @@ const Reports = () => {
         <Row>
           <Col className="text-center fs-6 fw-bold">Antes de:</Col>
           <Col>
-            <input type="date" />
+            <input type="datetime-local" />
           </Col>
           <Col className="text-center fs-6 fw-bold">Después de:</Col>
           <Col>
-            <input type="date" />
+            <input type="datetime-local" />
           </Col>
           <Col className="text-center fs-6 fw-bold">Tipo de ciclo:</Col>
           <Col className="text-center fs-6">
