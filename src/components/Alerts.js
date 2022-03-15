@@ -83,7 +83,7 @@ const Alerts = (props) => {
             <button
               onClick={() => setShowAddModal(true)}
               type="button"
-              className="btn btn-secondary "
+              className="btn btn-primary text-white "
             >
               Agregar Recipiente
             </button>

@@ -130,7 +130,7 @@ const RecipientModal = ({ show, onHide, onSubmit, recipient }) => {
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>Cancelar</Button>
-                <Button variant="primary" onClick={() => {
+                <Button variant="primary text-white" onClick={() => {
                     if(name.length < 2){
                         toast.error("El nombre debe contener al menos 2 caracteres");
                         return;

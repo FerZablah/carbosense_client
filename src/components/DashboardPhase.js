@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
+import translatePhase from "../phasesDisplay";
 import DashboardChart from "./DashboardChart";
 
 const DashboardPhase = () => {
@@ -61,10 +62,10 @@ const DashboardPhase = () => {
         <Breadcrumb.Item onClick={() => navigate(`/graficas/${params.horno}`)}>
           Horno {params.horno}
         </Breadcrumb.Item>
-        <Breadcrumb.Item active>Fase de {params.fase}</Breadcrumb.Item>
+        <Breadcrumb.Item active>Fase de {translatePhase[params.fase]}</Breadcrumb.Item>
       </Breadcrumb>
       <Container className="w-25 p-3 fw-bold fs-3 bg-info text-center rounded-3 text-white mt-3">
-        Etapa de {params.fase}
+        Etapa de {translatePhase[params.fase]}
       </Container>
       <br></br>
       <Container>
