@@ -1,8 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Component } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import Select from "react-select";
+import { BsArrowClockwise } from "react-icons/bs";
 
-const Reports = () => {
+const Reports = (props) => {
+  const cycleType = [
+    { value: "carburizado", label: "Carburizado" },
+    { value: "temple", label: "Temple industrial" },
+  ];
+  const pieces = [
+    { value: "768", label: "768" },
+    { value: "780", label: "780" },
+  ];
+  const ovens = [{ value: "88", label: "88" }];
+  const signs = [{ value: ">=", label: ">=" }];
   return (
     <div>
       <Container>
@@ -21,71 +33,56 @@ const Reports = () => {
             <input type="datetime-local" />
           </Col>
           <Col className="text-center fs-6 fw-bold">Tipo de ciclo:</Col>
-          <Col className="text-center fs-6">
-            <button
-              class="btn btn-white dropdown-toggle text-center"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Seleccionar tipos
-            </button>
+          <Col>
+            <div className="">
+              <Select options={cycleType} />
+            </div>
           </Col>
         </Row>
         <Row>
           <Col className="text-center mt-3 fs-6 fw-bold">Duración:</Col>
-
           <Col>
             <div className="d-flex flex-row align-items-center justify-content-center h-100">
               <select name="cars" id="cars">
-                <option value="volvo">{'>='}</option>
+                <option value="volvo">{">="}</option>
               </select>
-             {/* <button
-                class="h-25 btn btn-white dropdown-toggle text-center"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                {'>='}
-  </button> */}
               <input type="number" className="mx-2 w-50" />
-              <select name="cars" id="cars">
-                <option value="volvo">{'minutos'}</option>
+              <select name="time" id="time">
+                <option value="time">{"minutos"}</option>
               </select>
             </div>
-
-
           </Col>
 
-          <Col className="text-center mt-3 fs-6 fw-bold">Horno:</Col>
-          <Col className="text-center mt-3 fs-6">
-            <button
-              class="btn btn-white dropdown-toggle text-center"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Seleccionar horno
-            </button>
-
+          <Col className="text-center mt-3 me-4 fs-6 fw-bold">Horno:</Col>
+          <Col>
+            <div className="mt-2">
+              <Select options={ovens} />
+            </div>
+            {/* <div className="d-flex flex-row align-items-center h-100">
+              <input type="number" className="w-50" />
+            </div> */}
           </Col>
-          <Col className="text-center mt-3 fs-6 fw-bold">Pieza:</Col>
-          <Col className="text-center mt-3 fs-6">
+          <Col className="text-center mt-3 fs-6 ms-4 fw-bold">Pieza:</Col>
+          <Col>
+            <div className="mt-2">
+              <Select options={pieces} />
+            </div>
+            {/* <div className="d-flex align-items-center h-100">
+              <input type="number" className="mx-4 w-50" />
+            </div> */}
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col className="mt-3 fw-bold fs-1 text-end">
+          <BsArrowClockwise size="20" className= "text-black" />
             <button
-              class="btn btn-white dropdown-toggle text-center"
+              className="btn btn-link text-black"
               type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+              // onClick={}
             >
-              Seleccionar piezas
+              Reiniciar filtros
             </button>
           </Col>
         </Row>
