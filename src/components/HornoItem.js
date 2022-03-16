@@ -45,6 +45,7 @@ function Horno(props) {
         </Col>
         <Col></Col>
         <Col className="p-2 text-center fs-1 fw-bold text-black rounded">
+          {/* se reciben segundos y se cambia al formato */}
           {moment.utc(props.cycleTime * 1000).format("HH:mm:ss")}
         </Col>
       </Row>

@@ -22,6 +22,7 @@ const Reports = (props) => {
   // const [lengthOperator, setLengthOperator] = useState(null);
   // const [lengthNumber, setLengthNumber] = useState(null);
 
+  //"escucha" cambios de variables, no se necesita un boton de buscar
   const searchReports = useCallback(async () => {
     setLoading(true);
     const res = await axios.get(`http://localhost:4000/report`, {

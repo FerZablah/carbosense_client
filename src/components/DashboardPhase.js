@@ -52,7 +52,7 @@ const DashboardPhase = () => {
   }, []);
 
   if(!phase || !mainCameraLimitReadings || !carbonLimitReadings) {
-    return null;
+    return null; //no se renderiza la pantalla
   }
   const phaseDuration = Math.abs(moment(phase.start).diff(phase.end ? moment(phase.end) : now(), "minutes"));
   return (

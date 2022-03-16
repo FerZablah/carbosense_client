@@ -18,8 +18,8 @@ const plotBandExceededColors = ['#F92718', '#D92100', '#B81A01', '#8F1200', '#61
 const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, realSeries, expectedSeries, maxLimitSeries, minLimitSeries, title, yAxisTitle, toolTipSuffix, yAxisMax, showPlotbandsButton, yAxisMin, ovenId, onPlotBandClick }) => {
   const [plotBandsToShow, setPlotBandsToShow] = useState('real');
   const navigate = useNavigate();
-  if (!expectedPlotBands) return null;
-  if(!realSeries ||  (realSeries && realSeries.length === 0)) return null;
+  if (!expectedPlotBands) return null; //no se renderiza la grafica
+  if(!realSeries ||  (realSeries && realSeries.length === 0)) return null; //no se renderiza la grafica
   return (
     <div className='p-0'>
       <div className='p-3'>
@@ -38,6 +38,7 @@ const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, real
       <HighchartsProvider Highcharts={Highcharts}>
 
         <HighchartsChart time={{ timezone: 'America/Monterrey'}}>
+          {/* amarillo en el contorno del plotband */}
           <Chart styledMode/>
 
           <Legend layout="horizontal" align="center" verticalAlign="bottom" />

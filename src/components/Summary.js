@@ -110,7 +110,7 @@ const Summary = () => {
     const mainTempReadings = mainCameraData.realReadings.map(reading => {
       return [moment(reading[0]).format("YYYY-MM-DD HH:mm:ss"), reading[1]]
     })
-    const mainTempRealDataSheet = utils.aoa_to_sheet(mainTempReadings);
+    const mainTempRealDataSheet = utils.aoa_to_sheet(mainTempReadings); //aoa en vez de json; es una matriz
     const carbonReadings = carbonData.realReadings.map(reading => {
       return [moment(reading[0]).format("YYYY-MM-DD HH:mm:ss"), reading[1]]
     })

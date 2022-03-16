@@ -12,6 +12,7 @@ const parseDate = (dateString) => {
 }
 
 const getDatesDuration = (start, end) => {
+  //calcular la duracion del ciclo
   let diff = end.diff(start);
   return moment.utc(diff).format("HH:mm:ss");
 }
@@ -24,20 +25,21 @@ function usePrevious(value) {
   return ref.current;
 }
 
+//componente de graficas
 const Graphs = () => {
-  const params = useParams();
-  const navigate = useNavigate();
+  const params = useParams(); //acceder a parametros de la url
+  const navigate = useNavigate(); //navegar a otra parte del sitio
 
-  const [cycle, setCycle] = useState(null);
-  const [realPlotBands, setRealPlotBands] = useState(null);
-  const [expectedPlotBands, setExpectedPlotBands] = useState(null);
+  const [cycle, setCycle] = useState(null); //metadatos del ciclo: hora inicio, hora fin etc.. 
+  const [realPlotBands, setRealPlotBands] = useState(null); //plotbands reales: secciones de las fases del ciclo
+  const [expectedPlotBands, setExpectedPlotBands] = useState(null); //plotbands esperados
 
   //Main camera temperature hooks
-  const [realMainSeries, setRealMainSeries] = useState(null);
-  const [expectedMainSeries, setExpectedMainSeries] = useState(null);
-  const [maxMainLimitSeries, setMaxMainLimitSeries] = useState(null);
-  const [minMainLimitSeries, setMinMainLimitSeries] = useState(null);
-  const [mainTempExceededPhases, setMainTempExceededPhases] = useState(new Set());
+  const [realMainSeries, setRealMainSeries] = useState(null); //datos de la serie de datos reales
+  const [expectedMainSeries, setExpectedMainSeries] = useState(null);  // datos de la serie de datos esperados
+  const [maxMainLimitSeries, setMaxMainLimitSeries] = useState(null); //limite maximo
+  const [minMainLimitSeries, setMinMainLimitSeries] = useState(null); //limite minimo
+  const [mainTempExceededPhases, setMainTempExceededPhases] = useState(new Set()); //fases excedidas, se usa un set para no tener que loopear el arreglo
 
   //Oxygen percentage hooks
   const [realOxygenSeries, setRealOxygenSeries] = useState(null);
@@ -49,14 +51,15 @@ const Graphs = () => {
   //Temple camera hooks
   const [realTempleSeries, setRealTempleSeries] = useState(null);
   const [expectedTempleSeries, setExpectedTempleSeries] = useState(null);
-  const [templePlotBand, setTemplePlotBand] = useState([]);
+  const [templePlotBand, setTemplePlotBand] = useState([]); //solo se detecta el tempe, peticion del cliente
   const [maxTempleLimitSeries, setMaxTempleLimitSeries] = useState(null);
   const [minTempleLimitSeries, setMinTempleLimitSeries] = useState(null);
-  const [templeExceeded, setTempleExceeded] = useState(false);
+  const [templeExceeded, setTempleExceeded] = useState(false); //si el temple se excede de los limites
 
   const prevCycle = usePrevious(cycle);
 
   const getDashboardData = async () => {
+    //llamada al back con la informacion del ciclo
     const res = await axios.get(`http://localhost:4000/dashboard/oven/${params.id}`);
     setCycle(res.data.cycle);
     //Only update the series if there exists data
@@ -198,6 +201,7 @@ const Graphs = () => {
               toolTipSuffix={"°C"}
               yAxisMax={1200}
               ovenId={params.id}
+              // saber a que ventana dirigir
               onPlotBandClick={(plotBand) => {
                 navigate(`/graficas/${plotBand}/horno/${params.id}`)
               }}

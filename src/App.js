@@ -19,6 +19,7 @@ import { Col, Row } from "react-bootstrap";
 import { BsPersonCircle } from "react-icons/bs";
 import logo from './logo.png';
 
+//libreria para manejar fechas y horas.
 moment.locale('es', {
   months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
   monthsShort: 'Enero_Feb_Mar_Abr_May_Jun_Jul_Ago_Sept_Oct_Nov_Dec'.split('_'),
@@ -29,6 +30,7 @@ moment.locale('es', {
 );
 
 const App = () => {
+  // menu de hamburguesa
   const [openedMenu, setOpenedMenu] = useState(false);
 
   return (
@@ -55,9 +57,7 @@ const App = () => {
           </div>
         </Col>
       </Row>
-
       <div><Toaster /></div>
-        <div><Toaster/></div>  
         <Routes>
           <Route path ="/" element={<Dashboard/>}/>
           <Route path ="/graficas/:id" element={<Graphs/>}/>
