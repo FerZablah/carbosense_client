@@ -19,18 +19,19 @@ function Hornos(props) {
             cycleTime={horno.cycleTime}
           />
         ))}
-        {/* <HornoItem
-        hornoID={props.item[0].hornoID}
-        horno_temperatura={props.item[0].horno_temperatura}
-        horno_porcentaje={props.item[0].horno_porcentaje}
-        horno_tiempo={props.item[0].horno_tiempo}
-      />
-      <HornoItem
-        hornoID={props.item[1].hornoID}
-        horno_temperatura={props.item[1].horno_temperatura}
-        horno_porcentaje={props.item[1].horno_porcentaje}
-        horno_tiempo={props.item[1].horno_tiempo}
-      /> */}
+        <HornoItem
+            hornoID={90}
+            horno_temperatura={828}
+            horno_porcentaje={`2%`}
+            cycleTime={new Date()}
+          />
+          <HornoItem
+            hornoID={92}
+            horno_temperatura={830}
+            horno_porcentaje={`1.7%`}
+            cycleTime={new Date()}
+          />
+        
       </div>
     </div>
   );

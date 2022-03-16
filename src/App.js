@@ -63,9 +63,9 @@ const App = () => {
           <Route path ="/graficas/:id" element={<Graphs/>}/>
           <Route path ="/graficas/:fase/horno/:horno" element={<DashboardPhase/>}/>
           <Route path ="/alertas" element={<Alerts/>}/>
-          <Route path = "/resumen" element={<Summary/>}/>
           <Route path = "/reportes" element={<Reports/>}/>
-          <Route path = "/reportes/fase" element={<ReportPhase/>}/>
+          <Route path = "/reportes/:ciclo" element={<Summary/>}/>
+          <Route path = "/reportes/ciclo/:ciclo/fase/:fase" element={<ReportPhase/>}/>
         </Routes>
     </div>
   );

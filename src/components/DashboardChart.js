@@ -15,10 +15,9 @@ window.moment = moment
 const plotBandExceededColors = ['#F92718', '#D92100', '#B81A01', '#8F1200', '#610901'];
 
 
-const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, realSeries, expectedSeries, maxLimitSeries, minLimitSeries, title, yAxisTitle, toolTipSuffix, yAxisMax, showPlotbandsButton, yAxisMin, ovenId }) => {
+const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, realSeries, expectedSeries, maxLimitSeries, minLimitSeries, title, yAxisTitle, toolTipSuffix, yAxisMax, showPlotbandsButton, yAxisMin, ovenId, onPlotBandClick }) => {
   const [plotBandsToShow, setPlotBandsToShow] = useState('real');
   const navigate = useNavigate();
-  console.log(translatePhase);
   if (!expectedPlotBands) return null;
   if(!realSeries ||  (realSeries && realSeries.length === 0)) return null;
   return (
@@ -49,7 +48,7 @@ const DashboardChart = ({ realPlotBands, expectedPlotBands, exceededPhases, real
             {
               (plotBandsToShow === 'expected' ? expectedPlotBands : realPlotBands).map((plotBand, index) => {
                 return (
-                  <PlotBand events={{click: (e) => navigate(`/graficas/${plotBand.label.text}/horno/${ovenId}`)}} key={index} from={plotBand.from} to={plotBand.to} color={exceededPhases.has(plotBand.label.text) ? plotBandExceededColors[index] : plotBand.color} label={{...plotBand.label, text: translatePhase[plotBand.label.text] }} />
+                  <PlotBand events={{click: (e) => onPlotBandClick(plotBand.label.text)}} key={index} from={plotBand.from} to={plotBand.to} color={exceededPhases.has(plotBand.label.text) ? plotBandExceededColors[index] : plotBand.color} label={{...plotBand.label, text: translatePhase[plotBand.label.text] }} />
                 )
               })
             }

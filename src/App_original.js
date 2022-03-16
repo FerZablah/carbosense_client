@@ -28,7 +28,6 @@ const App = () => {
 
   const addHornoHandler = (hornos) => {
     
-    console.log(hornos);
     setHornos((prevHornos) => {
       return [hornos, ...prevHornos];
     });

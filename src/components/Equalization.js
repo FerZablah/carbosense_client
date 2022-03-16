@@ -99,7 +99,7 @@ const Equalization = () => {
   return (
     <div>
             <Container className="w-75 p-3 fw-bold fs-1 bg-info text-center text-white rounded-pill mt-3">
-        Etapa de Equalización
+        Etapa de Ecualización
       </Container>
       <br></br>
       <Container>

@@ -198,6 +198,9 @@ const Graphs = () => {
               toolTipSuffix={"°C"}
               yAxisMax={1200}
               ovenId={params.id}
+              onPlotBandClick={(plotBand) => {
+                navigate(`/graficas/${plotBand}/horno/${params.id}`)
+              }}
             />
           </Col>
           <Col md={6} className="rounded-3">
@@ -210,12 +213,15 @@ const Graphs = () => {
               expectedSeries={expectedOxygenSeries}
               maxLimitSeries={maxOxygenLimitSeries}
               minLimitSeries={minOxygenLimitSeries}
-              title={"Porcentaje de oxígeno"}
-              yAxisTitle={"Porcentaje Oxígeno%"}
+              title={"Porcentaje de carbono"}
+              yAxisTitle={"Porcentaje carbono%"}
               toolTipSuffix={"%"}
               yAxisMax={5}
               yAxisMin={0}
               ovenId={params.id}
+              onPlotBandClick={(plotBand) => {
+                navigate(`/graficas/${plotBand}/horno/${params.id}`)
+              }}
             />
           </Col>
           
@@ -235,6 +241,9 @@ const Graphs = () => {
                 yAxisMax={90}
                 yAxisMin={20}
                 ovenId={params.id}
+                onPlotBandClick={(plotBand) => {
+                  navigate(`/graficas/${plotBand}/horno/${params.id}`)
+                }}
               />
           }
           </Col>

@@ -53,3 +53,17 @@
   top: 0;
   left: 0;
 }
+
+.table-row:hover{
+  background-color: #d84241;
+  cursor: pointer;
+  color: white;
+}
+
+.table-row:hover > td{
+  color: inherit !important;
+}
+
+.hoverable:hover{
+  cursor: pointer;
+}
