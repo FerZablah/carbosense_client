@@ -151,11 +151,14 @@ const Summary = () => {
       <Container>
         <div className="d-flex flex-row justify-content-center align-items-center w-100 position-relative" >
           <span className="fw-bold fs-4 text-center">Resumen del ciclo</span>
-          <BsDownload role="button" size="20" style={{ position: 'absolute', top: 0, right: 0 }} onClick={() => setShowDownloadButton(!showDownloadButton)}/>
+          <div role="button" onClick={() => setShowDownloadButton(!showDownloadButton)} className="position-absolute top-0 end-0 d-flex justify-content-around bg-primary text-white p-1 rounded-3 align-items-center" style={{width: 120}}>
+            <span>Descargar</span>  
+            <BsDownload size="20" />
+          </div>
           {showDownloadButton &&
             <div style={{ position: 'absolute', top: 0, right: 0 }}>
               <div className="d-flex justify-content-end text-black rounded-3 hoverable" onClick={() => setShowDownloadButton(!showDownloadButton)}>
-                <AiFillCloseCircle size="25" className="mx-2 bg-white"/>
+                <AiFillCloseCircle size="25" className="mx-2 bg-white rounded-pill"/>
               </div>
               <div className="d-flex justify-content-between bg-primary text-white p-2 m-2 rounded-3 hoverable">
                 <span>Descargar CSV</span>

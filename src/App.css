@@ -67,3 +67,13 @@
 .hoverable:hover{
   cursor: pointer;
 }
+
+.user-account:hover{
+  background-color: #818181;
+  transition: 0.5s;
+}
+
+.oven-item:hover{
+  transform: scale(1.03);
+  transition: 0.5s;
+}

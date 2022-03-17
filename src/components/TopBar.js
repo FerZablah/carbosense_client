@@ -33,7 +33,7 @@ const TopBar = () => {
                     <span style={{ fontSize: '30px', cursor: 'pointer' }} className="text-white mx-3" onClick={() => setOpenedMenu(true)}>&#9776;</span>
                 </Col>
                 <Col className="position-relative" md={2}>
-                    <div style={{ cursor: 'pointer' }} onClick={() => setShowLogout(!showLogout)} className="d-flex justify-content-center  align-items-center h-100">
+                    <div style={{ cursor: 'pointer' }} onClick={() => setShowLogout(!showLogout)} className="d-flex justify-content-center  align-items-center h-100 user-account">
                         <BsPersonCircle size="30" className="ms-3 text-white mx-2" />
                         <span className="text-white">@{alias}</span>
                     </div>
