@@ -104,23 +104,23 @@ const DashboardPhase = () => {
           </Col>
           <Col>
             <Container>
-              <Row className="text-black fs-6 text-start mt-3">
+              <Row className="text-black fs-4 text-start mt-3">
                 <span>Fecha y hora inicio: <strong>{moment(phase.start).format("MMMM DD YYYY; hh:mm A")}</strong></span>
               </Row>
-              <Row className="text-black fs-6 text-start mt-5">
+              <Row className="text-black fs-4 text-start mt-5">
                 <span>Fecha y hora fin: <strong>{phase.end ? moment(phase.end).format("MMMM DD YYYY; hh:mm A") : '-'}</strong></span>
               </Row>
-              <Row className="text-black fs-6 text-start mt-5">
+              <Row className="text-black fs-4 text-start mt-5">
                 
                 <span> Temperatura promedio: <strong>{avgTemperature} °C</strong></span>
 
               </Row>
-              <Row className="text-black fs-6 text-start mt-5">
+              <Row className="text-black fs-4 text-start mt-5">
                 
                 <span>Porcentaje de Carbono: <strong>{avgCarbon}  %</strong></span>
 
               </Row>
-              <Row className="text-black fs-6 text-start mt-5">
+              <Row className="text-black fs-4 text-start mt-5">
                 <span>Duración de la etapa:  <strong>{phaseDuration} minutos</strong></span>
               </Row>
             </Container>
