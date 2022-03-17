@@ -104,7 +104,7 @@ const ReportPhase = () => {
             yAxisMin={0}
             ovenId={params.ciclo}
           />
-          <span className="fw-bold fs-5 text-body text-center">Porcentaje oxígeno</span>
+          <span className="fw-bold fs-5 text-body text-center">Porcentaje carbono</span>
           </Col>
         </Row>
         <Row>

@@ -2,11 +2,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Graphs from "./components/Graphs";
-import Heating from "./components/Heating";
-import Carburized from "./components/DashboardPhase";
-import Equalization from "./components/Equalization";
-import Diffusion from "./components/Diffusion";
-import Hardening from "./components/Hardening";
 import Summary from "./components/Summary";
 import Reports from "./components/Reports";
 import moment from "moment";
@@ -14,10 +9,9 @@ import Alerts from "./components/Alerts";
 import ReportPhase from "./components/ReportPhase";
 import { Toaster } from "react-hot-toast";
 import DashboardPhase from "./components/DashboardPhase";
-import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { BsPersonCircle } from "react-icons/bs";
-import logo from './logo.png';
+import Login from "./components/Login";
+import ProtectedRoute from "./ProtectedRoute";
+import TopBar from "./components/TopBar";
 
 //libreria para manejar fechas y horas.
 moment.locale('es', {
@@ -30,43 +24,78 @@ moment.locale('es', {
 );
 
 const App = () => {
-  // menu de hamburguesa
-  const [openedMenu, setOpenedMenu] = useState(false);
 
   return (
     <div>
-      <div id="mySidenav" style={{ width: openedMenu ? 250 : 0 }} className="sidenav">
-        
-        <span className="logo" > 
-          <img src={logo} alt="logo" height={30} />
-        </span>
 
-        <span className="closebtn text-white" style={{ mouse: 'pointer' }} onClick={() => setOpenedMenu(false)}>&times;</span>
-        <a href="/">Inicio</a>
-        <a href="/reportes">Reportes</a>
-        <a href="/alertas">Configuración alertas</a>
-      </div>
-      <Row className="justify-content-between bg-primary ">
-        <Col md={4}>
-          <span style={{ fontSize: '30px', cursor: 'pointer' }} className="text-white mx-3" onClick={() => setOpenedMenu(true)}>&#9776;</span>
-        </Col>
-        <Col md={2}>
-          <div className="d-flex justify-content-center  align-items-center h-100">
-            <BsPersonCircle size="30" className="ms-3 text-white mx-2" />
-            <span className="text-white">@Zablah</span>
-          </div>
-        </Col>
-      </Row>
       <div><Toaster /></div>
-        <Routes>
-          <Route path ="/" element={<Dashboard/>}/>
-          <Route path ="/graficas/:id" element={<Graphs/>}/>
-          <Route path ="/graficas/:fase/horno/:horno" element={<DashboardPhase/>}/>
-          <Route path ="/alertas" element={<Alerts/>}/>
-          <Route path = "/reportes" element={<Reports/>}/>
-          <Route path = "/reportes/:ciclo" element={<Summary/>}/>
-          <Route path = "/reportes/ciclo/:ciclo/fase/:fase" element={<ReportPhase/>}/>
-        </Routes>
+      <Routes>
+
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/graficas/:id"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <Graphs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/graficas/:fase/horno/:horno"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <DashboardPhase />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/alertas"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <Alerts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reportes"
+          element={
+            <ProtectedRoute>
+
+              <Reports />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reportes/:ciclo"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <Summary />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reportes/ciclo/:ciclo/fase/:fase"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <ReportPhase />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
   );
 };

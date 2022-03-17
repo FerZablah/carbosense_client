@@ -58,7 +58,7 @@ const DashboardPhase = () => {
   return (
     <div>
       <Breadcrumb className="p-3">
-        <Breadcrumb.Item href="#">Inicio</Breadcrumb.Item>
+        <Breadcrumb.Item href="/">Inicio</Breadcrumb.Item>
         <Breadcrumb.Item onClick={() => navigate(`/graficas/${params.horno}`)}>
           Horno {params.horno}
         </Breadcrumb.Item>

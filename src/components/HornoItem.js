@@ -14,7 +14,7 @@ function Horno(props) {
     <Container
       onClick={clickHandler}
       type="button"
-      className="bg-extra m-3 p-5 w-100 rounded text-center mx-auto"
+      className="bg-white m-3 p-5 w-100 rounded text-center mx-auto"
     >
       <Row>
         <Col className="text-black fs-4">ID del horno</Col>
