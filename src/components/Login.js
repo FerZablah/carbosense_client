@@ -33,7 +33,7 @@ const Login = () => {
                     </div>
                     <div className="mb-3 mt-3">
                         <label for="exampleFormControlInput1" className="form-label">Contraseña</label>
-                        <input type="password"  onChange={(e) => setPassword(e.target.value)}  className="form-control" id="password" />
+                        <input type="password"  onChange={(e) => setPassword(e.target.value)}  className="form-control" id="password"/>
                     </div>
                     <button type="submit" onClick={signIn} className="btn btn-primary mb-3 text-white w-100">Iniciar sesión</button>
                     <button type="button"  className="btn btn-link">¿Olvidaste tu contraseña?</button>
@@ -41,7 +41,7 @@ const Login = () => {
                 </Col>
                 <Col className="bg-primary  rounded-3 m-0 text-center position-relative" md={6}>
                     <div className="bg-white rounded-3 position-absolute translate-middle top-50 start-50 w-50 h-50 d-flex flex-column justify-content-evenly align-items-center ">
-                        <img src={logo} alt="logo" height={50} />
+                        <img src={logo} alt="logo" height={45} />
                         <span className="fs-4">Carbosense</span>
                     </div>
                 </Col>
