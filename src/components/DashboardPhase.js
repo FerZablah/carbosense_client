@@ -117,7 +117,7 @@ const DashboardPhase = () => {
               </Row>
               <Row className="text-black fs-6 text-start mt-5">
                 
-                <span>Porcentaje de Carbono: <strong>{avgCarbon}  %</strong></span>
+                <span>Porcentaje promedio de carbono: <strong>{avgCarbon}  %</strong></span>
 
               </Row>
               <Row className="text-black fs-6 text-start mt-5">
