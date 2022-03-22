@@ -60,6 +60,21 @@ const Summary = () => {
     setPhasesData(res.data.phasesData);
   }, [params.ciclo])
 
+  const downloadCSV = () => {
+    axios({
+      url: `http://localhost:4000/report/${params.ciclo}/csv`,
+      method: 'GET',
+      responseType: 'blob', // important
+  }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'reportes.zip'); 
+      document.body.appendChild(link);
+      link.click();
+  });
+  }
+
   const downloadExcel = () => {
     const summarySheet = utils.json_to_sheet([{
       "Ciclo": cycle.id,
@@ -160,7 +175,7 @@ const Summary = () => {
               <div className="d-flex justify-content-end text-black rounded-3 hoverable" onClick={() => setShowDownloadButton(!showDownloadButton)}>
                 <AiFillCloseCircle size="25" className="mx-2 bg-white rounded-pill"/>
               </div>
-              <div className="d-flex justify-content-between bg-primary text-white p-2 m-2 rounded-3 hoverable">
+              <div className="d-flex justify-content-between bg-primary text-white p-2 m-2 rounded-3 hoverable" onClick={downloadCSV}>
                 <span>Descargar CSV</span>
                 <FaFileCsv size="25" className="mx-2" />
               </div>
