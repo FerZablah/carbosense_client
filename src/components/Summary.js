@@ -44,7 +44,7 @@ const Summary = () => {
     })
     setMainCameraData({
       expectedReadings: res.data.expectedData.mainCameraExpectedReadings,
-      limitReadings: res.data.expectedData.templeCameraLimitReadings,
+      limitReadings: res.data.expectedData.mainCameraLimitReadings,
       realReadings: res.data.realData.mainCamera,
       exceededPhases: new Set(res.data.realData.mainTempExceededPhases)
     })
