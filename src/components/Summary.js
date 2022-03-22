@@ -171,7 +171,7 @@ const Summary = () => {
             <BsDownload size="20" />
           </div>
           {showDownloadButton &&
-            <div style={{ position: 'absolute', top: 0, right: 0 }}>
+            <div style={{position: 'absolute', top: 0, right: 0 }}>
               <div className="d-flex justify-content-end text-black rounded-3 hoverable" onClick={() => setShowDownloadButton(!showDownloadButton)}>
                 <AiFillCloseCircle size="25" className="mx-2 bg-white rounded-pill"/>
               </div>
