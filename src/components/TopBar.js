@@ -27,7 +27,7 @@ const TopBar = () => {
                 <a href="/">Inicio</a>
                 <a href="/reportes">Reportes</a>
                 <a href="/alertas">Configuración alertas</a>
-                {/* <a href="/seleccion">Selección de hornos</a> */}
+                <a href="/seleccion">Selección de hornos</a>
             </div>
             <Row className="justify-content-between bg-primary ">
                 <Col md={4}>

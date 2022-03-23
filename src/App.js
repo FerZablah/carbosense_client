@@ -12,6 +12,7 @@ import DashboardPhase from "./components/DashboardPhase";
 import Login from "./components/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import TopBar from "./components/TopBar";
+import Ovens from "./components/Ovens";
 
 //libreria para manejar fechas y horas.
 moment.locale('es', {
@@ -91,6 +92,15 @@ const App = () => {
             <ProtectedRoute>
               <TopBar />
               <ReportPhase />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/seleccion"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <Ovens />
             </ProtectedRoute>
           }
         />
