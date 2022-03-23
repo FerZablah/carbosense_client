@@ -10,6 +10,8 @@ import axios from "axios";
 import moment from "moment";
 import DashboardChart from "./DashboardChart";
 import {writeFile, utils} from 'xlsx';
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const Summary = () => {
   const getValueColor = (value) => {
@@ -61,6 +63,8 @@ const Summary = () => {
   }, [params.ciclo])
 
   const downloadCSV = () => {
+    setShowDownloadButton(false)
+
     axios({
       url: `http://localhost:4000/report/${params.ciclo}/csv`,
       method: 'GET',
@@ -147,15 +151,31 @@ const Summary = () => {
     writeFile(new_workbook, "Ciclo.xlsx");
     setShowDownloadButton(false)
   }
+
+  const downloadPDF = () => {
+    setShowDownloadButton(false)
+    //Wait for button to close
+    setTimeout(() => {
+      const quality = 1 // Higher the better but larger file
+      document.getElementById('download-button').style.setProperty('display', 'none', 'important');
+      html2canvas(document.querySelector('#pdf-container'),
+          { scale: quality }
+      ).then(canvas => {
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
+          pdf.save('reporte.pdf');
+          document.getElementById('download-button').style.setProperty('display', 'flex', 'important')
+      });
+    }, 1000);
+  }
   //On Load
   useEffect(() => {
     getCycle();
     
   }, [getCycle]);
   if (!cycle || !carbonData || !expectedPlotBands || !realPlotBands || !mainCameraData || !phasesData || !templeData) return null;
-  console.log(templeData);
   return (
-    <div>
+    <div id="pdf-container">
       <Breadcrumb className="p-3">
         <Breadcrumb.Item onClick={() => navigate(`/reportes`)}>Reportes</Breadcrumb.Item>
         <Breadcrumb.Item active>
@@ -166,7 +186,7 @@ const Summary = () => {
       <Container>
         <div className="d-flex flex-row justify-content-center align-items-center w-100 position-relative" >
           <span className="fw-bold fs-4 text-center">Resumen del ciclo</span>
-          <div role="button" onClick={() => setShowDownloadButton(!showDownloadButton)} className="position-absolute top-0 end-0 d-flex justify-content-around bg-primary text-white p-1 rounded-3 align-items-center" style={{width: 120}}>
+          <div id="download-button" role="button" onClick={() => setShowDownloadButton(!showDownloadButton)} className="position-absolute top-0 end-0 d-flex justify-content-around bg-primary text-white p-1 rounded-3 align-items-center" style={{width: 120}}>
             <span>Descargar</span>  
             <BsDownload size="20" />
           </div>
@@ -183,7 +203,7 @@ const Summary = () => {
                 <span>Descargar Excel</span>
                 <FaFileExcel size="25" className="mx-2" />
               </div>
-              <div className="d-flex justify-content-between bg-primary text-white p-2 m-2 rounded-3 hoverable">
+              <div className="d-flex justify-content-between bg-primary text-white p-2 m-2 rounded-3 hoverable" onClick={downloadPDF}>
                 <span>Descargar PDF</span>
                 <FaFilePdf size="25" className="mx-2" />
               </div>
@@ -271,7 +291,7 @@ const Summary = () => {
         <Row>
 
           <Col>
-            <Table striped bordered hover size="sm" className="mt-4">
+            <Table id="data-table" striped bordered hover size="sm" className="mt-4">
               <thead>
                 <tr>
                   <th className="text-center fs-6">Parámetros Horno</th>
