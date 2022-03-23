@@ -12,6 +12,8 @@
     "email-validator": "^2.0.4",
     "highcharts": "^9.3.3",
     "highcharts-react-official": "^3.1.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.isequal": "^4.5.0",
     "moment": "^2.29.1",
