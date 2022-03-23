@@ -122,7 +122,7 @@ const ReportPhase = () => {
                 <td className="fs-6 text-center">% Carbono</td>
                 <td className="fs-6 text-center">{phase.expectedCarbon}%</td>
                 <td className="fs-6 text-center fw-bold">{phase.avgCarbon}%</td>
-                <td className="fs-6 text-center fw-bold" style={{ color: getValueColor(phase.carbonDeviation) }}>{phase.carbonDeviation}%</td>
+                <td className="fs-6 text-center fw-bold" style={{ color: getValueColor(phase.carbonDeviation)}}>{phase.carbonDeviation}%</td>
               </tbody>
               <tbody>
                 <td className="fs-6 text-center">Temperatura</td>

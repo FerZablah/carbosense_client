@@ -54,7 +54,20 @@ const Reports = (props) => {
     { value: "780", label: "780" },
   ];
   const ovens = [{ value: "88", label: "88" }, { value: "90", label: "90" }];
-
+  
+  // if (!reports) {
+  //   return (
+  //     <div>
+  //       <Breadcrumb className="p-3">
+  //         <Breadcrumb.Item onClick={() => navigate(`/`)}>Inicio</Breadcrumb.Item>
+  //         <Breadcrumb.Item active>
+  //           Horno {params.id}
+  //         </Breadcrumb.Item>
+  //       </Breadcrumb>
+  //       <Spinner className="center p-4" animation="border" role="status" />
+  //       <h1 className="text-center p-4">No hay un reporte registrado</h1>
+  //     </div>
+  //   )
   return (
     <div>
 
@@ -114,24 +127,6 @@ const Reports = (props) => {
           </Col>
         </Row>
         <Row>
-          {/*}
-          <Col md={1} className="text-center mt-3 fs-6 fw-bold">Duración:</Col>
-          <Col md={3}>
-            <div className="d-flex flex-row align-items-center justify-content-center h-100">
-              <select name="cars" id="cars">
-                <option value=">=">{">="}</option>
-                <option value=">">{">"}</option>
-                <option value="<=">{"<="}</option>
-                <option value="<">{"<"}</option>
-                <option value="=">{"="}</option>
-              </select>
-              <input type="number" className="mx-2 w-50" />
-              <select name="time" id="time">
-                <option value="time">{"minutos"}</option>
-              </select>
-            </div>
-          </Col>
-          */}
           <Col md={1} className="text-center mt-3 fs-6 fw-bold">Horno:</Col>
           <Col md={3}>
             <div className="mt-2">
@@ -139,18 +134,12 @@ const Reports = (props) => {
                 setSelectedOvens(newValue.map((item) => item.value));
               }} />
             </div>
-            {/* <div className="d-flex flex-row align-items-center h-100">
-              <input type="number" className="w-50" />
-            </div> */}
           </Col>
           <Col md={1} className="text-center mt-3 fs-6 fw-bold">No. Parte:</Col>
           <Col md={3}>
             <div className="mt-2">
               <Select isDisabled placeholder="Seleccionar No. parte(s)" isClearable isMulti options={pieces} />
             </div>
-            {/* <div className="d-flex align-items-center h-100">
-              <input type="number" className="mx-4 w-50" />
-            </div> */}
           </Col>
         </Row>
       </Container>
