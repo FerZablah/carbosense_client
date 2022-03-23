@@ -22,12 +22,12 @@ const Ovens = () => {
     <div>
       <Breadcrumb className="p-3">
       <Breadcrumb.Item href="/">Inicio</Breadcrumb.Item>
-        <Breadcrumb.Item active>Selección de hornos</Breadcrumb.Item>
+        <Breadcrumb.Item active>Selección de recetas de hornos</Breadcrumb.Item>
       </Breadcrumb>
       <Container>
         <Row>
           <Col className="mt-3 fw-bold fs-1 text-center">
-            Selección de Hornos
+            Selección de Recetas de Hornos
           </Col>
         </Row>
       </Container>
@@ -73,7 +73,7 @@ const Ovens = () => {
       <Container>
         {/* <Modal> */}
           <Modal.Header>
-            <Modal.Title>Selección de hornos</Modal.Title>
+            <Modal.Title>Selección de recetas de hornos</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             ¿Estás seguro que quieres seleccionar la pieza{" "}
