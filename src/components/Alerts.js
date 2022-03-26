@@ -59,8 +59,8 @@ const Alerts = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Eliminar recipiente</Modal.Title>
         </Modal.Header>
-        <Modal.Body>¿Estas seguro que quieres eliminar a <strong>{recipientToDelete && recipientToDelete.name}</strong> como recipiente de alertas? </Modal.Body>
-        <Modal.Body>Al eliminarlo, este recipiente ya no recibira futuras alertas.</Modal.Body>
+        <Modal.Body>¿Estás seguro que quieres eliminar a <strong>{recipientToDelete && recipientToDelete.name}</strong> como recipiente de alertas? </Modal.Body>
+        <Modal.Body>Al eliminarlo, este recipiente ya no recibirá futuras alertas.</Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
