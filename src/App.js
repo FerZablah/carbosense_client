@@ -12,25 +12,28 @@ import DashboardPhase from "./components/DashboardPhase";
 import Login from "./components/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import TopBar from "./components/TopBar";
+import ResetPassword from "./components/ResetPassword";
 
 //libreria para manejar fechas y horas.
-moment.locale('es', {
-  months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
-  monthsShort: 'Enero_Feb_Mar_Abr_May_Jun_Jul_Ago_Sept_Oct_Nov_Dec'.split('_'),
-  weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
-  weekdaysShort: 'Dom_Lun_Mar_Mie._Jue_Vier_Sab'.split('_'),
-  weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
-}
-);
+moment.locale("es", {
+  months:
+    "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split(
+      "_"
+    ),
+  monthsShort: "Enero_Feb_Mar_Abr_May_Jun_Jul_Ago_Sept_Oct_Nov_Dec".split("_"),
+  weekdays: "Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado".split("_"),
+  weekdaysShort: "Dom_Lun_Mar_Mie._Jue_Vier_Sab".split("_"),
+  weekdaysMin: "Do_Lu_Ma_Mi_Ju_Vi_Sa".split("_"),
+});
 
 const App = () => {
-
   return (
     <div>
-
-      <div><Toaster /></div>
+      <div>
+        <Toaster />
+      </div>
       <Routes>
-
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route
           path="/"
           element={

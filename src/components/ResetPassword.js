@@ -5,65 +5,40 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const Login = () => {
-    const [payrollId, setPayrollId] = useState("");
+const ResetPassword = () => {
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const params = useParams();
 
     const signIn = async () => {
-        if (payrollId.length < 6) {
-            toast.error("El número de nómina es incorrecto");
+        if (password.length < 6) {
+            toast.error("El contraseña es muy corta");
             return;
-        } else if (password.length < 4) {
-            toast.error("La contraseña es incorrecta");
+        } else if (password !== passwordConfirm) {
+            toast.error("Las contraseñas no coinciden");
             return;
         }
         try {
+            const resPassword = await axios.post(
+                "http://localhost:4000/user/restore/password",
+                {
+                    token: params.token,
+                    password,
+                }
+            );
+
             const res = await axios.post("http://localhost:4000/user/login", {
-                payrollId,
+                payrollId: resPassword.data.payrollId,
                 password,
             });
             localStorage.setItem("user", JSON.stringify(res.data));
             navigate("/");
         } catch (error) {
-            toast.error("El número de nómina o la contraseña son incorrectos");
-        }
-    };
-    const handleForgotPassword = async () => {
-        try {
-            //Check that a payroll number is typed in in the input
-            if (payrollId.length < 6) {
-                toast.error("El número de nómina es incorrecto");
-                return;
-            }
-            //Get the user for the payroll number
-            const res = await axios.get(
-                `http://localhost:4000/user/${payrollId}`
+            toast.error(
+                "Hubo un error al cambiar la contraseña, intente de nuevo"
             );
-            //If the user has an email send email reset password
-            if (res.data.email && res.data.email.length > 0) {
-                const promisePassword = axios.post(
-                    `http://localhost:4000/user/send/restore/password/${res.data.id}`
-                );
-                toast.promise(promisePassword, {
-                    loading: "Cargando...",
-                    success:
-                        "Se ha enviado un correo con las instrucciones para restablecer la contraseña",
-                    error: "El número de nómina es incorrecto",
-                });
-            }
-            //If the user does not have an email ask to contact the admin
-            else {
-                toast(
-                    "Contacte al administrador del sistema para cambiar su contraseña",
-                    {
-                        icon: "ℹ️",
-                    }
-                );
-            }
-        } catch (error) {
-            toast.error("El número de nómina es incorrecto");
         }
     };
     return (
@@ -76,20 +51,19 @@ const Login = () => {
                     className="position-relative rounded-3 p-4 m-0 h-100"
                     md={6}
                 >
-                    <span className="fs-3">Iniciar Sesión</span>
+                    <span className="fs-3">Cambiar contraseña</span>
                     <div className="mb-3 mt-3">
                         <label
                             for="exampleFormControlInput1"
                             className="form-label"
                         >
-                            Número de nómina
+                            Nueva contraseña
                         </label>
                         <input
-                            type="text"
-                            onChange={(e) => setPayrollId(e.target.value)}
+                            type="password"
+                            onChange={(e) => setPassword(e.target.value)}
                             className="form-control"
-                            id="payrollId"
-                            placeholder="123456"
+                            id="password"
                         />
                     </div>
                     <div className="mb-3 mt-3">
@@ -97,13 +71,13 @@ const Login = () => {
                             for="exampleFormControlInput1"
                             className="form-label"
                         >
-                            Contraseña
+                            Confirmar contraseña
                         </label>
                         <input
                             type="password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => setPasswordConfirm(e.target.value)}
                             className="form-control"
-                            id="password"
+                            id="passwordConfirm"
                         />
                         <p>
                             <small>
@@ -112,14 +86,6 @@ const Login = () => {
                             </small>
                         </p>
                     </div>
-                    <button
-                        type="button"
-                        className="btn btn-link p-0"
-                        style={{ color: "red" }}
-                        onClick={handleForgotPassword}
-                    >
-                        ¿Olvidaste tu contraseña?
-                    </button>
                     <button
                         type="submit"
                         onClick={signIn}
@@ -130,7 +96,7 @@ const Login = () => {
                         }}
                         className="btn btn-primary text-white position-absolute translate-middle"
                     >
-                        Ingresar
+                        Guardar contraseña
                     </button>
                 </Col>
                 <Col
@@ -150,4 +116,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default ResetPassword;
