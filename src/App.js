@@ -12,11 +12,12 @@ import Login from "./components/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import TopBar from "./components/TopBar";
 import ResetPassword from "./components/ResetPassword";
-import Ovens from "./components/Ovens";
 import Unauthorized from "./components/Unauthorized";
 import Recipe from "./components/Recipe";
 import Users from "./components/Users";
 import UserProfile from "./components/UserProfile";
+import Ovens from "./components/Ovens";
+import AlertRecipients from "./components/AlertRecipients";
 
 //libreria para manejar fechas y horas.
 moment.locale("es", {
@@ -104,7 +105,7 @@ const App = () => {
                     element={
                         <ProtectedRoute authorized={["admin"]}>
                             <TopBar />
-                            <Alerts />
+                            <AlertRecipients />
                         </ProtectedRoute>
                     }
                 />
