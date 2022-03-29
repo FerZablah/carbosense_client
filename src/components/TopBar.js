@@ -3,6 +3,32 @@ import { Col, Row } from "react-bootstrap";
 import { BsPersonCircle } from "react-icons/bs";
 import logo from "../logo.png";
 
+const authorizedScreens = {
+    admin: ["root", "alerts"],
+    metallurgy: ["root", "reports"],
+    oven_operator: ["root", "partSelector"],
+    qa: ["root", "reports"],
+};
+
+const screenPaths = {
+    root: {
+        path: "/",
+        name: "Inicio",
+    },
+    reports: {
+        path: "/reportes",
+        name: "Reportes",
+    },
+    alerts: {
+        path: "/alertas",
+        name: "Alertas",
+    },
+    partSelector: {
+        path: "/partSelector",
+        name: "Selección parte de horno",
+    },
+};
+
 const TopBar = () => {
     const [openedMenu, setOpenedMenu] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
@@ -33,10 +59,15 @@ const TopBar = () => {
                 >
                     &times;
                 </span>
-                <a href="/">Inicio</a>
-                <a href="/reportes">Reportes</a>
-                <a href="/alertas">Configuración alertas</a>
-                <a href="/seleccion">Selección de hornos</a>
+                {authorizedScreens[user.role].map((screen) => (
+                    <a
+                        key={screen}
+                        href={screenPaths[screen].path}
+                        className="text-white"
+                    >
+                        {screenPaths[screen].name}
+                    </a>
+                ))}
             </div>
             <Row className="justify-content-between bg-primary ">
                 <Col md={4}>

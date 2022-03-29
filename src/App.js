@@ -14,6 +14,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import TopBar from "./components/TopBar";
 import ResetPassword from "./components/ResetPassword";
 import Ovens from "./components/Ovens";
+import Unauthorized from "./components/Unauthorized";
 
 //libreria para manejar fechas y horas.
 moment.locale("es", {
@@ -36,13 +37,29 @@ const App = () => {
             </div>
             <Routes>
                 <Route
+                    path="/unauthorized"
+                    element={
+                        <div>
+                            <TopBar />
+                            <Unauthorized />
+                        </div>
+                    }
+                />
+                <Route
                     path="/reset-password/:token"
                     element={<ResetPassword />}
                 />
                 <Route
                     path="/"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute
+                            authorized={[
+                                "admin",
+                                "metallurgy",
+                                "oven_operator",
+                                "qa",
+                            ]}
+                        >
                             <TopBar />
                             <Dashboard />
                         </ProtectedRoute>
@@ -51,7 +68,14 @@ const App = () => {
                 <Route
                     path="/graficas/:id"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute
+                            authorized={[
+                                "admin",
+                                "metallurgy",
+                                "oven_operator",
+                                "qa",
+                            ]}
+                        >
                             <TopBar />
                             <Graphs />
                         </ProtectedRoute>
@@ -60,7 +84,14 @@ const App = () => {
                 <Route
                     path="/graficas/:fase/horno/:horno"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute
+                            authorized={[
+                                "admin",
+                                "metallurgy",
+                                "oven_operator",
+                                "qa",
+                            ]}
+                        >
                             <TopBar />
                             <DashboardPhase />
                         </ProtectedRoute>
@@ -69,7 +100,7 @@ const App = () => {
                 <Route
                     path="/alertas"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute authorized={["admin"]}>
                             <TopBar />
                             <Alerts />
                         </ProtectedRoute>
@@ -78,7 +109,7 @@ const App = () => {
                 <Route
                     path="/reportes"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute authorized={["metallurgy", "qa"]}>
                             <TopBar />
                             <Reports />
                         </ProtectedRoute>
@@ -87,7 +118,7 @@ const App = () => {
                 <Route
                     path="/reportes/:ciclo"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute authorized={["metallurgy", "qa"]}>
                             <TopBar />
                             <Summary />
                         </ProtectedRoute>
@@ -96,7 +127,7 @@ const App = () => {
                 <Route
                     path="/reportes/ciclo/:ciclo/fase/:fase"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute authorized={["metallurgy", "qa"]}>
                             <TopBar />
                             <ReportPhase />
                         </ProtectedRoute>
@@ -105,7 +136,7 @@ const App = () => {
                 <Route
                     path="/seleccion"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute authorized={["oven_operator"]}>
                             <TopBar />
                             <Ovens />
                         </ProtectedRoute>
