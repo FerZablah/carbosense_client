@@ -4,7 +4,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import logo from "../logo.png";
 
 const authorizedScreens = {
-    admin: ["root", "alerts"],
+    admin: ["root", "alerts", "users"],
     metallurgy: ["root", "reports"],
     oven_operator: ["root", "partSelector"],
     qa: ["root", "reports"],
@@ -26,6 +26,10 @@ const screenPaths = {
     partSelector: {
         path: "/partSelector",
         name: "Selección parte de horno",
+    },
+    users: {
+        path: "/usuarios",
+        name: "Administración de usuarios",
     },
 };
 

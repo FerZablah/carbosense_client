@@ -8,8 +8,11 @@ import {
   Breadcrumb,
 } from "react-bootstrap";
 import Select from "react-select";
+import RecipeModal from "./RecipeModal";
 
-const Ovens = () => {
+const Recipe = (props) => {
+  const [showConfirmModal, setConfirmModal] = useState(false);
+
   const numPieces = [
     { value: "768", label: "768" },
     { value: "780", label: "780" },
@@ -21,10 +24,14 @@ const Ovens = () => {
   return (
     <div>
       <Breadcrumb className="p-3">
-      <Breadcrumb.Item href="/">Inicio</Breadcrumb.Item>
-        <Breadcrumb.Item active>Selección de recetas de hornos</Breadcrumb.Item>
+        <Breadcrumb.Item href="/">Inicio</Breadcrumb.Item>
+        <Breadcrumb.Item active>Selección de recetas</Breadcrumb.Item>
       </Breadcrumb>
       <Container>
+      <RecipeModal
+          show={showConfirmModal}
+          onHide={() => setConfirmModal(false)}
+        />
         <Row>
           <Col className="mt-3 fw-bold fs-1 text-center">
             Selección de Recetas de Hornos
@@ -40,7 +47,6 @@ const Ovens = () => {
             <div>
               <Select
                 placeholder="Seleccionar horno"
-                isClearable
                 options={idOven}
                 // onChange={(newValue) => {
                 //   setSelectedOvens(newValue.map((item) => item.value));
@@ -55,7 +61,6 @@ const Ovens = () => {
             <div>
               <Select
                 placeholder="Seleccionar número de pieza"
-                isClearable
                 options={numPieces}
                 // onChange={(newValue) => {
                 //   setSelectedOvens(newValue.map((item) => item.value));
@@ -64,33 +69,18 @@ const Ovens = () => {
             </div>
           </Col>
           <Col md={2}>
-            <button type="button" className="btn btn-link fs-6 text-center">
+            <button
+              onClick={() => setConfirmModal(true)}
+              type="button"
+              className="btn btn-link fs-6 text-center"
+            >
               Confirmar seleccion
             </button>
           </Col>
         </Row>
       </Container>
-      <Container>
-        {/* <Modal> */}
-          <Modal.Header>
-            <Modal.Title>Selección de recetas de hornos</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            ¿Estás seguro que quieres seleccionar la pieza{" "}
-            <strong>{760}</strong> para ingresar al horno <strong>{88}</strong>?
-          </Modal.Body>
-          <Modal.Footer>
-          <Button variant="primary" className="text-white">
-            Cancelar
-          </Button>
-          <Button variant="success" className="text-white btn btn-link">
-            Confirmar
-          </Button>
-        </Modal.Footer>
-        {/* </Modal> */}
-      </Container>
     </div>
   );
 };
 
-export default Ovens;
+export default Recipe;

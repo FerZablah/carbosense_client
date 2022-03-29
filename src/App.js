@@ -5,7 +5,6 @@ import Graphs from "./components/Graphs";
 import Summary from "./components/Summary";
 import Reports from "./components/Reports";
 import moment from "moment";
-import Alerts from "./components/Alerts";
 import ReportPhase from "./components/ReportPhase";
 import { Toaster } from "react-hot-toast";
 import DashboardPhase from "./components/DashboardPhase";
@@ -15,6 +14,9 @@ import TopBar from "./components/TopBar";
 import ResetPassword from "./components/ResetPassword";
 import Ovens from "./components/Ovens";
 import Unauthorized from "./components/Unauthorized";
+import Recipe from "./components/Recipe";
+import Users from "./components/Users";
+import UserProfile from "./components/UserProfile";
 
 //libreria para manejar fechas y horas.
 moment.locale("es", {
@@ -139,6 +141,40 @@ const App = () => {
                         <ProtectedRoute authorized={["oven_operator"]}>
                             <TopBar />
                             <Ovens />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/recetas"
+                    element={
+                        <ProtectedRoute authorized={["oven_operator"]}>
+                            <TopBar />
+                            <Recipe />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/usuarios"
+                    element={
+                        <ProtectedRoute authorized={["admin"]}>
+                            <TopBar />
+                            <Users />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/perfil"
+                    element={
+                        <ProtectedRoute
+                            authorized={[
+                                "oven_operator",
+                                "qa",
+                                "admin",
+                                "metallurgy",
+                            ]}
+                        >
+                            <TopBar />
+                            <UserProfile />
                         </ProtectedRoute>
                     }
                 />
