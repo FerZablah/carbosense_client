@@ -5,14 +5,16 @@ import Graphs from "./components/Graphs";
 import Summary from "./components/Summary";
 import Reports from "./components/Reports";
 import moment from "moment";
-import Alerts from "./components/Alerts";
+import Recipient from "./components/Recipient";
 import ReportPhase from "./components/ReportPhase";
 import { Toaster } from "react-hot-toast";
 import DashboardPhase from "./components/DashboardPhase";
 import Login from "./components/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import TopBar from "./components/TopBar";
-import Ovens from "./components/Ovens";
+import Recipe from "./components/Recipe";
+import Users from "./components/Users";
+import UserProfile from "./components/UserProfile";
 
 //libreria para manejar fechas y horas.
 moment.locale('es', {
@@ -64,7 +66,7 @@ const App = () => {
           element={
             <ProtectedRoute>
               <TopBar />
-              <Alerts />
+              <Recipient />
             </ProtectedRoute>
           }
         />
@@ -96,11 +98,29 @@ const App = () => {
           }
         />
         <Route
-          path="/seleccion"
+          path="/recetas"
           element={
             <ProtectedRoute>
               <TopBar />
-              <Ovens />
+              <Recipe />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/usuarios"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute>
+              <TopBar />
+              <UserProfile />
             </ProtectedRoute>
           }
         />
