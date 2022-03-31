@@ -95,6 +95,8 @@ const TopBar = () => {
                                 alt="user"
                                 className="rounded-circle mx-2 border border-white bg-white"
                                 width={35}
+                                height={35}
+                                style={{ objectFit: "cover" }}
                             />
                         ) : (
                             <BsPersonCircle
@@ -115,6 +117,15 @@ const TopBar = () => {
                                 className="btn btn-secondary text-white w-100 "
                             >
                                 Cerrar sesión
+                            </button>
+                            <button
+                                onClick={() => {
+                                    window.location = "/perfil";
+                                }}
+                                type="submit"
+                                className="btn btn-secondary text-white w-100 "
+                            >
+                                Perfil
                             </button>
                         </div>
                     )}
