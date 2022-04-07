@@ -18,6 +18,10 @@ import Users from "./components/Users";
 import UserProfile from "./components/UserProfile";
 import Ovens from "./components/Ovens";
 import AlertRecipients from "./components/AlertRecipients";
+import MetallurgyReport from "./components/MetallurgyReport";
+import MetallurgyReports from "./components/MetallurgyReports";
+import MetallurgyReportsAuthorization from "./components/MetallurgyReportsAuthorization";
+import MetallurgyReportAuthorization from "./components/MetallurgyReportAuthorization";
 
 //libreria para manejar fechas y horas.
 moment.locale("es", {
@@ -177,6 +181,42 @@ const App = () => {
                         >
                             <TopBar />
                             <UserProfile />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/metalurgica/:cycleId"
+                    element={
+                        <ProtectedRoute authorized={["metallurgy"]}>
+                            <TopBar />
+                            <MetallurgyReport />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/metalurgica"
+                    element={
+                        <ProtectedRoute authorized={["metallurgy"]}>
+                            <TopBar />
+                            <MetallurgyReports />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/metalurgica/autorizacion"
+                    element={
+                        <ProtectedRoute authorized={["qa"]}>
+                            <TopBar />
+                            <MetallurgyReportsAuthorization />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/metalurgica/autorizacion/:cycleId"
+                    element={
+                        <ProtectedRoute authorized={["qa"]}>
+                            <TopBar />
+                            <MetallurgyReportAuthorization />
                         </ProtectedRoute>
                     }
                 />

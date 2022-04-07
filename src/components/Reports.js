@@ -124,10 +124,14 @@ const Reports = (props) => {
                                     );
                                 }
                             }}
-                            value={after
-                                .clone()
-                                .local()
-                                .format("YYYY-MM-DDTHH:mm:ss")}
+                            value={
+                                after
+                                    ? after
+                                          .clone()
+                                          .local()
+                                          .format("YYYY-MM-DDTHH:mm:ss")
+                                    : ""
+                            }
                         />
                     </Col>
                     <Col md={1} className="text-center fs-6 fw-bold">
@@ -148,10 +152,14 @@ const Reports = (props) => {
                                     );
                                 }
                             }}
-                            value={before
-                                .clone()
-                                .local()
-                                .format("YYYY-MM-DDTHH:mm:ss")}
+                            value={
+                                before
+                                    ? before
+                                          .clone()
+                                          .local()
+                                          .format("YYYY-MM-DDTHH:mm:ss")
+                                    : ""
+                            }
                         />
                     </Col>
 

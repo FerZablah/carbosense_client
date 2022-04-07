@@ -5,9 +5,9 @@ import logo from "../logo.png";
 
 const authorizedScreens = {
     admin: ["root", "alerts", "users"],
-    metallurgy: ["root", "reports"],
+    metallurgy: ["root", "reports", "metallurgyReport"],
     oven_operator: ["root", "partSelector"],
-    qa: ["root", "reports"],
+    qa: ["root", "reports", "metallurgyReportAuthorization"],
 };
 
 const screenPaths = {
@@ -30,6 +30,14 @@ const screenPaths = {
     users: {
         path: "/usuarios",
         name: "Administración de usuarios",
+    },
+    metallurgyReport: {
+        path: "/metalurgica",
+        name: "Reportes de metálurgia",
+    },
+    metallurgyReportAuthorization: {
+        path: "/metalurgica/autorizacion",
+        name: "Reportes de metálurgia - Autorización",
     },
 };
 
