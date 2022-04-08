@@ -22,6 +22,7 @@ import MetallurgyReport from "./components/MetallurgyReport";
 import MetallurgyReports from "./components/MetallurgyReports";
 import MetallurgyReportsAuthorization from "./components/MetallurgyReportsAuthorization";
 import MetallurgyReportAuthorization from "./components/MetallurgyReportAuthorization";
+import RecipeSelectionOvens from "./components/RecipeSelecitionOvens";
 
 //libreria para manejar fechas y horas.
 moment.locale("es", {
@@ -151,11 +152,20 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/recetas"
+                    path="/recetas/:ovenId"
                     element={
                         <ProtectedRoute authorized={["oven_operator"]}>
                             <TopBar />
                             <Recipe />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/recetas"
+                    element={
+                        <ProtectedRoute authorized={["oven_operator"]}>
+                            <TopBar />
+                            <RecipeSelectionOvens />
                         </ProtectedRoute>
                     }
                 />
