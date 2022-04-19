@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import "./HornoForms.css";
 
 const HornoForms = (props) => {
   const [enteredID, setEnteredID] = useState("");

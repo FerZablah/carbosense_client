@@ -1,4 +1,3 @@
-import "./Hornos.css";
 import HornoItem from "./HornoItem";
 import { Breadcrumb } from "react-bootstrap";
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./NuevoHorno.css";
 import HornoForms from "./HornoForms.js";
 
 const NuevoHorno = (props) => {
