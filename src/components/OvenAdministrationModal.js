@@ -15,10 +15,10 @@ const OvenAdministrationModal = (show, onHide, oven, title, submitText) => {
 
   return (
     <Modal
-    //   show={show}
-    //   onHide={() => {
-    //     onHide();
-    //   }}
+      show={show}
+      onHide={() => {
+        onHide();
+      }}
     >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>

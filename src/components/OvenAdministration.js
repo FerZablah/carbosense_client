@@ -32,7 +32,7 @@ const OvenAdministration = () => {
       <div className="mx-4">
         <OvenAdministrationModal
           show={showAddOven}
-        //   onHide={() => setShowAddOven(false)}
+          onHide={() => setShowAddOven(false)}
           title="Agregar horno"
           submitText="Agregar"
         />
@@ -44,7 +44,7 @@ const OvenAdministration = () => {
         </Col>
         <Col className=" me-3 col-4 d-flex align-items-center justify-content-end">
           <button
-            // onClick={() => setShowAddOven(true)}
+            onClick={() => setShowAddOven(true)}
             type="button"
             className="btn btn-secondary text-white "
           >
