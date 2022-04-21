@@ -1,4 +1,3 @@
-import "./HornoItem.css";
 import { Col, Container, Row } from "react-bootstrap";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
