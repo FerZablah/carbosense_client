@@ -125,7 +125,7 @@ const MetallurgyReportAuthorization = () => {
         toast.success("Reporte guardado");
         getReport();
     };
-    if (!cycle) {
+    if (!cycle || (reportFilled && (!analyzer))) {
         return <div>Loading...</div>;
     }
     return (
@@ -303,7 +303,7 @@ const MetallurgyReportAuthorization = () => {
                         className="fs-5 fw-bold d-flex justify-content-start mb-3 "
                         md={4}
                     >
-                        Analizó: {reportFilled ? `${analyzer.name} - ${analyzer.payrollId}` : `${user.name} - ${user.payrollId}`}
+                        Analizó: {reportFilled ? `${analyzer ? analyzer.name : ''} - ${analyzer ? analyzer.payrollId : ''}` : `${user.name} - ${user.payrollId}`}
                     </Col>
                 </Row>
                 {authorized && (
@@ -312,7 +312,7 @@ const MetallurgyReportAuthorization = () => {
                             className="fs-5 fw-bold d-flex justify-content-start"
                             md={4}
                         >
-                            Autorizó: {authorizer.name} - {authorizer.payrollId}
+                            Autorizó: {authorizer ? authorizer.name : ''} - {authorizer ? authorizer.payrollId : ''}
                         </Col>
                     </Row>
                 )}

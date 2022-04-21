@@ -10,9 +10,8 @@ const sensorTypes = [
   { value: "temple", label: "Cámara de temple" },
 ];
 
-const OvenAdministrationModal = (show, onHide, oven, title, submitText) => {
-    const [sensorTypes, setSensorTypes] = useState("");
-
+const OvenAdministrationModal = ({show, onHide, oven, title, submitText}) => {
+  const [sensorTypes, setSensorTypes] = useState("");
   return (
     <Modal
       show={show}
@@ -53,7 +52,7 @@ const OvenAdministrationModal = (show, onHide, oven, title, submitText) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="link" onClick={onHide}>Cancelar</Button>
+        {/* <Button variant="link" onClick={onHide}>Cancelar</Button> */}
         <Button className="btn-secondary text-white">Agregar</Button>
       </Modal.Footer>   
     </Modal>

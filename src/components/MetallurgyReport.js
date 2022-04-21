@@ -131,7 +131,7 @@ const MetallurgyReport = () => {
         toast.success("Reporte guardado");
         getReport();
     };
-    if (!cycle) {
+    if (!cycle || (reportFilled && !analyzer)) {
         return <div>Loading...</div>;
     }
     return (
