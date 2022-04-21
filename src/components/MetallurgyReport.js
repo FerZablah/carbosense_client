@@ -92,7 +92,7 @@ const MetallurgyReport = () => {
             setDisposition(res.data.disposition);
         }
         if (res.data.analyzer !== undefined && res.data.analyzer !== null) {
-            setAnalyzer(res.data.analyzer.name);
+            setAnalyzer(res.data.analyzer);
         }
         setReport(data);
         setCycle(res.data.cycle);
@@ -309,7 +309,7 @@ const MetallurgyReport = () => {
                         className="fs-5 fw-bold d-flex justify-content-start mb-3 "
                         md={4}
                     >
-                        Analizó: {reportFilled ? analyzer : user.name}
+                        Analizó: {reportFilled ? `${analyzer.name} - ${analyzer.payrollId}` : `${user.name} - ${user.payrollId}`}
                     </Col>
                 </Row>
                 <Row className="mt-4 ">

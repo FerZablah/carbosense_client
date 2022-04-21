@@ -120,7 +120,7 @@ const MetallurgyReports = (props) => {
                                     {report.oven}
                                 </td>
                                 <td className="fs-6 text-center table-cell">
-                                    768
+                                    999
                                 </td>
                                 <td className="fs-6 text-center table-cell">
                                     {renderIcon(

@@ -54,7 +54,7 @@ const ResetPassword = () => {
                     <span className="fs-3">Cambiar contraseña</span>
                     <div className="mb-3 mt-3">
                         <label
-                            for="exampleFormControlInput1"
+                            htmlFor="exampleFormControlInput1"
                             className="form-label"
                         >
                             Nueva contraseña
@@ -68,7 +68,7 @@ const ResetPassword = () => {
                     </div>
                     <div className="mb-3 mt-3">
                         <label
-                            for="exampleFormControlInput1"
+                            htmlFor="exampleFormControlInput1"
                             className="form-label"
                         >
                             Confirmar contraseña

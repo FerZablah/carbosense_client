@@ -1,7 +1,7 @@
 import { Row, Col } from "react-bootstrap";
 import logo from "../logo.png";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -11,7 +11,9 @@ const Login = () => {
     const navigate = useNavigate();
     const params = useParams();
 
-    const signIn = async () => {
+    const signIn = async (event) => {
+        event.preventDefault();
+        console.log(payrollId);
         if (payrollId.length < 6) {
             toast.error("El número de nómina es incorrecto");
             return;
@@ -71,6 +73,7 @@ const Login = () => {
             className="container bg-white shadow-sm rounded-3 position-absolute translate-middle top-50 start-50 w-50 h-50"
             style={{ minHeight: "400px" }}
         >
+        <form className="h-100" onSubmit={signIn}>
             <Row className="h-100">
                 <Col
                     className="position-relative rounded-3 p-4 m-0 h-100"
@@ -79,14 +82,17 @@ const Login = () => {
                     <span className="fs-3">Iniciar Sesión</span>
                     <div className="mb-3 mt-3">
                         <label
-                            for="exampleFormControlInput1"
+                            htmlFor="exampleFormControlInput1"
                             className="form-label"
                         >
                             Número de nómina
                         </label>
                         <input
                             type="text"
-                            onChange={(e) => setPayrollId(e.target.value)}
+                            onChange={(e) => {
+                                console.log(e.target.value);
+                                setPayrollId(e.target.value)
+                            }}
                             className="form-control"
                             id="payrollId"
                             placeholder="123456"
@@ -94,7 +100,7 @@ const Login = () => {
                     </div>
                     <div className="mb-3 mt-3">
                         <label
-                            for="exampleFormControlInput1"
+                            htmlFor="exampleFormControlInput1"
                             className="form-label"
                         >
                             Contraseña
@@ -122,7 +128,6 @@ const Login = () => {
                     </button>
                     <button
                         type="submit"
-                        onClick={signIn}
                         style={{
                             left: "50%",
                             bottom: "10px",
@@ -146,6 +151,7 @@ const Login = () => {
                     </div>
                 </Col>
             </Row>
+            </form>
         </div>
     );
 };

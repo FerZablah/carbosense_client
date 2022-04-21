@@ -20,6 +20,7 @@ import { writeFile, utils } from "xlsx";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
+
 const Summary = () => {
     const getValueColor = (value) => {
         if (value > 0 && value < 5) {
@@ -40,6 +41,13 @@ const Summary = () => {
     const [phasesData, setPhasesData] = useState(null);
     const [templeData, setTempleData] = useState(null);
     const [showDownloadButton, setShowDownloadButton] = useState(false);
+    const [observations, setObservations] = useState('');
+    const [disposition, setDisposition] = useState(false);
+    const [analyzer, setAnalyzer] = useState(null);
+    const [authorizer, setAuthorizer] = useState(null);
+    const [authorized, setAuthorized] = useState(false);
+    const [vistoBueno, setVistoBueno] = useState(false);
+    const [report, setReport] = useState(null);
     const getCycle = useCallback(async () => {
         //get cycle
         const res = await axios.get(
@@ -71,6 +79,47 @@ const Summary = () => {
         setPhasesData(res.data.phasesData);
     }, [params.ciclo]);
 
+    const getReport = useCallback(async () => {
+        const res = await axios.get(
+            `http://localhost:4000/metallurgy/${params.ciclo}`
+        );
+        const data = res.data.fields.filter(
+            (section) =>
+                !["Observaciones", "Disposición"].includes(section.section)
+        );
+
+        const registeredObservations = res.data.fields.find((section) =>
+            section.fields.find((field) => field.name === "Observaciones")
+        );
+        if (
+            registeredObservations &&
+            registeredObservations.fields &&
+            registeredObservations.fields.length > 0 &&
+            registeredObservations.fields[0].real
+        ) {
+            setObservations(registeredObservations.fields[0].real.real);
+        }
+        if (
+            res.data.disposition !== undefined &&
+            res.data.disposition !== null
+        ) {
+            setDisposition(res.data.disposition);
+        }
+        if (res.data.analyzer !== undefined && res.data.analyzer !== null) {
+            setAnalyzer(res.data.analyzer);
+        }
+        if (
+            res.data.authorizer !== undefined &&
+            res.data.authorizer !== null &&
+            res.data.authorizer.id !== null
+        ) {
+            setAuthorized(true);
+            setVistoBueno(true);
+            setAuthorizer(res.data.authorizer);
+        }
+        setReport(data);
+        setCycle(res.data.cycle);
+    }, [params.ciclo]);
     const downloadCSV = () => {
         setShowDownloadButton(false);
 
@@ -96,7 +145,7 @@ const Summary = () => {
                 "Fecha de fin": moment(cycle.end).format("HH:mm:ss"),
                 Duración: cycle.duration,
                 "Tipo de ciclo": cycle.type,
-                "No. Pieza": 768,
+                "No. Pieza": 999,
             },
         ]);
         const tempConditionSheet = utils.json_to_sheet([
@@ -231,7 +280,8 @@ const Summary = () => {
     //On Load
     useEffect(() => {
         getCycle();
-    }, [getCycle]);
+        getReport();
+    }, [getCycle, getReport]);
     if (
         !cycle ||
         !carbonData ||
@@ -337,7 +387,7 @@ const Summary = () => {
                         {cycle.type}
                     </Col>
                     <Col md={2} className="fs-5 fw-bold">
-                        768
+                        999
                     </Col>
                 </Row>
                 <Row className="mt-2 justify-content-center text-center">
@@ -803,6 +853,154 @@ const Summary = () => {
                                 </tr>
                             </tbody>
                         </Table>
+                    </Col>
+                </Row>
+            </Container>
+            <Container className="mx-auto p-4">
+                {report &&
+                    report.map((section) => (
+                        <div key={section.section} className="mt-3">
+                            <Row>
+                                <Col
+                                    className="fs-5 fw-bold d-flex justify-content-start"
+                                    md={4}
+                                >
+                                    {section.section}
+                                </Col>
+                            </Row>
+                            <Row className="mb-4">
+                                <Col
+                                    className="fs-5 fw-bold offset-md-4 d-flex justify-content-start"
+                                    md={4}
+                                >
+                                    Real
+                                </Col>
+                                <Col
+                                    className="fs-5 fw-bold d-flex justify-content-start"
+                                    md={4}
+                                >
+                                    Esperado
+                                </Col>
+                            </Row>
+                            {section.fields.map((field) => (
+                                <Row key={field.id} className="mt-3">
+                                    <Col
+                                        className="fs-6 d-flex justify-content-start"
+                                        md={4}
+                                    >
+                                        {field.name}
+                                    </Col>
+                                    <Col
+                                        md={4}
+                                        className="d-flex justify-content-start"
+                                    >
+                                        <span>{field.real ? field.real.real : ''}</span>
+                                        <span>
+                                            {field.unit ? field.unit : ""}
+                                        </span>
+                                    </Col>
+                                    <Col
+                                        md={4}
+                                        className="d-flex justify-content-start"
+                                    >
+                                        <span>{field.expected.expected}</span>
+                                    </Col>
+                                </Row>
+                            ))}
+                        </div>
+                    ))}
+                <Row className="mt-4">
+                    <Col
+                        className="fs-5 fw-bold d-flex justify-content-start  mb-3 "
+                        md={4}
+                    >
+                        Observaciones
+                    </Col>
+                    <Col
+                        className="fs-5 fw-bold d-flex justify-content-start"
+                        md={12}
+                    >
+                        <textarea
+                            className="w-100"
+                            disabled
+                            value={observations}
+                        />
+                    </Col>
+                </Row>
+                <Row className="mt-4">
+                    <Col
+                        className="fs-5 fw-bold d-flex justify-content-start mb-3 "
+                        md={4}
+                    >
+                        Disposición
+                    </Col>
+                </Row>
+                <Row className="">
+                    <Col
+                        className="d-flex justify-content-start align-items-center"
+                        md={4}
+                    >
+                        <input
+                            type="radio"
+                            id="aceptado"
+                            className="me-3 "
+                            name="disposition"
+                            disabled
+                            defaultChecked={analyzer && disposition}
+                        />
+                        <label htmlFor="aceptado" className="fw-bold">
+                            Aceptado
+                        </label>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col
+                        className="d-flex justify-content-start align-items-center"
+                        md={4}
+                    >
+                        <input
+                            type="radio"
+                            id="rechazado"
+                            name="disposition"
+                            className="me-3"
+                            defaultChecked={analyzer && !disposition}
+                            disabled
+                        />
+                        <label htmlFor="rechazado" className="fw-bold">
+                            Rechazado
+                        </label>
+                    </Col>
+                </Row>
+                <Row className="mt-4">
+                    <Col
+                        className="fs-5 fw-bold d-flex justify-content-start mb-3 "
+                        md={4}
+                    >
+                        Analizó: {analyzer.name} - {analyzer.payrollId}
+                    </Col>
+                </Row>
+                {true && (
+                    <Row className="mt-1">
+                        <Col
+                            className="fs-5 fw-bold d-flex justify-content-start"
+                            md={4}
+                        >
+                            Autorizó: {authorizer.name} - {authorizer.payrollId}
+                        </Col>
+                    </Row>
+                )}
+                <Row className="mt-1">
+                    <Col
+                        className="fs-5 fw-bold d-flex justify-content-start align-items-center "
+                        md={4}
+                    >
+                        Visto bueno:{" "}
+                        <input
+                            type="checkbox"
+                            className="ms-2"
+                            checked={vistoBueno}
+                            disabled
+                        />
                     </Col>
                 </Row>
             </Container>

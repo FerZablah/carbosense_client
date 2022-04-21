@@ -143,16 +143,7 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/seleccion"
-                    element={
-                        <ProtectedRoute authorized={["oven_operator"]}>
-                            <TopBar />
-                            <Ovens />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/recetas/:ovenId"
+                    path="/seleccion-recetas/:ovenId"
                     element={
                         <ProtectedRoute authorized={["oven_operator"]}>
                             <TopBar />
@@ -161,7 +152,7 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/recetas"
+                    path="/seleccion-recetas"
                     element={
                         <ProtectedRoute authorized={["oven_operator"]}>
                             <TopBar />

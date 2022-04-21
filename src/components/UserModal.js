@@ -180,6 +180,7 @@ const UserModal = ({ show, onHide, onSubmit, user, title, submitText }) => {
                             toast.error("El tipo de usuario es requerido");
                             return;
                         }
+                        resetFields();
                         onSubmit({
                             name,
                             payrollId,
@@ -188,7 +189,7 @@ const UserModal = ({ show, onHide, onSubmit, user, title, submitText }) => {
                             password,
                             hasEmail,
                             confirmPassword,
-                            originalPayrollId: user.payrollId,
+                            originalPayrollId: user ? user.payrollId : null,
                         });
 
                         onHide();

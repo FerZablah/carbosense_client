@@ -14,7 +14,7 @@ const Recipe = (props) => {
   const [showConfirmModal, setConfirmModal] = useState(false);
 
   const numPieces = [
-    { value: "768", label: "768" },
+    { value: "999", label: "999" },
     { value: "780", label: "780" },
   ];
   const idOven = [
@@ -40,20 +40,6 @@ const Recipe = (props) => {
       </Container>
       <Container className="bg-extra m-3 p-4 w-100 rounded text-center mx-auto">
         <Row>
-          <Col md={1} className="text-center fs-6 fw-bold mt-1">
-            Horno:
-          </Col>
-          <Col md={3}>
-            <div>
-              <Select
-                placeholder="Seleccionar horno"
-                options={idOven}
-                // onChange={(newValue) => {
-                //   setSelectedOvens(newValue.map((item) => item.value));
-                // }}
-              />
-            </div>
-          </Col>
           <Col md={2} className="text-center fs-6 fw-bold">
             Número de pieza:
           </Col>

@@ -24,7 +24,7 @@ const screenPaths = {
         name: "Alertas",
     },
     partSelector: {
-        path: "/partSelector",
+        path: "/seleccion-recetas",
         name: "Selección parte de horno",
     },
     users: {

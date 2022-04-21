@@ -12,7 +12,7 @@ const RecipeModal = ({ show, onHide, onSubmit, recipes }) => {
       <Modal.Body>
         <Container className="m-2 p-3 w-full mx-auto rounded">
           <Row>
-            <Col className="text-body fs-5">Estás seguro que quieres ingresar la carga <strong>768</strong> en el horno <strong>88</strong>?</Col>
+            <Col className="text-body fs-5">Estás seguro que quieres ingresar la carga <strong>999</strong> en el horno <strong>88</strong>?</Col>
           </Row>
         </Container>
       </Modal.Body>

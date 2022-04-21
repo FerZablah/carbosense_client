@@ -94,7 +94,7 @@ const MetallurgyReportAuthorization = () => {
             setDisposition(res.data.disposition);
         }
         if (res.data.analyzer !== undefined && res.data.analyzer !== null) {
-            setAnalyzer(res.data.analyzer.name);
+            setAnalyzer(res.data.analyzer);
         }
         if (
             res.data.authorizer !== undefined &&
@@ -103,7 +103,7 @@ const MetallurgyReportAuthorization = () => {
         ) {
             setAuthorized(true);
             setVistoBueno(true);
-            setAuthorizer(res.data.authorizer.name);
+            setAuthorizer(res.data.authorizer);
         }
         setReport(data);
         setCycle(res.data.cycle);
@@ -303,7 +303,7 @@ const MetallurgyReportAuthorization = () => {
                         className="fs-5 fw-bold d-flex justify-content-start mb-3 "
                         md={4}
                     >
-                        Analizó: {reportFilled ? analyzer : user.name}
+                        Analizó: {reportFilled ? `${analyzer.name} - ${analyzer.payrollId}` : `${user.name} - ${user.payrollId}`}
                     </Col>
                 </Row>
                 {authorized && (
@@ -312,7 +312,7 @@ const MetallurgyReportAuthorization = () => {
                             className="fs-5 fw-bold d-flex justify-content-start"
                             md={4}
                         >
-                            Autorizó: {authorizer}
+                            Autorizó: {authorizer.name} - {authorizer.payrollId}
                         </Col>
                     </Row>
                 )}

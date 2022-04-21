@@ -57,7 +57,7 @@ const Reports = (props) => {
         { value: "temple", label: "Temple integral" },
     ];
     const pieces = [
-        { value: "768", label: "768" },
+        { value: "999", label: "999" },
         { value: "780", label: "780" },
     ];
     const ovens = [
@@ -266,7 +266,7 @@ const Reports = (props) => {
                                     {report.oven}
                                 </td>
                                 <td className="fs-6 text-center table-cell">
-                                    768
+                                    999
                                 </td>
                             </tr>
                         </tbody>

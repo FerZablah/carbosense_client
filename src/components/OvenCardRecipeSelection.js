@@ -17,7 +17,7 @@ const OvenCardRecipeSelection = ({ oven }) => {
         <div
             style={{ cursor: "pointer" }}
             className="oven-item"
-            onClick={() => navigate(`/recetas/${oven.id}`)}
+            onClick={() => navigate(`/seleccion-recetas/${oven.id}`)}
         >
             <Container className="bg-extra m-3 p-2 w-100 rounded text-center position-relative">
                 <p>
