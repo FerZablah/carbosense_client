@@ -45,6 +45,7 @@ const Summary = () => {
     const [disposition, setDisposition] = useState(false);
     const [analyzer, setAnalyzer] = useState(null);
     const [authorizer, setAuthorizer] = useState(null);
+    const [operator, setOperator] = useState(null);
     const [authorized, setAuthorized] = useState(false);
     const [vistoBueno, setVistoBueno] = useState(false);
     const [report, setReport] = useState(null);
@@ -83,11 +84,16 @@ const Summary = () => {
         const res = await axios.get(
             `http://localhost:4000/metallurgy/${params.ciclo}`
         );
+        const operatorFieldsRes = await axios.get(
+            `http://localhost:4000/metallurgy/operator/${params.ciclo}`
+        );
         const data = res.data.fields.filter(
             (section) =>
                 !["Observaciones", "Disposición"].includes(section.section)
         );
-
+        if (operatorFieldsRes.data.fields.length > 0) {
+            data.find(section => section.section === "Análisis Químico").fields.push(...operatorFieldsRes.data.fields[0].fields);
+        }
         const registeredObservations = res.data.fields.find((section) =>
             section.fields.find((field) => field.name === "Observaciones")
         );
@@ -105,8 +111,11 @@ const Summary = () => {
         ) {
             setDisposition(res.data.disposition);
         }
-        if (res.data.analyzer !== undefined && res.data.analyzer !== null) {
+        if (res.data.analyzer !== undefined && res.data.analyzer !== null && res.data.analyzer.id) {
             setAnalyzer(res.data.analyzer);
+        }
+        if (res.data.operator !== undefined && res.data.operator !== null && res.data.operator.id) {
+            setOperator(res.data.operator);
         }
         if (
             res.data.authorizer !== undefined &&
@@ -976,19 +985,25 @@ const Summary = () => {
                         className="fs-5 fw-bold d-flex justify-content-start mb-3 "
                         md={4}
                     >
-                        Analizó: {analyzer.name} - {analyzer.payrollId}
+                        Operador:  {operator ? `${operator.name} - ${operator.payrollId}` : '-'}
                     </Col>
                 </Row>
-                {true && (
-                    <Row className="mt-1">
-                        <Col
-                            className="fs-5 fw-bold d-flex justify-content-start"
-                            md={4}
-                        >
-                            Autorizó: {authorizer.name} - {authorizer.payrollId}
-                        </Col>
-                    </Row>
-                )}
+                <Row className="mt-4">
+                    <Col
+                        className="fs-5 fw-bold d-flex justify-content-start mb-3 "
+                        md={4}
+                    >
+                        Analizó:  {analyzer ? `${analyzer.name} - ${analyzer.payrollId}` : '-'}
+                    </Col>
+                </Row>
+                <Row className="mt-1">
+                    <Col
+                        className="fs-5 fw-bold d-flex justify-content-start"
+                        md={4}
+                    >
+                        Autorizó: {authorizer ? `${authorizer.name} - ${authorizer.payrollId}` : '-'}
+                    </Col>
+                </Row>
                 <Row className="mt-1">
                     <Col
                         className="fs-5 fw-bold d-flex justify-content-start align-items-center "

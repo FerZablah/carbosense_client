@@ -13,7 +13,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import TopBar from "./components/TopBar";
 import ResetPassword from "./components/ResetPassword";
 import Unauthorized from "./components/Unauthorized";
-import Recipe from "./components/Recipe";
+
+import OvenAdministrationOperator from "./components/OvenAdministrationOperator";
 import Users from "./components/Users";
 import UserProfile from "./components/UserProfile";
 import Ovens from "./components/Ovens";
@@ -22,7 +23,7 @@ import MetallurgyReport from "./components/MetallurgyReport";
 import MetallurgyReports from "./components/MetallurgyReports";
 import MetallurgyReportsAuthorization from "./components/MetallurgyReportsAuthorization";
 import MetallurgyReportAuthorization from "./components/MetallurgyReportAuthorization";
-import RecipeSelectionOvens from "./components/RecipeSelecitionOvens";
+import OvenSelectionOperator from "./components/OvenSelectionOperator";
 import OvenAdministration from "./components/OvenAdministration";
 
 //libreria para manejar fechas y horas.
@@ -148,7 +149,7 @@ const App = () => {
                     element={
                         <ProtectedRoute authorized={["oven_operator"]}>
                             <TopBar />
-                            <Recipe />
+                            <OvenAdministrationOperator />
                         </ProtectedRoute>
                     }
                 />
@@ -157,7 +158,8 @@ const App = () => {
                     element={
                         <ProtectedRoute authorized={["oven_operator"]}>
                             <TopBar />
-                            <RecipeSelectionOvens />
+                            {/* RENOMBRAR A OvenSelectionOperator*/}
+                            <OvenSelectionOperator />
                         </ProtectedRoute>
                     }
                 />

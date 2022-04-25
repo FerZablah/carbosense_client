@@ -127,9 +127,9 @@ const Reports = (props) => {
                             value={
                                 after
                                     ? after
-                                          .clone()
-                                          .local()
-                                          .format("YYYY-MM-DDTHH:mm:ss")
+                                        .clone()
+                                        .local()
+                                        .format("YYYY-MM-DDTHH:mm:ss")
                                     : ""
                             }
                         />
@@ -155,9 +155,9 @@ const Reports = (props) => {
                             value={
                                 before
                                     ? before
-                                          .clone()
-                                          .local()
-                                          .format("YYYY-MM-DDTHH:mm:ss")
+                                        .clone()
+                                        .local()
+                                        .format("YYYY-MM-DDTHH:mm:ss")
                                     : ""
                             }
                         />
@@ -221,57 +221,64 @@ const Reports = (props) => {
                 <Row>
                     <Col className="mt-3 fw-bold fs-3 text-body">Ciclos</Col>
                 </Row>
-                <Table striped bordered hover size="sm" className="mt-4">
-                    <thead>
-                        <tr>
-                            <th className="text-center fs-6">#</th>
-                            <th className="text-center fs-6">Inicio</th>
-                            <th className="text-center fs-6">Fin</th>
-                            <th className="text-center fs-6">Duración</th>
-                            <th className="text-center fs-6">Tipo</th>
-                            <th className="text-center fs-6">Horno</th>
-                            <th className="text-center fs-6">Pieza</th>
-                        </tr>
-                    </thead>
-                    {reports.map((report, index) => (
-                        <tbody key={report.id}>
-                            <tr
-                                className="table-row"
-                                onClick={() =>
-                                    navigate(`/reportes/${report.id}`)
-                                }
-                            >
-                                <td className="fs-6 text-center table-cell">
-                                    {report.id}
-                                </td>
-                                <td className="fs-6 text-center table-cell">
-                                    {moment(report.start).format(
-                                        "HH:mm:ss DD/MM/YYYY"
-                                    )}
-                                </td>
-                                <td className="fs-6 text-center table-cell">
-                                    {report.end
-                                        ? moment(report.end).format(
-                                              "HH:mm:ss DD/MM/YYYY"
-                                          )
-                                        : "-"}
-                                </td>
-                                <td className="fs-6 text-center table-cell">
-                                    {report.duration}
-                                </td>
-                                <td className="fs-6 text-center table-cell">
-                                    {report.type ? report.type : "-"}
-                                </td>
-                                <td className="fs-6 text-center table-cell">
-                                    {report.oven}
-                                </td>
-                                <td className="fs-6 text-center table-cell">
-                                    999
-                                </td>
-                            </tr>
-                        </tbody>
-                    ))}
-                </Table>
+                {
+                    reports.length < 1 ? (
+                        <h4>No existen reportes que coincidan con la busqueda</h4>
+                    )
+                        : (
+                            <Table striped bordered hover size="sm" className="mt-4">
+                                <thead>
+                                    <tr>
+                                        <th className="text-center fs-6">#</th>
+                                        <th className="text-center fs-6">Inicio</th>
+                                        <th className="text-center fs-6">Fin</th>
+                                        <th className="text-center fs-6">Duración</th>
+                                        <th className="text-center fs-6">Tipo</th>
+                                        <th className="text-center fs-6">Horno</th>
+                                        <th className="text-center fs-6">Pieza</th>
+                                    </tr>
+                                </thead>
+                                {reports.map((report, index) => (
+                                    <tbody key={report.id}>
+                                        <tr
+                                            className="table-row"
+                                            onClick={() =>
+                                                navigate(`/reportes/${report.id}`)
+                                            }
+                                        >
+                                            <td className="fs-6 text-center table-cell">
+                                                {report.id}
+                                            </td>
+                                            <td className="fs-6 text-center table-cell">
+                                                {moment(report.start).format(
+                                                    "HH:mm:ss DD/MM/YYYY"
+                                                )}
+                                            </td>
+                                            <td className="fs-6 text-center table-cell">
+                                                {report.end
+                                                    ? moment(report.end).format(
+                                                        "HH:mm:ss DD/MM/YYYY"
+                                                    )
+                                                    : "-"}
+                                            </td>
+                                            <td className="fs-6 text-center table-cell">
+                                                {report.duration}
+                                            </td>
+                                            <td className="fs-6 text-center table-cell">
+                                                {report.type ? report.type : "-"}
+                                            </td>
+                                            <td className="fs-6 text-center table-cell">
+                                                {report.oven}
+                                            </td>
+                                            <td className="fs-6 text-center table-cell">
+                                                999
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                ))}
+                            </Table>
+                        )
+                }
             </Container>
             <br></br>
             <nav>

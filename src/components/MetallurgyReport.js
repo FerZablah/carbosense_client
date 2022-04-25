@@ -72,7 +72,7 @@ const MetallurgyReport = () => {
                 !["Observaciones", "Disposición"].includes(section.section)
         );
 
-        setReportFilled(res.data.id !== undefined);
+        setReportFilled(res.data.analyzer && res.data.analyzer.id);
         const registeredObservations = res.data.fields.find((section) =>
             section.fields.find((field) => field.name === "Observaciones")
         );
@@ -175,8 +175,8 @@ const MetallurgyReport = () => {
                     </Col>
                 </Row>
                 <Row className="mt-2 text-center">
-                    <Col>{}</Col>
-                    <Col>{}</Col>
+                    <Col>{ }</Col>
+                    <Col>{ }</Col>
                     <Col />
                 </Row>
             </Container>
