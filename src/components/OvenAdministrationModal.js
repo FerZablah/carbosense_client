@@ -10,8 +10,8 @@ const sensorTypes = [
   { value: "temple", label: "Cámara de temple" },
 ];
 
-const OvenAdministrationModal = ({show, onHide, oven, title, submitText}) => {
-  const [sensorTypes, setSensorTypes] = useState("");
+const OvenAdministrationModal = ({ show, onHide, oven, title, submitText }) => {
+  const [sensorType, setSensorType] = useState("");
   return (
     <Modal
       show={show}
@@ -36,6 +36,9 @@ const OvenAdministrationModal = ({show, onHide, oven, title, submitText}) => {
               placeholder="Horno principal"
             />
           </div>
+          <Button className="btn-secondary text-white mt-2">
+            Añadir sensor
+          </Button>
           <div className="mt-2">
             <span className="text-body fs-5 mt-2">Id sensor</span>
             <input type="text" className="form-control" placeholder="001" />
@@ -45,16 +48,18 @@ const OvenAdministrationModal = ({show, onHide, oven, title, submitText}) => {
             <Select
               placeholder="Cámara principal"
               options={sensorTypes}
-              value={sensorTypes}
-              onChange={(newValue) => setSensorTypes(newValue)}
+              value={sensorType}
+              onChange={(newValue) => setSensorType(newValue)}
             />
           </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        {/* <Button variant="link" onClick={onHide}>Cancelar</Button> */}
+        <Button variant="link" onClick={onHide}>
+          Cancelar
+        </Button>
         <Button className="btn-secondary text-white">Agregar</Button>
-      </Modal.Footer>   
+      </Modal.Footer>
     </Modal>
   );
 };

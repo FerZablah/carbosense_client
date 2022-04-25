@@ -4,7 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { GoKebabVertical } from "react-icons/go";
 import { BsPencilFill, BsTrashFill } from "react-icons/bs";
 
-const OvenAdministrationCard = (onEditClicked, onDeleteClicked) => {
+const OvenAdministrationCard = ({oven, onEditClicked, onDeleteClicked}) => {
   const [showOptions, setShowOptions] = useState(false);
 
   return (
