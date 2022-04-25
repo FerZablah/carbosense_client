@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -23,6 +23,23 @@ const OvenAdministration = () => {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [ovenToEdit, setOvenToEdit] = useState(null);
+  const [ovenToDelete, setOvenToDelete] = useState(null);
+
+
+
+  const getOvens = useCallback(async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/oven");
+      setOvens(response.data);
+    } catch (error) {
+      toast.error("Error al obtener los hornos");
+    }
+  }, []);
+
+  useEffect(() => {
+    getOvens();
+  }, [getOvens]);
 
   return (
     <div>
@@ -36,18 +53,32 @@ const OvenAdministration = () => {
           onHide={() => setShowAddOven(false)}
           title="Agregar horno"
           submitText="Agregar"
+          onCreateSubmit={() => {
+            getOvens();
+          }}
         />
 
         <OvenAdministrationEdit
           show={showEditModal}
-          onHide={() => setShowEditModal(false)}
+          onHide={() => {
+            setShowEditModal(false)
+            setOvenToEdit(null)
+          }}
           title="Actualizar horno"
+          onEditSubmit={() => {
+            getOvens();
+          }}
+          oven={ovenToEdit}
         />
 
         <OvenAdministrationDelete
           show={showDeleteModal}
           onHide={() => setShowDeleteModal(false)}
           title="Eliminar horno"
+          oven={ovenToDelete}
+          onDeleteSubmit={() => {
+            getOvens();
+          }}
         />
         <Row>
           <Col className=" ms-3 fw-bold fs-1 text-start">
@@ -64,17 +95,23 @@ const OvenAdministration = () => {
           </Col>
         </Row>
         <Row>
-          <Col md={3}>
-            <OvenAdministrationCard
-              oven = {ovens}
-              onEditClicked={() => {
-                setShowEditModal(true);
-              }}
-              onDeleteClicked={() => {
-                setShowDeleteModal(true)
-              }}
-            />
-          </Col>
+          {
+            ovens.map((oven) => (
+              <Col md={3} key={oven.id}>
+                <OvenAdministrationCard
+                  oven={oven}
+                  onEditClicked={() => {
+                    setShowEditModal(true);
+                    setOvenToEdit(oven);
+                  }}
+                  onDeleteClicked={() => {
+                    setShowDeleteModal(true)
+                    setOvenToDelete(oven);
+                  }}
+                />
+              </Col>
+            ))
+          }
         </Row>
       </div>
     </div>

@@ -227,9 +227,9 @@ const App = () => {
                 <Route
                     path="/administracionHornos"
                     element={
-                        <ProtectedRoute authorized={["oven_operator"]}>
+                        <ProtectedRoute authorized={["admin"]}>
                             <TopBar />
-                            <OvenAdministration/>
+                            <OvenAdministration />
                         </ProtectedRoute>
                     }
                 />

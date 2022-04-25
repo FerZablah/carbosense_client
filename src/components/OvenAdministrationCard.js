@@ -4,7 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { GoKebabVertical } from "react-icons/go";
 import { BsPencilFill, BsTrashFill } from "react-icons/bs";
 
-const OvenAdministrationCard = ({oven, onEditClicked, onDeleteClicked}) => {
+const OvenAdministrationCard = ({ oven, onEditClicked, onDeleteClicked }) => {
   const [showOptions, setShowOptions] = useState(false);
 
   return (
@@ -19,8 +19,8 @@ const OvenAdministrationCard = ({oven, onEditClicked, onDeleteClicked}) => {
             md={9}
             className="d-flex flex-column justify-content-start align-items-start"
           >
-            <span className="text-start fs-5 mt-1">Número de horno: 88</span>
-            <span className="text-start fs-5 mt-1">Alias: Horno principal</span>
+            <span className="text-start fs-5 mt-1">Número de horno: {oven.id}</span>
+            <span className="text-start fs-5 mt-1">Alias: {oven.alias}</span>
           </Col>
         </Row>
         <GoKebabVertical
