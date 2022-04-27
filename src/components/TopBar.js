@@ -4,7 +4,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import logo from "../logo.png";
 
 const authorizedScreens = {
-    admin: ["root", "alerts", "users", "ovenAdministration"],
+    admin: ["root", "alerts", "users", "ovenAdministration", "systemSettings"],
     metallurgy: ["root", "reports", "metallurgyReport"],
     oven_operator: ["root", "partSelector"],
     qa: ["root", "reports", "metallurgyReportAuthorization"],
@@ -42,6 +42,10 @@ const screenPaths = {
     ovenAdministration: {
         path: "/administracionHornos",
         name: "Administración de Hornos",
+    },
+    systemSettings: {
+        path: "/settings",
+        name: "Configuración del sistema",
     }
 };
 

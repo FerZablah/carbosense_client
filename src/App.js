@@ -25,6 +25,7 @@ import MetallurgyReportsAuthorization from "./components/MetallurgyReportsAuthor
 import MetallurgyReportAuthorization from "./components/MetallurgyReportAuthorization";
 import OvenSelectionOperator from "./components/OvenSelectionOperator";
 import OvenAdministration from "./components/OvenAdministration";
+import SystemSettings from "./components/SystemSettings";
 
 //libreria para manejar fechas y horas.
 moment.locale("es", {
@@ -230,6 +231,15 @@ const App = () => {
                         <ProtectedRoute authorized={["admin"]}>
                             <TopBar />
                             <OvenAdministration />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/settings"
+                    element={
+                        <ProtectedRoute authorized={["admin"]}>
+                            <TopBar />
+                            <SystemSettings />
                         </ProtectedRoute>
                     }
                 />
