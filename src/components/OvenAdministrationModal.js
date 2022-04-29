@@ -97,13 +97,7 @@ const OvenAdministrationModal = ({ show, onHide, title, onCreateSubmit }) => {
     catch (error) {
       console.log(error);
       if (error.response.status === 409) {
-        if (error.response.data.error === "Sensors already exists") {
-          toast.error(`Los sensores con ID: ${error.response.data.existingSensors.join(", ")} ya existen en otro(s) horno`);
-
-        }
-        else {
-          toast.error("El horno con este ID ya existe");
-        }
+        toast.error("El horno con este ID ya existe");
       }
       else {
         toast.error("Error al crear el horno");
