@@ -14,7 +14,6 @@ const Login = () => {
 
     const signIn = async (event) => {
         event.preventDefault();
-        console.log(payrollId);
         if (payrollId.length < 6) {
             toast.error("El número de nómina es incorrecto");
             return;
@@ -23,7 +22,7 @@ const Login = () => {
             return;
         }
         try {
-
+            console.log(`${BASE_URL}/user/login`);
             const res = await axios.post(`${BASE_URL}/user/login`, {
                 payrollId,
                 password,

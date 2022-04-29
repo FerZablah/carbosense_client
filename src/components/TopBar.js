@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { BsPersonCircle } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import logo from "../logo.png";
 
 const authorizedScreens = {
@@ -52,6 +54,7 @@ const screenPaths = {
 const TopBar = () => {
     const [openedMenu, setOpenedMenu] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
+    const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("user"));
     let alias = "";
@@ -82,7 +85,15 @@ const TopBar = () => {
                 {authorizedScreens[user.role].map((screen) => (
                     <a
                         key={screen}
-                        href={screenPaths[screen].path}
+                        onClick={() => {
+                            setOpenedMenu(false)
+                            navigate(screenPaths[screen].path)
+                        }}
+                        style={{
+                            cursor: "pointer",
+                        }}
+
+                        // href={`#${screenPaths[screen].path}`}
                         className="text-white"
                     >
                         {screenPaths[screen].name}

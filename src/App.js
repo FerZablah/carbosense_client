@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Graphs from "./components/Graphs";
 import Summary from "./components/Summary";
@@ -41,211 +41,216 @@ moment.locale("es", {
 });
 
 const App = () => {
+
     return (
-        <div>
+
+        <HashRouter>
             <div>
-                <Toaster />
+                {/* <div>
+                    <Toaster />
+                </div> */}
+                <Routes>
+                    <Route
+                        path="/unauthorized"
+                        element={
+                            <div>
+                                <TopBar />
+                                <Unauthorized />
+                            </div>
+                        }
+                    />
+                    <Route path="/user/new/:token" element={<ResetPassword />} />
+                    <Route
+                        path="/reset-password/:token"
+                        element={<ResetPassword />}
+                    />
+                    <Route
+                        path="/"
+                        element={
+                            <ProtectedRoute
+                                authorized={[
+                                    "admin",
+                                    "metallurgy",
+                                    "oven_operator",
+                                    "qa",
+                                ]}
+                            >
+                                <TopBar />
+                                <Dashboard />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/graficas/:id"
+                        element={
+                            <ProtectedRoute
+                                authorized={[
+                                    "admin",
+                                    "metallurgy",
+                                    "oven_operator",
+                                    "qa",
+                                ]}
+                            >
+                                <TopBar />
+                                <Graphs />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/graficas/:fase/horno/:horno"
+                        element={
+                            <ProtectedRoute
+                                authorized={[
+                                    "admin",
+                                    "metallurgy",
+                                    "oven_operator",
+                                    "qa",
+                                ]}
+                            >
+                                <TopBar />
+                                <DashboardPhase />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/alertas"
+                        element={
+                            <ProtectedRoute authorized={["admin"]}>
+                                <TopBar />
+                                <AlertRecipients />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/reportes"
+                        element={
+                            <ProtectedRoute authorized={["metallurgy", "qa"]}>
+                                <TopBar />
+                                <Reports />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/reportes/:ciclo"
+                        element={
+                            <ProtectedRoute authorized={["metallurgy", "qa"]}>
+                                <TopBar />
+                                <Summary />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/reportes/ciclo/:ciclo/fase/:fase"
+                        element={
+                            <ProtectedRoute authorized={["metallurgy", "qa"]}>
+                                <TopBar />
+                                <ReportPhase />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/seleccion-recetas/:ovenId"
+                        element={
+                            <ProtectedRoute authorized={["oven_operator"]}>
+                                <TopBar />
+                                <OvenAdministrationOperator />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/seleccion-recetas"
+                        element={
+                            <ProtectedRoute authorized={["oven_operator"]}>
+                                <TopBar />
+                                {/* RENOMBRAR A OvenSelectionOperator*/}
+                                <OvenSelectionOperator />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/usuarios"
+                        element={
+                            <ProtectedRoute authorized={["admin"]}>
+                                <TopBar />
+                                <Users />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/perfil"
+                        element={
+                            <ProtectedRoute
+                                authorized={[
+                                    "oven_operator",
+                                    "qa",
+                                    "admin",
+                                    "metallurgy",
+                                ]}
+                            >
+                                <TopBar />
+                                <UserProfile />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/metalurgica/:cycleId"
+                        element={
+                            <ProtectedRoute authorized={["metallurgy"]}>
+                                <TopBar />
+                                <MetallurgyReport />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/metalurgica"
+                        element={
+                            <ProtectedRoute authorized={["metallurgy"]}>
+                                <TopBar />
+                                <MetallurgyReports />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/metalurgica/autorizacion"
+                        element={
+                            <ProtectedRoute authorized={["qa"]}>
+                                <TopBar />
+                                <MetallurgyReportsAuthorization />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/metalurgica/autorizacion/:cycleId"
+                        element={
+                            <ProtectedRoute authorized={["qa"]}>
+                                <TopBar />
+                                <MetallurgyReportAuthorization />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/administracionHornos"
+                        element={
+                            <ProtectedRoute authorized={["admin"]}>
+                                <TopBar />
+                                <OvenAdministration />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/settings"
+                        element={
+                            <ProtectedRoute authorized={["admin"]}>
+                                <TopBar />
+                                <SystemSettings />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
             </div>
-            <Routes>
-                <Route
-                    path="/unauthorized"
-                    element={
-                        <div>
-                            <TopBar />
-                            <Unauthorized />
-                        </div>
-                    }
-                />
-                <Route path="/user/new/:token" element={<ResetPassword />} />
-                <Route
-                    path="/reset-password/:token"
-                    element={<ResetPassword />}
-                />
-                <Route
-                    path="/"
-                    element={
-                        <ProtectedRoute
-                            authorized={[
-                                "admin",
-                                "metallurgy",
-                                "oven_operator",
-                                "qa",
-                            ]}
-                        >
-                            <TopBar />
-                            <Dashboard />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/graficas/:id"
-                    element={
-                        <ProtectedRoute
-                            authorized={[
-                                "admin",
-                                "metallurgy",
-                                "oven_operator",
-                                "qa",
-                            ]}
-                        >
-                            <TopBar />
-                            <Graphs />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/graficas/:fase/horno/:horno"
-                    element={
-                        <ProtectedRoute
-                            authorized={[
-                                "admin",
-                                "metallurgy",
-                                "oven_operator",
-                                "qa",
-                            ]}
-                        >
-                            <TopBar />
-                            <DashboardPhase />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/alertas"
-                    element={
-                        <ProtectedRoute authorized={["admin"]}>
-                            <TopBar />
-                            <AlertRecipients />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/reportes"
-                    element={
-                        <ProtectedRoute authorized={["metallurgy", "qa"]}>
-                            <TopBar />
-                            <Reports />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/reportes/:ciclo"
-                    element={
-                        <ProtectedRoute authorized={["metallurgy", "qa"]}>
-                            <TopBar />
-                            <Summary />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/reportes/ciclo/:ciclo/fase/:fase"
-                    element={
-                        <ProtectedRoute authorized={["metallurgy", "qa"]}>
-                            <TopBar />
-                            <ReportPhase />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/seleccion-recetas/:ovenId"
-                    element={
-                        <ProtectedRoute authorized={["oven_operator"]}>
-                            <TopBar />
-                            <OvenAdministrationOperator />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/seleccion-recetas"
-                    element={
-                        <ProtectedRoute authorized={["oven_operator"]}>
-                            <TopBar />
-                            {/* RENOMBRAR A OvenSelectionOperator*/}
-                            <OvenSelectionOperator />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/usuarios"
-                    element={
-                        <ProtectedRoute authorized={["admin"]}>
-                            <TopBar />
-                            <Users />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/perfil"
-                    element={
-                        <ProtectedRoute
-                            authorized={[
-                                "oven_operator",
-                                "qa",
-                                "admin",
-                                "metallurgy",
-                            ]}
-                        >
-                            <TopBar />
-                            <UserProfile />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/metalurgica/:cycleId"
-                    element={
-                        <ProtectedRoute authorized={["metallurgy"]}>
-                            <TopBar />
-                            <MetallurgyReport />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/metalurgica"
-                    element={
-                        <ProtectedRoute authorized={["metallurgy"]}>
-                            <TopBar />
-                            <MetallurgyReports />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/metalurgica/autorizacion"
-                    element={
-                        <ProtectedRoute authorized={["qa"]}>
-                            <TopBar />
-                            <MetallurgyReportsAuthorization />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/metalurgica/autorizacion/:cycleId"
-                    element={
-                        <ProtectedRoute authorized={["qa"]}>
-                            <TopBar />
-                            <MetallurgyReportAuthorization />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/administracionHornos"
-                    element={
-                        <ProtectedRoute authorized={["admin"]}>
-                            <TopBar />
-                            <OvenAdministration />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/settings"
-                    element={
-                        <ProtectedRoute authorized={["admin"]}>
-                            <TopBar />
-                            <SystemSettings />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route path="/login" element={<Login />} />
-            </Routes>
-        </div>
+        </HashRouter>
+
     );
 };
 
