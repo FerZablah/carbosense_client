@@ -5,6 +5,7 @@ import { Container, Row, Col, Breadcrumb, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import translatePhase from "../phasesDisplay";
+import { BASE_URL } from "../utils";
 
 const renderInput = (type, name, onChange, reportFilled, realValue) => {
     if (reportFilled) {
@@ -65,7 +66,7 @@ const MetallurgyReport = () => {
 
     const getReport = useCallback(async () => {
         const res = await axios.get(
-            `http://localhost:4000/metallurgy/${params.cycleId}`
+            `${BASE_URL}/metallurgy/${params.cycleId}`
         );
         const data = res.data.fields.filter(
             (section) =>
@@ -120,7 +121,7 @@ const MetallurgyReport = () => {
         //axios put
 
         const res = await axios.put(
-            `http://localhost:4000/metallurgy/report/${params.cycleId}`,
+            `${BASE_URL}/metallurgy/report/${params.cycleId}`,
             {
                 fields,
                 observations,

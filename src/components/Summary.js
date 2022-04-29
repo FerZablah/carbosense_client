@@ -19,6 +19,7 @@ import DashboardChart from "./DashboardChart";
 import { writeFile, utils } from "xlsx";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { BASE_URL } from "../utils";
 
 
 const Summary = () => {
@@ -52,7 +53,7 @@ const Summary = () => {
     const getCycle = useCallback(async () => {
         //get cycle
         const res = await axios.get(
-            `http://localhost:4000/report/${params.ciclo}`
+            `${BASE_URL}/report/${params.ciclo}`
         );
         setCycle(res.data.cycle);
         setCarbonData({
@@ -82,10 +83,10 @@ const Summary = () => {
 
     const getReport = useCallback(async () => {
         const res = await axios.get(
-            `http://localhost:4000/metallurgy/${params.ciclo}`
+            `${BASE_URL}/metallurgy/${params.ciclo}`
         );
         const operatorFieldsRes = await axios.get(
-            `http://localhost:4000/metallurgy/operator/${params.ciclo}`
+            `${BASE_URL}/metallurgy/operator/${params.ciclo}`
         );
         const data = res.data.fields.filter(
             (section) =>
@@ -133,7 +134,7 @@ const Summary = () => {
         setShowDownloadButton(false);
 
         axios({
-            url: `http://localhost:4000/report/${params.ciclo}/csv`,
+            url: `${BASE_URL}/report/${params.ciclo}/csv`,
             method: "GET",
             responseType: "blob", // important
         }).then((response) => {

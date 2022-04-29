@@ -12,6 +12,7 @@ import axios from "axios";
 import RecipientModal from "./RecipientModal";
 import toast from "react-hot-toast";
 import RecipientCard from "./RecipientCard";
+import { BASE_URL } from "../utils";
 
 const icons = {
     sms: <BsChatFill key="sms" size="20" className="ms-3" />,
@@ -29,18 +30,18 @@ const AlertRecipients = () => {
     const [recipientToEdit, setRecipientToEdit] = useState(null);
 
     const getRecipients = async () => {
-        const res = await axios.get(`http://localhost:4000/alert/recipient`);
+        const res = await axios.get(`${BASE_URL}/alert/recipient`);
         setRecipients(res.data);
     };
 
     const deleteRecipient = async (id) => {
-        await axios.delete(`http://localhost:4000/alert/recipient/${id}`);
+        await axios.delete(`${BASE_URL}/alert/recipient/${id}`);
         toast.success("Recipiente eliminado");
         getRecipients();
     };
 
     const createRecipient = async (recipient) => {
-        await axios.post(`http://localhost:4000/alert/recipient`, {
+        await axios.post(`${BASE_URL}/alert/recipient`, {
             ...recipient,
             mediums: Array.from(recipient.mediums),
         });
@@ -50,7 +51,7 @@ const AlertRecipients = () => {
 
     const updateRecipient = async (recipient) => {
         await axios.put(
-            `http://localhost:4000/alert/recipient/${recipient.id}`,
+            `${BASE_URL}/alert/recipient/${recipient.id}`,
             {
                 ...recipient,
                 mediums: Array.from(recipient.mediums),

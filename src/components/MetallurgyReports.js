@@ -15,6 +15,7 @@ import axios from "axios";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { BASE_URL } from "../utils";
 
 const MetallurgyReports = (props) => {
     //navigation hook
@@ -24,7 +25,7 @@ const MetallurgyReports = (props) => {
 
     //"escucha" cambios de variables, no se necesita un boton de buscar
     const searchReports = useCallback(async () => {
-        const res = await axios.get(`http://localhost:4000/report`);
+        const res = await axios.get(`${BASE_URL}/report`);
         //sort by auhorized by being not null
         const sortedReports = res.data.sort((a, b) => {
             if (a.authorizedBy === null && b.authorizedBy === null) {
@@ -106,8 +107,8 @@ const MetallurgyReports = (props) => {
                                 <td className="fs-6 text-center table-cell">
                                     {report.end
                                         ? moment(report.end).format(
-                                              "HH:mm:ss DD/MM/YYYY"
-                                          )
+                                            "HH:mm:ss DD/MM/YYYY"
+                                        )
                                         : "-"}
                                 </td>
                                 <td className="fs-6 text-center table-cell">

@@ -6,6 +6,7 @@ import axios from "axios";
 import moment from "moment";
 import io from "socket.io-client";
 import DashboardChart from "./DashboardChart.js";
+import { BASE_URL } from "../utils.js";
 
 const parseDate = (dateString) => {
   return dateString ? moment(dateString, "YYYY-MM-DDTHH:mm:ss.SSSZ") : null;
@@ -57,10 +58,9 @@ const Graphs = () => {
   const [templeExceeded, setTempleExceeded] = useState(false); //si el temple se excede de los limites
 
   const prevCycle = usePrevious(cycle);
-
   const getDashboardData = async () => {
     //llamada al back con la informacion del ciclo
-    const res = await axios.get(`http://localhost:4000/dashboard/oven/${params.id}`);
+    const res = await axios.get(`${BASE_URL}/dashboard/oven/${params.id}`);
     setCycle(res.data.cycle);
     //Only update the series if there exists data
     if (res.data.mainCamera) {
@@ -76,7 +76,7 @@ const Graphs = () => {
   }
 
   const getCycleInitialData = async (id) => {
-    const res = await axios.get(`http://localhost:4000/dashboard/cycle/${id}/expected`);
+    const res = await axios.get(`${BASE_URL}/dashboard/cycle/${id}/expected`);
     //Set series for main camera
     setExpectedMainSeries(res.data.mainCameraExpectedReadings);
     setMaxMainLimitSeries(res.data.mainCameraLimitReadings.max);
@@ -89,7 +89,7 @@ const Graphs = () => {
 
     //Set series for temple camera
     setExpectedTempleSeries(res.data.templeCameraExpectedReadings);
-    if(res.data.templeCameraLimitReadings){
+    if (res.data.templeCameraLimitReadings) {
       setMaxTempleLimitSeries(res.data.templeCameraLimitReadings.max);
       setMinTempleLimitSeries(res.data.templeCameraLimitReadings.min);
     }
@@ -113,7 +113,7 @@ const Graphs = () => {
 
   //Run when component has mounted
   useEffect(() => {
-    const socket = io("http://localhost:4000");
+    const socket = io(`${BASE_URL}`);
     socket.on("newData", async () => {
       getDashboardData();
     });
@@ -228,9 +228,9 @@ const Graphs = () => {
               }}
             />
           </Col>
-          
-          <Col md={6}  className="rounded-3">
-          {realTempleSeries && realTempleSeries.length > 0 && 
+
+          <Col md={6} className="rounded-3">
+            {realTempleSeries && realTempleSeries.length > 0 &&
               <DashboardChart
                 realPlotBands={templePlotBand}
                 expectedPlotBands={[]}
@@ -249,10 +249,10 @@ const Graphs = () => {
                   navigate(`/graficas/${plotBand}/horno/${params.id}`)
                 }}
               />
-          }
+            }
           </Col>
         </Row>
-        </div>
+      </div>
     </div>
   );
 };

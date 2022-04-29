@@ -4,6 +4,7 @@ import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "react-phone-input-2/lib/bootstrap.css";
 import Select from "react-select";
+import { BASE_URL } from "../utils";
 
 const sensorTypes = [
   { value: "principal", label: "Cámara Principal" },
@@ -20,7 +21,7 @@ const OvenAdministrationDelete = ({
   onDeleteSubmit,
 }) => {
   const onSubmit = async () => {
-    await axios.delete(`http://localhost:4000/oven/${oven.id}`);
+    await axios.delete(`${BASE_URL}/oven/${oven.id}`);
     toast.success("Horno eliminado correctamente");
     onDeleteSubmit();
     onHide();

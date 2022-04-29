@@ -12,6 +12,7 @@ import {
 import Table from "react-bootstrap/Table";
 import { useNavigate, useParams } from "react-router-dom";
 import translatePhase from "../phasesDisplay";
+import { BASE_URL } from "../utils";
 import DashboardChart from "./DashboardChart";
 
 const ReportPhase = () => {
@@ -29,7 +30,7 @@ const ReportPhase = () => {
     const [phase, setPhase] = useState(null);
     const getPhase = useCallback(async () => {
         const res = await axios.get(
-            `http://localhost:4000/report/${params.ciclo}/phase/${params.fase}`
+            `${BASE_URL}/report/${params.ciclo}/phase/${params.fase}`
         );
         setPhase(res.data);
     }, [params.ciclo, params.fase]);

@@ -13,6 +13,7 @@ import { BsArrowClockwise } from "react-icons/bs";
 import axios from "axios";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils";
 
 const Reports = (props) => {
     //navigation hook
@@ -32,7 +33,7 @@ const Reports = (props) => {
     //"escucha" cambios de variables, no se necesita un boton de buscar
     const searchReports = useCallback(async () => {
         setLoading(true);
-        const res = await axios.get(`http://localhost:4000/report`, {
+        const res = await axios.get(`${BASE_URL}/report`, {
             params: {
                 after,
                 before,

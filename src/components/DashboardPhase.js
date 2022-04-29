@@ -6,6 +6,7 @@ import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import translatePhase from "../phasesDisplay";
+import { BASE_URL } from "../utils";
 import DashboardChart from "./DashboardChart";
 
 const DashboardPhase = () => {
@@ -27,8 +28,9 @@ const DashboardPhase = () => {
 
   const getDashboardData = async () => {
     const res = await axios.get(
-      `http://localhost:4000/dashboard/oven/${params.horno}/phase/${params.fase}`
+      `${BASE_URL}/dashboard/oven/${params.horno}/phase/${params.fase}`
     );
+
     setPhase(res.data.phase);
     setAvgTemperature(res.data.avgTemperature);
     setAvgCarbon(res.data.avgCarbon);
@@ -42,7 +44,7 @@ const DashboardPhase = () => {
 
   //Run when component has mounted
   useEffect(() => {
-    const socket = io("http://localhost:4000");
+    const socket = io(`${BASE_URL}`);
     socket.on("newData", async () => {
       getDashboardData();
     });
@@ -161,7 +163,7 @@ const DashboardPhase = () => {
             /> */}
           </Col>
           <Col>
-          <DashboardChart
+            <DashboardChart
               realSeries={carbonRealSeries}
               expectedPlotBands={[]}
               realPlotBands={[]}

@@ -13,6 +13,7 @@ import RecipeModal from "./RecipeModal";
 import moment from "moment";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../utils";
 
 const renderInput = (type, name, onChange, reportFilled, realValue) => {
   if (reportFilled) {
@@ -69,13 +70,13 @@ const OvenAdministrationOperator = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const getCurrentCycle = useCallback(async () => {
-    const res = await axios.get(`http://localhost:4000/oven/currentCycle/${params.ovenId}`);
+    const res = await axios.get(`${BASE_URL}/oven/currentCycle/${params.ovenId}`);
     setCycle(res.data);
   }, [params.ovenId]);
 
   const getReport = useCallback(async () => {
     if (!cycle) return;
-    const res = await axios.get(`http://localhost:4000/metallurgy/operator/${cycle.id}`);
+    const res = await axios.get(`${BASE_URL}/metallurgy/operator/${cycle.id}`);
     setReportFilled(res.data.id !== undefined);
     setReport(res.data.fields);
   }, [cycle]);
@@ -158,7 +159,7 @@ const OvenAdministrationOperator = (props) => {
     //axios put
 
     const res = await axios.put(
-      `http://localhost:4000/metallurgy/report/operator/${cycle.id}`,
+      `${BASE_URL}/metallurgy/report/operator/${cycle.id}`,
       {
         fields,
         operatedBy: user.id,

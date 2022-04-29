@@ -16,6 +16,7 @@ import OvenAdministrationDelete from "./OvenAdministrationDelete";
 import OvenAdministrationModal from "./OvenAdministrationModal";
 import OvenAdministrationCard from "./OvenAdministrationCard";
 import OvenAdministrationEdit from "./OvenAdministrationEdit";
+import { BASE_URL } from "../utils";
 
 const OvenAdministration = () => {
   const [showAddOven, setShowAddOven] = useState(false);
@@ -27,10 +28,9 @@ const OvenAdministration = () => {
   const [ovenToDelete, setOvenToDelete] = useState(null);
 
 
-
   const getOvens = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:4000/oven");
+      const response = await axios.get(`${BASE_URL}/oven`);
       setOvens(response.data);
     } catch (error) {
       toast.error("Error al obtener los hornos");

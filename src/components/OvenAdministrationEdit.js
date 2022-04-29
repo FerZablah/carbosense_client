@@ -4,6 +4,7 @@ import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "react-phone-input-2/lib/bootstrap.css";
 import Select from "react-select";
+import { BASE_URL } from "../utils";
 
 const OvenAdministrationEdit = ({ oven, show, onHide, title, onEditSubmit }) => {
   const [id, setId] = useState(0);
@@ -90,7 +91,7 @@ const OvenAdministrationEdit = ({ oven, show, onHide, title, onEditSubmit }) => 
 
     try {
       await axios.put(
-        "http://localhost:4000/oven",
+        `${BASE_URL}/oven`,
         {
           id,
           alias,

@@ -4,6 +4,7 @@ import { Container, Row, Col, Breadcrumb } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import translateRole from "../userRolesDisplay";
+import { BASE_URL } from "../utils";
 
 const UserProfile = (props) => {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -17,7 +18,7 @@ const UserProfile = (props) => {
             formData.append("photo", file);
             formData.append("payrollId", user.payrollId);
             const res = await axios.put(
-                "http://localhost:4000/user/picture/",
+                `${BASE_URL}/user/picture/`,
                 formData,
                 {
                     headers: {

@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../utils";
 
 const ResetPassword = () => {
     const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -22,14 +23,14 @@ const ResetPassword = () => {
         }
         try {
             const resPassword = await axios.post(
-                "http://localhost:4000/user/restore/password",
+                `${BASE_URL}/user/restore/password`,
                 {
                     token: params.token,
                     password,
                 }
             );
 
-            const res = await axios.post("http://localhost:4000/user/login", {
+            const res = await axios.post(`${BASE_URL}/user/login`, {
                 payrollId: resPassword.data.payrollId,
                 password,
             });

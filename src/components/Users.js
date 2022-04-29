@@ -12,6 +12,7 @@ import UserCard from "./UserCard";
 import axios from "axios";
 import toast from "react-hot-toast";
 import UserModalDelete from "./UserModalDelete";
+import { BASE_URL } from "../utils";
 
 const Users = () => {
     const [showAddUser, setShowAddUser] = useState(false);
@@ -24,18 +25,18 @@ const Users = () => {
     const [userToEdit, setUserToEdit] = useState(null);
 
     const getUsers = async () => {
-        const res = await axios.get(`http://localhost:4000/user`);
+        const res = await axios.get(`${BASE_URL}/user`);
         setUsers(res.data);
     };
 
     const createUser = async (user) => {
-        await axios.post(`http://localhost:4000/user`, user);
+        await axios.post(`${BASE_URL}/user`, user);
         toast.success("Usuario agregado");
         getUsers();
     };
     const updateUser = async (user) => {
         await axios.put(
-            `http://localhost:4000/user/${user.originalPayrollId}`,
+            `${BASE_URL}/user/${user.originalPayrollId}`,
             user
         );
         toast.success("Usuario actualizado");
@@ -43,7 +44,7 @@ const Users = () => {
     };
     const deleteUser = async (user) => {
         console.log("delete user");
-        await axios.delete(`http://localhost:4000/user/${user.id}`);
+        await axios.delete(`${BASE_URL}/user/${user.id}`);
         toast.success("Usuario eliminado");
         getUsers();
     };

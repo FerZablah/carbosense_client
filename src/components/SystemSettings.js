@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Row, Col, Breadcrumb, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils";
 
 const SystemSettings = () => {
     const navigate = useNavigate();
@@ -11,13 +12,13 @@ const SystemSettings = () => {
     const [oxygenFactor, setOxygenFactor] = useState(0);
 
     const getSettings = useCallback(async () => {
-        const data = await axios.get("http://localhost:4000/systemSetting");
+        const data = await axios.get(`${BASE_URL}/systemSetting`);
         setSensorDataWaitTime(data.data.sensorDataWaitTime);
         setOxygenFactor(data.data.oxygenFactor);
     }, []);
 
     const handleSubmit = async () => {
-        await axios.put("http://localhost:4000/systemSetting", {
+        await axios.put(`${BASE_URL}/systemSetting`, {
             settings: [
                 {
                     name: "sensorDataWaitTime",

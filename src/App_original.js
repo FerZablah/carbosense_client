@@ -4,7 +4,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import axios from "axios";
-
+import { BASE_URL } from "./utils";
 const INITIAL_HORNOS = [
   {
     id: "1",
@@ -27,16 +27,16 @@ const App = () => {
   const [hornos, setHornos] = useState([]);
 
   const addHornoHandler = (hornos) => {
-    
+
     setHornos((prevHornos) => {
       return [hornos, ...prevHornos];
     });
   };
   //Codigo que se ejecuta al cargarse el componente
   useEffect(() => {
-    const socket = io("http://localhost:4000");
+    const socket = io(BASE_URL);
     socket.on("newData", async () => {
-      axios.get("http://localhost:4000/dashboard/ovens").then((res) => {
+      axios.get(`${BASE_URL}/dashboard/ovens`).then((res) => {
         setHornos(res.data);
       });
     });
@@ -44,7 +44,7 @@ const App = () => {
   //lo que se muestra en pantalla
   return (
     <div>
-            {/* boton de agregar horno */}
+      {/* boton de agregar horno */}
       <NuevoHorno onAddHorno={addHornoHandler} />
       {/* aqui se muestran los hornos registrados con los datos en tiempo real */}
       <Hornos item={hornos} />

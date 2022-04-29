@@ -9,14 +9,14 @@ import {
     Breadcrumb,
 } from "react-bootstrap";
 import Select from "react-select";
+import { BASE_URL } from "../utils";
 import OvenCardRecipeSelection from "./OvenCardRecipeSelection";
 import RecipeModal from "./RecipeModal";
 
 const OvenSelectionOperator = (props) => {
     const [ovens, setOvens] = useState([]);
-
     const getOvens = useCallback(async () => {
-        const res = await axios.get(`http://localhost:4000/oven`);
+        const res = await axios.get(`${BASE_URL}/oven`);
         setOvens(res.data);
         console.log(res.data);
     }, []);
