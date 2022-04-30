@@ -46,9 +46,9 @@ const App = () => {
 
         <HashRouter>
             <div>
-                {/* <div>
+                <div>
                     <Toaster />
-                </div> */}
+                </div>
                 <Routes>
                     <Route
                         path="/unauthorized"
