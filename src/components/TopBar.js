@@ -4,9 +4,10 @@ import { Col, Row } from "react-bootstrap";
 import { BsPersonCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import logo from "../logo.png";
+import RecipeAdministrationPage from "./RecipeAdministrationPage";
 
 const authorizedScreens = {
-    admin: ["root", "alerts", "users", "ovenAdministration", "systemSettings"],
+    admin: ["root", "alerts", "users", "ovenAdministration", "systemSettings", "recipeAdministration"],
     metallurgy: ["root", "reports", "metallurgyReport"],
     oven_operator: ["root", "partSelector"],
     qa: ["root", "reports", "metallurgyReportAuthorization"],
@@ -48,7 +49,11 @@ const screenPaths = {
     systemSettings: {
         path: "/settings",
         name: "Configuración del sistema",
-    }
+    },
+    recipeAdministration:{
+        path: "/administracionRecetas",
+        name: "Administración de Recetas",
+    },
 };
 
 const TopBar = () => {

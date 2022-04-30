@@ -27,7 +27,6 @@ const OvenAdministration = () => {
   const [ovenToEdit, setOvenToEdit] = useState(null);
   const [ovenToDelete, setOvenToDelete] = useState(null);
 
-
   const getOvens = useCallback(async () => {
     try {
       const response = await axios.get(`${BASE_URL}/oven`);
@@ -61,8 +60,8 @@ const OvenAdministration = () => {
         <OvenAdministrationEdit
           show={showEditModal}
           onHide={() => {
-            setShowEditModal(false)
-            setOvenToEdit(null)
+            setShowEditModal(false);
+            setOvenToEdit(null);
           }}
           title="Actualizar horno"
           onEditSubmit={() => {
@@ -95,23 +94,21 @@ const OvenAdministration = () => {
           </Col>
         </Row>
         <Row>
-          {
-            ovens.map((oven) => (
-              <Col md={3} key={oven.id}>
-                <OvenAdministrationCard
-                  oven={oven}
-                  onEditClicked={() => {
-                    setShowEditModal(true);
-                    setOvenToEdit(oven);
-                  }}
-                  onDeleteClicked={() => {
-                    setShowDeleteModal(true)
-                    setOvenToDelete(oven);
-                  }}
-                />
-              </Col>
-            ))
-          }
+          {ovens.map((oven) => (
+            <Col md={3} key={oven.id}>
+              <OvenAdministrationCard
+                oven={oven}
+                onEditClicked={() => {
+                  setShowEditModal(true);
+                  setOvenToEdit(oven);
+                }}
+                onDeleteClicked={() => {
+                  setShowDeleteModal(true);
+                  setOvenToDelete(oven);
+                }}
+              />
+            </Col>
+          ))}
         </Row>
       </div>
     </div>
