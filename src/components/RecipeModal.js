@@ -3,7 +3,7 @@ import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "react-phone-input-2/lib/bootstrap.css";
 
-const RecipeModal = ({ show, onHide, onSubmit, recipes }) => {
+const RecipeModal = ({ show, onHide, onSubmit, selectedPiece, oven }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -12,13 +12,16 @@ const RecipeModal = ({ show, onHide, onSubmit, recipes }) => {
       <Modal.Body>
         <Container className="m-2 p-3 w-full mx-auto rounded">
           <Row>
-            <Col className="text-body fs-5">Estás seguro que quieres ingresar la carga <strong>999</strong> en el horno <strong>88</strong>?</Col>
+            <Col className="text-body fs-5">Estás seguro que quieres ingresar la carga <strong>{selectedPiece}</strong> en el horno <strong>{oven}</strong>?</Col>
           </Row>
         </Container>
       </Modal.Body>
       <Modal.Footer>
-      <Button variant="secondary" onClick={() => window.location.reload()}>Cancelar</Button>
-      <Button variant="primary text-white" onClick={onHide}>Confirmar</Button>
+        <Button variant="secondary" onClick={onHide}>Cancelar</Button>
+        <Button variant="primary text-white" onClick={() => {
+          onSubmit();
+          onHide();
+        }}>Confirmar</Button>
       </Modal.Footer>
     </Modal>
   );

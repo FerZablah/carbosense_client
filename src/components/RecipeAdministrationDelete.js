@@ -33,7 +33,7 @@ const RecipeAdministrationDelete = ({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        ¿Estás seguro que quiere eliminar la receta
+        ¿Estás seguro que quiere eliminar la receta <strong>{recipe}{" "}</strong>
         del sistema?
       </Modal.Body>
       <Modal.Footer>
@@ -43,7 +43,8 @@ const RecipeAdministrationDelete = ({
         <Button
           className="btn-primary text-white"
           onClick={() => {
-            // onSubmit();
+            onDeleteSubmit();
+            onHide();
           }}
         >
           Eliminar

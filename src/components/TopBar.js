@@ -50,7 +50,7 @@ const screenPaths = {
         path: "/settings",
         name: "Configuración del sistema",
     },
-    recipeAdministration:{
+    recipeAdministration: {
         path: "/administracionRecetas",
         name: "Administración de Recetas",
     },
@@ -152,7 +152,8 @@ const TopBar = () => {
                             </button>
                             <button
                                 onClick={() => {
-                                    window.location = "/perfil";
+                                    setShowLogout(false);
+                                    window.location = "#/perfil";
                                 }}
                                 type="submit"
                                 className="btn btn-secondary text-white w-100 "

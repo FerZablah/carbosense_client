@@ -65,13 +65,17 @@ const OvenAdministrationOperator = (props) => {
   const [report, setReport] = useState(null);
   const [reportValues, setReportValues] = useState(null);
   const [reportFilled, setReportFilled] = useState(false);
-
+  const [pieces, setPieces] = useState([]);
   const params = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
+  const [selectedPiece, setSelectedPiece] = useState(null);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const getCurrentCycle = useCallback(async () => {
     const res = await axios.get(`${BASE_URL}/oven/currentCycle/${params.ovenId}`);
+
     setCycle(res.data);
+    setSelectedRecipe(res.data.recipe);
   }, [params.ovenId]);
 
   const getReport = useCallback(async () => {
@@ -81,6 +85,37 @@ const OvenAdministrationOperator = (props) => {
     setReport(res.data.fields);
   }, [cycle]);
 
+  const getPieces = useCallback(async () => {
+    if (!cycle) return;
+    const res = await axios.get(`${BASE_URL}/recipe/piece/${params.ovenId}`);
+    setPieces(res.data);
+  }, [cycle, params.ovenId]);
+
+  const submitRecipe = useCallback(async () => {
+    if (!cycle) return;
+    if (!selectedPiece) {
+      toast.error("Debe seleccionar una pieza");
+      return;
+    }
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/recipe/piece/selection`,
+        {
+          piece: selectedPiece,
+          ovenId: params.ovenId,
+        }
+      );
+      setSelectedRecipe(res.data.id);
+      toast.success("Pieza seleccionada, receta aplicada");
+      getReport();
+    } catch (error) {
+      //if 404 error toast no recipe found
+      if (error.response.status === 404) {
+        toast.error("No se encontro una receta para la pieza y horno seleccionada");
+      }
+    }
+  }, [cycle, params.ovenId, selectedPiece]);
+
   useEffect(() => {
     getReport();
   }, [getReport]);
@@ -89,14 +124,10 @@ const OvenAdministrationOperator = (props) => {
     getCurrentCycle();
   }, [getCurrentCycle]);
 
-  const numPieces = [
-    { value: "999", label: "999" },
-    { value: "780", label: "780" },
-  ];
-  const idOven = [
-    { value: "88", label: "88" },
-    { value: "90", label: "90" },
-  ];
+  useEffect(() => {
+    getPieces();
+  }, [getPieces]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -132,7 +163,7 @@ const OvenAdministrationOperator = (props) => {
             {cycle.duration ? cycle.duration : "-"}
           </Col>
           <Col className="fs-5 fw-bold">
-            {cycle.recipe ? cycle.recipe : "-"}
+            {selectedRecipe ? selectedRecipe : "-"}
           </Col>
         </Row>
         <Row className="mt-2 text-center">
@@ -176,6 +207,9 @@ const OvenAdministrationOperator = (props) => {
       </Breadcrumb>
       <RecipeModal
         show={showConfirmModal}
+        onSubmit={submitRecipe}
+        selectedPiece={selectedPiece}
+        oven={params.ovenId}
         onHide={() => setConfirmModal(false)}
       />
       {renderCurrentCycleData()}
@@ -193,16 +227,30 @@ const OvenAdministrationOperator = (props) => {
             <div>
               <Select
                 placeholder="Seleccionar número de pieza"
-                options={numPieces}
-              // onChange={(newValue) => {
-              //   setSelectedOvens(newValue.map((item) => item.value));
-              // }}
+                options={pieces.map((piece) => {
+                  return {
+                    label: piece,
+                    value: piece,
+                  };
+                })}
+                onChange={(newValue) => {
+                  setSelectedPiece(newValue.value);
+                }}
               />
             </div>
           </Col>
           <Col md={2}>
             <button
-              onClick={() => setConfirmModal(true)}
+              onClick={() => {
+                if (!selectedPiece) {
+                  toast.error("Debe seleccionar una pieza");
+                  return;
+                }
+                else {
+                  setConfirmModal(true);
+                }
+
+              }}
               type="button"
               className="btn btn-link fs-6 text-center"
             >

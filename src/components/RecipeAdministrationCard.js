@@ -19,8 +19,8 @@ const RecipeAdministrationCard = ({ recipe, onEditClicked, onDeleteClicked }) =>
             md={9}
             className="d-flex flex-column justify-content-start align-items-start"
           >
-            <span className="text-start fs-5 mt-1">ID de Receta: 01</span>
-            <span className="text-start fs-5 mt-1">No° de Pieza: 990</span>
+            <span className="text-start fs-5 mt-1">ID de Receta: {recipe.id}</span>
+            <span className="text-start fs-5 mt-1">No° de Pieza: {recipe.piece}</span>
           </Col>
         </Row>
         <GoKebabVertical

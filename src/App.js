@@ -253,8 +253,8 @@ const App = () => {
                         path="/administracionRecetas"
                         element={
                             <ProtectedRoute authorized={["admin"]}>
-                                <TopBar/>
-                                <RecipeAdministration/>
+                                <TopBar />
+                                <RecipeAdministration />
                             </ProtectedRoute>
                         }
                     />
@@ -262,17 +262,17 @@ const App = () => {
                         path="/agregarReceta"
                         element={
                             <ProtectedRoute authorized={["admin"]}>
-                                <TopBar/>
-                                <RecipeAdministrationPage/>
+                                <TopBar />
+                                <RecipeAdministrationPage />
                             </ProtectedRoute>
                         }
                     />
                     <Route
-                        path="/editarReceta"
+                        path="/editarReceta/:recipeId"
                         element={
                             <ProtectedRoute authorized={["admin"]}>
-                                <TopBar/>
-                                <RecipeAdministrationEdit/>
+                                <TopBar />
+                                <RecipeAdministrationEdit />
                             </ProtectedRoute>
                         }
                     />

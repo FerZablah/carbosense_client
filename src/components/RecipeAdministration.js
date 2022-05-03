@@ -21,12 +21,28 @@ import RecipeAdministrationCard from "./RecipeAdministrationCard";
 const RecipeAdministration = () => {
   let navigate = useNavigate();
   const [showAddRecipe, setShowAddRecipe] = useState(false);
-  const [recipe, setRecipe] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [recipeToEdit, setRecipeToEdit] = useState(null);
   const [recipeToDelete, setRecipeToDelete] = useState(null);
+
+  const getRecipes = useCallback(async () => {
+    const response = await axios.get(`${BASE_URL}/recipe`);
+    setRecipes(response.data);
+  }, []);
+
+  const deleteRecipe = useCallback(async () => {
+    await axios.delete(`${BASE_URL}/recipe/${recipeToDelete.id}`);
+    toast.success("Receta eliminada con éxito");
+    getRecipes();
+  }, [getRecipes, recipeToDelete]);
+
+  useEffect(() => {
+    getRecipes();
+  }, [getRecipes]);
+
   return (
     <div>
       <Breadcrumb className="p-3">
@@ -37,7 +53,9 @@ const RecipeAdministration = () => {
 
         <RecipeAdministrationDelete
           show={showDeleteModal}
+          recipe={(recipeToDelete && recipeToDelete.id) || ""}
           onHide={() => setShowDeleteModal(false)}
+          onDeleteSubmit={deleteRecipe}
           title="Eliminar receta"
         />
 
@@ -56,16 +74,22 @@ const RecipeAdministration = () => {
           </Col>
         </Row>
         <Row>
-          <Col md={3}>
-            <RecipeAdministrationCard
-              recipes={recipe}
-              onEditClicked={() => navigate(`/editarReceta`)}
-              onDeleteClicked={() => {
-                setShowDeleteModal(true);
-                setRecipeToDelete(recipe);
-              }}
-            />
-          </Col>
+          {
+            recipes.map((recipe) => (
+              <Col md={3} key={recipe.id}>
+                <RecipeAdministrationCard
+                  recipe={recipe}
+                  onEditClicked={() => navigate(`/editarReceta/${recipe.id}`)}
+                  onDeleteClicked={() => {
+                    setShowDeleteModal(true);
+                    setRecipeToDelete(recipe);
+                  }}
+                />
+              </Col>
+            ))
+
+          }
+
         </Row>
       </div>
     </div>
