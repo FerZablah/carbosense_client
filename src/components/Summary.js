@@ -155,7 +155,7 @@ const Summary = () => {
                 "Fecha de fin": moment(cycle.end).format("HH:mm:ss"),
                 Duración: cycle.duration,
                 "Tipo de ciclo": cycle.type,
-                "No. Pieza": 999,
+                "No. Pieza": (cycle.Recipe && cycle.Recipe.piece) || "",
             },
         ]);
         const tempConditionSheet = utils.json_to_sheet([
@@ -382,6 +382,9 @@ const Summary = () => {
                     <Col md={2} className="fs-6">
                         Pieza
                     </Col>
+                    <Col md={2} className="fs-6">
+                        Receta
+                    </Col>
                 </Row>
                 <Row className="mt-2 justify-content-center text-center">
                     <Col md={2} className="fs-5 fw-bold">
@@ -397,7 +400,10 @@ const Summary = () => {
                         {cycle.type}
                     </Col>
                     <Col md={2} className="fs-5 fw-bold">
-                        999
+                        {(cycle.recipe && cycle.Recipe.piece) || "-"}
+                    </Col>
+                    <Col md={2} className="fs-5 fw-bold">
+                        {(cycle.recipe && cycle.Recipe.id) || "-"}
                     </Col>
                 </Row>
                 <Row className="mt-2 justify-content-center text-center">
@@ -409,6 +415,8 @@ const Summary = () => {
                             ? moment(cycle.end).format("DD MMM YYYY")
                             : "-"}
                     </Col>
+                    <Col md={2} />
+                    <Col md={2} />
                     <Col md={2} />
                     <Col md={2} />
                     <Col md={2} />
@@ -788,10 +796,10 @@ const Summary = () => {
                             yAxisMin={20}
                             ovenId={params.id}
                             onPlotBandClick={(plotBand) => {
-                                navigate(
-                                    `/reportes/ciclo/${params.ciclo}/fase/${plotBand}`,
-                                    { replace: true }
-                                );
+                                // navigate(
+                                //     `/reportes/ciclo/${params.ciclo}/fase/${plotBand}`,
+                                //     { replace: true }
+                                // );
                             }}
                         />
                         <span className="fw-bold fs-4 text-body text-center">

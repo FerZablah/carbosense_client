@@ -93,7 +93,7 @@ const MetallurgyReportsAuthorization = (props) => {
                             <th className="text-center fs-6">Duración</th>
                             <th className="text-center fs-6">Tipo</th>
                             <th className="text-center fs-6">Horno</th>
-                            <th className="text-center fs-6">Pieza</th>
+                            <th className="text-center fs-6">Receta</th>
                             <th className="text-center fs-6">Autorizado</th>
                             <th className="text-center fs-6">Analizado</th>
                         </tr>
@@ -135,7 +135,7 @@ const MetallurgyReportsAuthorization = (props) => {
                                     {report.oven}
                                 </td>
                                 <td className="fs-6 text-center table-cell">
-                                    999
+                                    {report.recipe || "-"}
                                 </td>
                                 <td className="fs-6 text-center table-cell">
                                     {renderIconAuthorization(
@@ -159,13 +159,13 @@ const MetallurgyReportsAuthorization = (props) => {
         <div>
             <Breadcrumb className="p-3">
                 <Breadcrumb.Item active>
-                    Autorización reportes metalurgica
+                    Autorización reportes metalúrgica
                 </Breadcrumb.Item>
             </Breadcrumb>
             <Container>
                 <Row>
                     <Col className="mt-3 fw-bold fs-1 text-start">
-                        Reportes metalurgica
+                        Reportes metalúrgica
                     </Col>
                 </Row>
             </Container>

@@ -26,6 +26,7 @@ const Reports = (props) => {
     const [selectedOvens, setSelectedOvens] = useState([]);
     const [selectedPartNumbers, setSelectedPartNumbers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [pieces, setPieces] = useState([]);
     const [reports, setReports] = useState([]);
     // const [lengthOperator, setLengthOperator] = useState(null);
     // const [lengthNumber, setLengthNumber] = useState(null);
@@ -48,6 +49,18 @@ const Reports = (props) => {
         setReports(res.data);
     }, [after, before, types, selectedOvens, selectedPartNumbers]);
 
+    const getPieces = useCallback(async () => {
+        const res = await axios.get(`${BASE_URL}/recipe/piece`);
+        setPieces(res.data.map((piece) => ({
+            value: piece,
+            label: piece,
+        })));
+    }, []);
+
+    useEffect(() => {
+        getPieces();
+    }, [getPieces]);
+
     //On Load
     useEffect(() => {
         searchReports();
@@ -57,28 +70,12 @@ const Reports = (props) => {
         { value: "carburizado", label: "Carburizado" },
         { value: "temple", label: "Temple integral" },
     ];
-    const pieces = [
-        { value: "999", label: "999" },
-        { value: "780", label: "780" },
-    ];
+
     const ovens = [
         { value: "88", label: "88" },
         { value: "90", label: "90" },
     ];
 
-    // if (!reports) {
-    //   return (
-    //     <div>
-    //       <Breadcrumb className="p-3">
-    //         <Breadcrumb.Item onClick={() => navigate(`/`)}>Inicio</Breadcrumb.Item>
-    //         <Breadcrumb.Item active>
-    //           Horno {params.id}
-    //         </Breadcrumb.Item>
-    //       </Breadcrumb>
-    //       <Spinner className="center p-4" animation="border" role="status" />
-    //       <h1 className="text-center p-4">No hay un reporte registrado</h1>
-    //     </div>
-    //   )
     return (
         <div>
             <Breadcrumb className="p-3">
@@ -208,10 +205,14 @@ const Reports = (props) => {
                     <Col md={3}>
                         <div className="mt-2">
                             <Select
-                                isDisabled
                                 placeholder="Seleccionar No. parte(s)"
                                 isClearable
                                 isMulti
+                                onChange={(newValue) => {
+                                    setSelectedPartNumbers(
+                                        newValue.map((item) => item.value)
+                                    );
+                                }}
                                 options={pieces}
                             />
                         </div>
@@ -237,6 +238,7 @@ const Reports = (props) => {
                                         <th className="text-center fs-6">Tipo</th>
                                         <th className="text-center fs-6">Horno</th>
                                         <th className="text-center fs-6">Pieza</th>
+                                        <th className="text-center fs-6">Receta</th>
                                     </tr>
                                 </thead>
                                 {reports.map((report, index) => (
@@ -272,7 +274,10 @@ const Reports = (props) => {
                                                 {report.oven}
                                             </td>
                                             <td className="fs-6 text-center table-cell">
-                                                999
+                                                {report.piece || "-"}
+                                            </td>
+                                            <td className="fs-6 text-center table-cell">
+                                                {report.recipe || "-"}
                                             </td>
                                         </tr>
                                     </tbody>
