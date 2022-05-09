@@ -26,6 +26,10 @@ const Dashboard = () => {
         });
         //se cargaron los hornos al inicio del componente
         getOvens();
+
+        return () => {
+            socket.disconnect();
+        }
     }, []);
     return (
         <div>

@@ -26,8 +26,13 @@ const RecipeAdministrationEdit = () => {
   const params = useParams();
   const [recipeId, setRecipeId] = useState("");
   const [piece, setPiece] = useState("");
-  const [alertMaxPercentage, setAlertMaxPercentage] = useState(null);
-  const [alertMinPercentage, setAlertMinPercentage] = useState(null);
+  const [temperatureAlertMaxPercentage, setTemperatureAlertMaxPercentage] = useState("");
+  const [temperatureAlertMinPercentage, setTemperatureAlertMinPercentage] = useState("");
+  const [carbonAlertMaxPercentage, setCarbonAlertMaxPercentage] = useState("");
+  const [carbonAlertMinPercentage, setCarbonAlertMinPercentage] = useState("");
+  const [timeAlertMaxPercentage, setTimeAlertMaxPercentage] = useState("");
+  const [timeAlertMinPercentage, setTimeAlertMinPercentage] = useState("");
+
   const [ovens, setOvens] = useState([]);
   const [selectedOvens, setSelectedOvens] = useState([]);
   const [metallurgyExpectedFields, setMetallurgyExpectedFields] = useState({});
@@ -99,8 +104,15 @@ const RecipeAdministrationEdit = () => {
         }
       });
       setPhases(currentPhases);
-      setAlertMaxPercentage(response.data.alertMaxPercentage);
-      setAlertMinPercentage(response.data.alertMinPercentage);
+      setCarbonAlertMaxPercentage(response.data.carbonAlertMaxPercentage);
+      setCarbonAlertMinPercentage(response.data.carbonAlertMinPercentage);
+      setTemperatureAlertMaxPercentage(response.data.temperatureAlertMaxPercentage);
+      setTemperatureAlertMinPercentage(response.data.temperatureAlertMinPercentage);
+      setTimeAlertMaxPercentage(response.data.timeAlertMaxPercentage);
+      setTimeAlertMinPercentage(response.data.timeAlertMinPercentage);
+
+      //setAlertMaxPercentage(response.data.alertMaxPercentage);
+      //setAlertMinPercentage(response.data.alertMinPercentage);
       const currentMetallurgyExpectedFields = {};
       response.data.metallurgyReportExpectedFields.forEach(field => {
         currentMetallurgyExpectedFields[field.fieldId] = field.expected;
@@ -152,25 +164,43 @@ const RecipeAdministrationEdit = () => {
       toast.error('Debe ingresar todos los campos de la sección: Datos del ciclo');
       return;
     }
-    else if (!alertMaxPercentage) {
-      toast.error('Debe ingresar un porcentaje de error máximo');
-      return;
-    }
-    else if (!alertMinPercentage) {
-      toast.error('Debe ingresar un porcentaje de error mínimo');
+    else if (
+      [
+        temperatureAlertMaxPercentage,
+        temperatureAlertMinPercentage,
+        carbonAlertMaxPercentage,
+        carbonAlertMinPercentage,
+        timeAlertMaxPercentage,
+        timeAlertMinPercentage
+      ].some(value => isNaN(value))) {
+      toast.error('Debe de ingresar un porcentaje de error válido para cada alerta');
       return;
     }
     else if (!metallurgyExpectedFields || !metallurgyFieldsIsValid || Object.keys(metallurgyExpectedFields).length < 14) {
       toast.error('Debe de ingresar todos los campos esperados del reporte de metalúrgica');
       return;
     }
+    const parsedPhases = {};
+
+    Object.keys(phases).forEach(phase => {
+      parsedPhases[phase] = {
+        ...phases[phase],
+        temperature: Number(phases[phase].temperature),
+        time: Number(phases[phase].time),
+        oxygen: Number(phases[phase].oxygen),
+      };
+    });
     await axios.put(`${BASE_URL}/recipe`, {
       id: recipeId,
       piece,
       ovens: selectedOvens.map(oven => oven.value),
-      recipePhases: phases,
-      alertMaxPercentage,
-      alertMinPercentage,
+      recipePhases: parsedPhases,
+      temperatureAlertMaxPercentage: Number(temperatureAlertMaxPercentage),
+      temperatureAlertMinPercentage: Number(temperatureAlertMinPercentage),
+      carbonAlertMaxPercentage: Number(carbonAlertMaxPercentage),
+      carbonAlertMinPercentage: Number(carbonAlertMinPercentage),
+      timeAlertMaxPercentage: Number(timeAlertMaxPercentage),
+      timeAlertMinPercentage: Number(timeAlertMinPercentage),
       metallurgyReportFieldsExpected: metallurgyExpectedFields,
     });
     toast.success('Receta guardada con éxito');
@@ -432,31 +462,99 @@ const RecipeAdministrationEdit = () => {
             </Col>
           </Row>
           <Row>
-            <Col md={4} className="fs-6 text-start mt-3 ms-2">
-              Porcentaje de error máximo
+            <Col md={4} className="mt-3 d-flex align-items-center ms-2">
+              <span>Porcentaje de error límite superior temperatura</span>
+            </Col>
+            <Col md={6} className="text-start mt-3 ms-2 d-flex align-items-center">
               <input
                 type="number"
                 max={100}
                 min={0}
-                className="text-start mt-3 ms-2 w-25"
-                value={alertMaxPercentage || ''}
-                onChange={(e) => setAlertMaxPercentage(e.target.value)}
-              />{" "}
-              %
+                className="text-start me-2 w-25"
+                value={temperatureAlertMaxPercentage || ''}
+                onChange={(e) => setTemperatureAlertMaxPercentage(e.target.value)}
+              />{"  %"}
+
             </Col>
           </Row>
           <Row>
-            <Col md={4} className="fs-6 text-start mt-3 ms-2">
-              Porcentaje de error mínimo
+            <Col md={4} className="mt-3 d-flex align-items-center ms-2">
+              <span>Porcentaje de error límite inferior temperatura</span>
+            </Col>
+            <Col md={6} className="text-start mt-3 ms-2 d-flex align-items-center">
               <input
                 type="number"
                 max={100}
                 min={0}
-                className="text-start mt-3 ms-2 w-25"
-                value={alertMinPercentage || ''}
-                onChange={(e) => setAlertMinPercentage(e.target.value)}
-              />{" "}
-              %
+                className="text-start me-2 w-25"
+                value={temperatureAlertMinPercentage || ''}
+                onChange={(e) => setTemperatureAlertMinPercentage(e.target.value)}
+              />{"  %"}
+
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4} className="mt-3 d-flex align-items-center ms-2">
+              <span>Porcentaje de error límite superior carbono</span>
+            </Col>
+            <Col md={6} className="text-start mt-3 ms-2 d-flex align-items-center">
+              <input
+                type="number"
+                max={100}
+                min={0}
+                className="text-start me-2 w-25"
+                value={carbonAlertMaxPercentage || ''}
+                onChange={(e) => setCarbonAlertMaxPercentage(e.target.value)}
+              />{"  %"}
+
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4} className="mt-3 d-flex align-items-center ms-2">
+              <span>Porcentaje de error límite inferior carbono</span>
+            </Col>
+            <Col md={6} className="text-start mt-3 ms-2 d-flex align-items-center">
+              <input
+                type="number"
+                max={100}
+                min={0}
+                className="text-start me-2 w-25"
+                value={carbonAlertMinPercentage || ''}
+                onChange={(e) => setCarbonAlertMinPercentage(e.target.value)}
+              />{"  %"}
+
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4} className="mt-3 d-flex align-items-center ms-2">
+              <span>Porcentaje de error límite superior tiempo</span>
+            </Col>
+            <Col md={6} className="text-start mt-3 ms-2 d-flex align-items-center">
+              <input
+                type="number"
+                max={100}
+                min={0}
+                className="text-start me-2 w-25"
+                value={timeAlertMaxPercentage || ''}
+                onChange={(e) => setTimeAlertMaxPercentage(e.target.value)}
+              />{"  %"}
+
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4} className="mt-3 d-flex align-items-center ms-2">
+              <span>Porcentaje de error límite inferior tiempo</span>
+            </Col>
+            <Col md={6} className="text-start mt-3 ms-2 d-flex align-items-center">
+              <input
+                type="number"
+                max={100}
+                min={0}
+                className="text-start me-2 w-25"
+                value={timeAlertMinPercentage || ''}
+                onChange={(e) => setTimeAlertMinPercentage(e.target.value)}
+              />{"  %"}
+
             </Col>
           </Row>
         </Container>

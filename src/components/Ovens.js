@@ -14,14 +14,13 @@ const Ovens = (props) => {
                         key={horno.id}
                         hornoID={horno.id}
                         horno_temperatura={horno.averageTemperature}
-                        horno_porcentaje={`${
-                            Math.round(horno.oxygenPercentage * 100) / 100
-                        }%`}
+                        horno_porcentaje={`${Math.round(horno.oxygenPercentage * 100) / 100
+                            }%`}
                         cycleTime={horno.cycleTime}
                     />
                 ))}
                 <HornoItem
-                    hornoID={90}
+                    hornoID={91}
                     horno_temperatura={828}
                     horno_porcentaje={`2%`}
                     cycleTime={new Date()}
