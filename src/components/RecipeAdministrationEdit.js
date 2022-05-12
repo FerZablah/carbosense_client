@@ -40,7 +40,7 @@ const RecipeAdministrationEdit = () => {
     "heating": {
       time: '',
       temperature: '',
-      oxygen: '',
+      oxygen: '1.26',
     },
     "carburizado": {
       time: '',
@@ -60,7 +60,7 @@ const RecipeAdministrationEdit = () => {
     "temple": {
       time: '',
       temperature: '',
-      oxygen: '',
+      oxygen: '2',
     },
   });
   const [metallurgyFields, setMetallurgyFields] = useState([]);
@@ -266,7 +266,7 @@ const RecipeAdministrationEdit = () => {
             <Col className="fs-5 text-start mt-3">Etapa</Col>
             <Col className="fs-5 text-center mt-3">Tiempo esperado</Col>
             <Col className="fs-5 text-center mt-3">Temperatura esperada</Col>
-            <Col className="fs-5 text-center mt-3">Porcentaje de oxígeno esperado</Col>
+            <Col className="fs-5 text-center mt-3">Porcentaje de carbono esperado</Col>
           </Row>
           <Row>
             <Col className="fs-6 text-start d-flex flex-row justify-content-start align-items-center">
@@ -297,12 +297,15 @@ const RecipeAdministrationEdit = () => {
             <Col className="d-flex flex-row justify-content-start align-items-center">
               <input
                 type="number"
+                style={{
+                  display: 'none'
+                }}
                 className="form-control form-control-sm text-center"
                 value={phases.heating.oxygen}
                 onChange={(e) => handleChange(e, "heating", "oxygen")}
                 min={0}
               />
-              <span className="ms-2">%</span>
+              <span className="ms-2"></span>
             </Col>
           </Row>
           <Row className="mt-3">
@@ -445,12 +448,15 @@ const RecipeAdministrationEdit = () => {
             <Col className="d-flex flex-row justify-content-start align-items-center">
               <input
                 type="number"
+                style={{
+                  display: "none"
+                }}
                 className="form-control form-control-sm text-center"
                 value={phases.temple.oxygen}
                 onChange={(e) => handleChange(e, "temple", "oxygen")}
                 min={0}
               />
-              <span className="ms-2">%</span>
+              <span className="ms-2"></span>
             </Col>
           </Row>
 
@@ -588,7 +594,7 @@ const RecipeAdministrationEdit = () => {
                           className="text-end mt-1 ms-2"
                           onChange={(e) => handleMetallurgyFieldChanged(e, fieldObject.id)}
                         />{" "}
-                        {fieldObject.unit}
+                        {/* {fieldObject.unit} */}
                       </Col>
                     </Row>
                   ))

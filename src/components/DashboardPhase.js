@@ -6,7 +6,7 @@ import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import translatePhase from "../phasesDisplay";
-import { BASE_URL } from "../utils";
+import { BASE_URL, isDev, SOCKET_BASE_URL } from "../utils";
 import DashboardChart from "./DashboardChart";
 
 const DashboardPhase = () => {
@@ -44,7 +44,15 @@ const DashboardPhase = () => {
 
   //Run when component has mounted
   useEffect(() => {
-    const socket = io(`${BASE_URL}`);
+    let socket;
+    if (isDev) {
+      socket = io(`${SOCKET_BASE_URL}`);
+    }
+    else {
+      socket = io(`${SOCKET_BASE_URL}`, {
+        path: '/api/socket.io/'
+      });
+    }
     socket.on("newData", async () => {
       getDashboardData();
     });

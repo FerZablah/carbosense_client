@@ -38,7 +38,7 @@ const RecipeAdministrationPage = () => {
     "heating": {
       time: '',
       temperature: '',
-      oxygen: '',
+      oxygen: '1.26',
     },
     "carburizado": {
       time: '',
@@ -58,7 +58,7 @@ const RecipeAdministrationPage = () => {
     "temple": {
       time: '',
       temperature: '',
-      oxygen: '',
+      oxygen: '2',
     },
   });
   const [metallurgyFields, setMetallurgyFields] = useState([]);
@@ -247,9 +247,12 @@ const RecipeAdministrationPage = () => {
                 className="form-control form-control-sm text-center"
                 value={phases.heating.oxygen}
                 onChange={(e) => handleChange(e, "heating", "oxygen")}
+                style={{
+                  display: 'none'
+                }}
                 min={0}
               />
-              <span className="ms-2">%</span>
+              <span className="ms-2"></span>
             </Col>
           </Row>
           <Row className="mt-3">
@@ -394,10 +397,13 @@ const RecipeAdministrationPage = () => {
                 type="number"
                 className="form-control form-control-sm text-center"
                 value={phases.temple.oxygen}
+                style={{
+                  display: 'none'
+                }}
                 onChange={(e) => handleChange(e, "temple", "oxygen")}
                 min={0}
               />
-              <span className="ms-2">%</span>
+              <span className="ms-2"></span>
             </Col>
           </Row>
 
@@ -534,7 +540,7 @@ const RecipeAdministrationPage = () => {
                           className="text-end mt-1 ms-2"
                           onChange={(e) => handleMetallurgyFieldChanged(e, fieldObject.id)}
                         />{" "}
-                        {fieldObject.unit}
+                        {/* {fieldObject.unit} */}
                       </Col>
                     </Row>
                   ))

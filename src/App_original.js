@@ -4,7 +4,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import axios from "axios";
-import { BASE_URL } from "./utils";
+import { BASE_URL, isDev, SOCKET_BASE_URL } from "./utils";
 const INITIAL_HORNOS = [
   {
     id: "1",
@@ -34,7 +34,15 @@ const App = () => {
   };
   //Codigo que se ejecuta al cargarse el componente
   useEffect(() => {
-    const socket = io(BASE_URL);
+    let socket;
+    if (isDev) {
+      socket = io(`${SOCKET_BASE_URL}`);
+    }
+    else {
+      socket = io(`${SOCKET_BASE_URL}`, {
+        path: '/api/socket.io/'
+      });
+    }
     socket.on("newData", async () => {
       axios.get(`${BASE_URL}/dashboard/ovens`).then((res) => {
         setHornos(res.data);

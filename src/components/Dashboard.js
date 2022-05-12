@@ -5,7 +5,7 @@ import { render } from "react-dom";
 import ReactDOM from "react-dom";
 import io from "socket.io-client";
 import axios from "axios";
-import { BASE_URL } from "../utils";
+import { BASE_URL, isDev, SOCKET_BASE_URL } from "../utils";
 
 const Dashboard = () => {
     const [hornos, setHornos] = useState([]);
@@ -19,7 +19,15 @@ const Dashboard = () => {
 
     //primer parametro: toda la función, segundo parametro: arreglo en blanco, corra cuando se cargue el componente
     useEffect(() => {
-        const socket = io(`${BASE_URL}`);
+        let socket;
+        if (isDev) {
+            socket = io(`${SOCKET_BASE_URL}`);
+        }
+        else {
+            socket = io(`${SOCKET_BASE_URL}`, {
+                path: '/api/socket.io/'
+            });
+        }
         //cuando llegue nueva informacion se piden los hornos
         socket.on("newData", async () => {
             getOvens();

@@ -6,7 +6,7 @@ import axios from "axios";
 import moment from "moment";
 import io from "socket.io-client";
 import DashboardChart from "./DashboardChart.js";
-import { BASE_URL } from "../utils.js";
+import { BASE_URL, isDev, SOCKET_BASE_URL } from "../utils.js";
 
 const parseDate = (dateString) => {
   return dateString ? moment(dateString, "YYYY-MM-DDTHH:mm:ss.SSSZ") : null;
@@ -113,7 +113,15 @@ const Graphs = () => {
 
   //Run when component has mounted
   useEffect(() => {
-    const socket = io(`${BASE_URL}`);
+    let socket;
+    if (isDev) {
+      socket = io(`${SOCKET_BASE_URL}`);
+    }
+    else {
+      socket = io(`${SOCKET_BASE_URL}`, {
+        path: '/api/socket.io/'
+      });
+    }
     socket.on("newData", async () => {
       getDashboardData();
     });
