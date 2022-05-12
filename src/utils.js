@@ -6,7 +6,7 @@ export const BASE_URL =
         'http://localhost:4000'
         :
         // production code
-        'http://18.188.28.170/api'
+        'http://172.31.3.170/api'
 
 export const SOCKET_BASE_URL =
     isDev ?
@@ -14,4 +14,4 @@ export const SOCKET_BASE_URL =
         'http://localhost:4000'
         :
         // production code
-        'http://18.188.28.170'
+        'http://172.31.3.170'
