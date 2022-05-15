@@ -8,6 +8,11 @@ const Ovens = (props) => {
                 <Breadcrumb.Item active>Inicio</Breadcrumb.Item>
             </Breadcrumb>
             <div>
+                {props.item.length === 0 && (
+                    <div className="text-center">
+                        <h1>No hay hornos registrados</h1>
+                    </div>
+                )}
                 {/* mapa para mostrar todos los hornos que tiene el array de hornos */}
                 {props.item.map((horno) => (
                     <HornoItem
@@ -19,18 +24,6 @@ const Ovens = (props) => {
                         cycleTime={horno.cycleTime}
                     />
                 ))}
-                <HornoItem
-                    hornoID={91}
-                    horno_temperatura={828}
-                    horno_porcentaje={`2%`}
-                    cycleTime={new Date()}
-                />
-                <HornoItem
-                    hornoID={92}
-                    horno_temperatura={830}
-                    horno_porcentaje={`1.7%`}
-                    cycleTime={new Date()}
-                />
             </div>
         </div>
     );

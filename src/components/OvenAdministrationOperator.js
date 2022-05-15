@@ -81,7 +81,13 @@ const OvenAdministrationOperator = (props) => {
   const getReport = useCallback(async () => {
     if (!cycle) return;
     const res = await axios.get(`${BASE_URL}/metallurgy/operator/${cycle.id}`);
-    setReportFilled(res.data.id !== undefined);
+    let filled = false;
+    if (res.data && res.data.fields && res.data.fields.length > 0) {
+      if (res.data.fields.every(field => field.fields.every(subField => subField.real !== null))) {
+        filled = true;
+      }
+    }
+    setReportFilled(res.data.id !== undefined && filled);
     setReport(res.data.fields);
   }, [cycle]);
 

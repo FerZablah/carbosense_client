@@ -40,7 +40,7 @@ const screenPaths = {
     },
     metallurgyReportAuthorization: {
         path: "/metalurgica/autorizacion",
-        name: "Reportes de metálurgia - Autorización",
+        name: "Reportes de metalurgia - Autorización",
     },
     ovenAdministration: {
         path: "/administracionHornos",
