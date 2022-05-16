@@ -137,6 +137,8 @@ const MetallurgyReportAuthorization = () => {
                 </Breadcrumb.Item>
                 <Breadcrumb.Item active>{cycle.id}</Breadcrumb.Item>
             </Breadcrumb>
+            <img alt="scroll" src="https://solatubehome.com/wp-content/uploads/2019/05/Bounce-arrow1.gif" style={{ zIndex: 100, position: 'fixed', bottom: 0, right: 0, height: '100px', width: '100px' }} />
+
             <Container>
                 <Row>
                     <Col className="mt-3 fw-bold fs-3 text-center">

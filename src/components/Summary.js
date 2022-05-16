@@ -310,6 +310,7 @@ const Summary = () => {
                 </Breadcrumb.Item>
                 <Breadcrumb.Item active>Ciclo {params.ciclo}</Breadcrumb.Item>
             </Breadcrumb>
+            <img alt="scroll" src="https://solatubehome.com/wp-content/uploads/2019/05/Bounce-arrow1.gif" style={{ zIndex: 100, position: 'fixed', bottom: 0, right: 0, height: '100px', width: '100px' }} />
 
             <Container>
                 <div className="d-flex flex-row justify-content-center align-items-center w-100 position-relative">
